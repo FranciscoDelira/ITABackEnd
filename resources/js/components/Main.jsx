@@ -19,10 +19,10 @@ import Login from "./Login";
 function Main() {
     return (
         <Routes>
-            <Route path="/laravel/topicos/public/" element={<Login />} >
+            <Route path="/ITAFrontEndWeb/public/" element={<Login />} >
                 <Route path="login" element={<Login />} />
             </Route>
-            <Route path="/laravel/topicos/public/" element={<Menu />} >
+            <Route path="/ITAFrontEndWeb/public/" element={<Menu />} >
                 <Route path="register" element={<Register />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
