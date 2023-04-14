@@ -45,7 +45,7 @@ const theme = {
 };
 
 const card = {
-  backgroundColor: "blue"
+  backgroundColor: "yellow"
 };
 
 function Login() {
