@@ -3,10 +3,11 @@ import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import TNM3A from '/src/Imagenes/TNM3A.png';
 import { Container } from 'react-bootstrap';
-import Card from 'react-bootstrap/Card'
+import Stack from 'react-bootstrap/Stack';
 
 import React, { useState } from 'react';
 import axios from 'axios';
+import { auto } from '@popperjs/core';
 
 
 const theme = {
@@ -14,33 +15,36 @@ const theme = {
     backgroundColor: 'white',
   },
   logo: {
-    alignContent: "center",
-    weith: 150,
-    height: 150
+    weith: 120,
+    height: 110
   },
   header: {
     color: 'black',
-    fontSize: '96px',
-    fontFamily: 'Montserrat'
+    fontSize: '50px',
+    fontFamily: 'Montserrat',
+    textAlign: 'center'
   },
   fControl: {
-    backgroundColor: "#ECECEC",
-    borderColor: "black",
+    backgroundColor: "white",
+    borderColor: "#807E82",
     fontFamily: 'Montserrat',
     fontSize: '20px',
-    width: '17%',
-    borderRadius: 50
+    color: "#807E82",
+    width: 'auto',
+    borderRadius: 10,
+    textAlign: "center"
   },
   fHText: {
-    color: 'white',
     fontFamily: 'Montserrat',
-    fontSize: '20px'
+    fontSize: '20px',
+    color: 'black',
+    textAlign: "center"
   },
   button: {
-    color: 'black',
+    color: 'white',
     fontSize: '20px',
-    backgroundColor: '#FFFFFF',
-    borderRadius: 30
+    backgroundColor: '#1B396A',
+    borderRadius: 15
   }
 };
 
@@ -83,26 +87,24 @@ function Login() {
 
   return (
 
-    <div style={theme.bg} expant='xxl' position="absolute">
+    <Container fluid style={{ padding: 40, position: 'sticky', alignItems: 'center' }}>
+      <Stack gap={2} className="col-md-5 mx-auto">
+        <img className='mb-3 mx-auto' src={TNM3A} style={theme.logo} />
+      </Stack>
 
-      <Container align="center">
+      <Stack align="center" className="col-md-5 mx-auto" style={{ borderColor: "#1B396A", borderWidth: 3 }}>
+        <Form onSubmit={handleSubmit} style={{ position: 'sticky' }}>
+          <Form.Label className='mb-3' style={theme.header} >Departamento de mantenimiento</Form.Label>
 
-        <img className='mb-3' src={TNM3A} style={theme.logo} />
+          <Form.Group className="mb-3" controlId="formBasicEmail" >
+            <Form.Control type="email" placeholder="Correo institucional" name="email"
+              value={formValue.email} onChange={onChange} style={theme.fControl} />
+          </Form.Group>
 
-        <Form onSubmit={handleSubmit}>
-          <Form.Label className='mb-3' style={theme.header} >Bienvenido</Form.Label>
-
-          <Card bg={'primary'} size={70} >
-              <Form.Group className="mb-3" controlId="formBasicEmail">
-                <Form.Control type="email" placeholder="Correo institucional" name="email"
-                  value={formValue.email} onChange={onChange} style={theme.fControl} />
-              </Form.Group>
-
-              <Form.Group className="mb-3" controlId="formBasicPassword">
-                <Form.Control type="password" placeholder="Contraseña" name="password"
-                  value={formValue.password} onChange={onChange} style={theme.fControl} />
-              </Form.Group>
-          </Card>
+          <Form.Group className="mb-3" controlId="formBasicPassword">
+            <Form.Control type="password" placeholder="Contraseña" name="password"
+              value={formValue.password} onChange={onChange} style={theme.fControl} />
+          </Form.Group>
 
           <Button variant="primary" type="submit" style={theme.button}>
             Iniciar sesión
@@ -115,9 +117,11 @@ function Login() {
           </Form.Group>
 
         </Form>
-      </Container>
+      </Stack>
 
-    </div>
+
+    </Container>
+
   );
 }
 
