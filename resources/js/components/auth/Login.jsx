@@ -1,7 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import TNM3A from '/src/Imagenes/TNM3A.png';
+import TNM3A from '/src/Images/TNM3A.png';
 import { Container } from 'react-bootstrap';
 import Stack from 'react-bootstrap/Stack';
 
@@ -15,8 +15,8 @@ const theme = {
     backgroundColor: 'white',
   },
   logo: {
-    weith: 120,
-    height: 110
+    width: 450,
+    height: auto
   },
   header: {
     color: 'black',
@@ -38,7 +38,8 @@ const theme = {
     fontFamily: 'Montserrat',
     fontSize: '20px',
     color: 'black',
-    textAlign: "center"
+    textAlign: "center",
+    textDecoration: "underline"
   },
   button: {
     color: 'white',

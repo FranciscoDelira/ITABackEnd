@@ -4,7 +4,7 @@ import '../css/app.css'
 
 import ReactDOM from 'react-dom/client';
 import Main from './components/Main';
-import Login from './components/Login';
+import Login from './components/auth/Login';
 import Container from 'react-bootstrap/Container';
 import { BrowserRouter } from 'react-router-dom';
 
