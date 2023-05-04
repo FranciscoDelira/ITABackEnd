@@ -44,10 +44,6 @@ function Main() {
                 <Route path="home" element={<Home />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="newUser" element={<NewUser />} />
-                <Route path="*" element={<Navigate replace to="/" />} />
-            </Route>
 
             {/*####################################################################
             ##########################--[ REQUESTS ]--########################################*/}
