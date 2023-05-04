@@ -18,6 +18,9 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "cdbreact": "^1.5.14",
+        "mdb-react-ui-kit": "^6.0.0",
+        "mdb-ui-kit": "^6.2.0",
         "react-bootstrap": "^2.7.3",
         "react-router-dom": "^6.10.0"
     }

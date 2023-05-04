@@ -111,12 +111,6 @@ function Login() {
             Iniciar sesión
           </Button>
 
-          <Form.Group className='mb-3'>
-            <Form.Text style={theme.fHText}>
-              ¿Has olvidado tu contraseña?
-            </Form.Text>
-          </Form.Group>
-
         </Form>
       </Stack>
 

@@ -1,14 +1,17 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import Login from "./auth/Login";
+
 import Menu from "./Menu";
+import Login from "./auth/Login";
 import Home from "./Home";
-import MaintenanceRequest from "./maintenance/requests/MaintenanceRequest";
-import WorkOrders from "./maintenance/orders/WorkOrders";
-import Profile from "./user/Profile";
 import ActiveRequests from "./maintenance/requests/ActiveRequests";
 import RequestHistory from "./maintenance/requests/RequestHistory";
-
-import Register from "./Register";
+import Earring from "./maintenance/orders/Earring";
+import Release from "./maintenance/orders/Release";
+import Approved from "./maintenance/orders/Approved";
+import NewOrder from "./maintenance/orders/NewOrder";
+import Profile from "./user/Profile";
+import EditProfile from "./user/EditProfile";
+import NewUser from "./user/NewUser";
 //import NotFound from './NotFound';
 
 /*
@@ -28,34 +31,26 @@ function Main() {
         <Routes>
 
             {/*####################################################################
-            #######################################################################*/}
+            ###########################--[ LOGIN ]--#######################################*/}
 
             <Route path="ITAFrontEndWeb/public/" element={<Login />} >
                 <Route path="login" element={<Login />} />
             </Route>
 
             {/*####################################################################
-            #######################################################################*/}
+            ###########################--[ HOME ]--########################################*/}
 
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
                 <Route path="home" element={<Home />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="maintenanceRequest" element={<MaintenanceRequest />} />
-                <Route path="*" element={<Navigate replace to="/" />} />
-            </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="workOrders" element={<WorkOrders />} />
-                <Route path="*" element={<Navigate replace to="/" />} />
-            </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="profile" element={<Profile />} />
+                <Route path="newUser" element={<NewUser />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
             {/*####################################################################
-            #######################################################################*/}
+            ##########################--[ REQUESTS ]--########################################*/}
 
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
                 <Route path="activeRequest" element={<ActiveRequests />} />
@@ -63,6 +58,42 @@ function Main() {
             </Route>
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
                 <Route path="requestHistory" element={<RequestHistory />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+
+            {/*####################################################################
+            ###########################--[ ORDERS ]--########################################*/}
+
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="earring" element={<Earring />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="release" element={<Release />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="approved" element={<Approved />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="newOrder" element={<NewOrder />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+
+            {/*####################################################################
+            ###########################--[ USERS ]--########################################*/}
+
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="profile" element={<Profile />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="editProfile" element={<EditProfile />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="newUser" element={<NewUser />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
         </Routes>
