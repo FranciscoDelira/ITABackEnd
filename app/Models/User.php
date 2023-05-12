@@ -18,10 +18,24 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
         'email',
         'password',
+        'personaldata_id',
+        'role'
     ];
+
+    public function Personaldata(){
+        return $this->belongsTo(Personaldata::class);
+    }
+
+    public function up()
+    {
+        Schema::create('users', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('personal_data_id')->constrained();
+            $table->timestamps();
+        });
+    }
 
     /**
      * The attributes that should be hidden for serialization.

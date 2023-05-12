@@ -11,6 +11,7 @@ import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { auto, left } from '@popperjs/core';
 import Modal from 'react-bootstrap/Modal';
+import { useEffect } from 'react';
 
 
 const theme = {
@@ -104,6 +105,20 @@ function NewOrder(){
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
+
+  const postData = async () =>{
+    const response = await axios.post('http://localhost/ITAFrontEndWeb/public/api/workorder_store');
+
+    setMaintenanceType(response.data.maintenanceType)
+    setServiceType(response.data.serviceType)
+    setEmployeeName(response.data.employeeName)
+    setJobDescription(response.data.jobDescription)
+  }
+
+  useEffect(()=>{
+    postData()
+  },[])
+
 
   return (
       <>

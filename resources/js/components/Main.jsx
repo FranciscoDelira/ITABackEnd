@@ -11,7 +11,8 @@ import Approved from "./maintenance/orders/Approved";
 import NewOrder from "./maintenance/orders/NewOrder";
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
-import NewUser from "./user/NewUser";
+import Register from "./user/Register";
+import EditOrder from "./maintenance/orders/EditOrder";
 //import NotFound from './NotFound';
 
 /*
@@ -77,6 +78,11 @@ function Main() {
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
+            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+                <Route path="editOrder" element={<EditOrder />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+
             {/*####################################################################
             ###########################--[ USERS ]--########################################*/}
 
@@ -89,7 +95,7 @@ function Main() {
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="newUser" element={<NewUser />} />
+                <Route path="register" element={<Register />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
         </Routes>

@@ -13,10 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('programs', function (Blueprint $table) {
+        Schema::create('personaldatas', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100);
-            $table->string('description');
+            $table->string('name');
+            $table->string('lastname');
+            $table->string('area'); 
+            $table->string('signature');
+            $table->string('plantel');
             $table->timestamps();
         });
     }
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('programs');
+        Schema::dropIfExists('personaldatas');
     }
 };

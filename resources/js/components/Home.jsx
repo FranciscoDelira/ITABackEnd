@@ -7,35 +7,47 @@ import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
 import Nav from 'react-bootstrap/Nav';
 import Footer from './Footer';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function Home() {
 
     return (
         <>
-            <Container fluid style={{ position: 'sticky', paddingTop: 25, paddingLeft: 100 }} >
+            <Container fluid style={{ position: 'sticky', paddingTop: 25, backgroundColor:"black" }} >
                 <Stack align="center" style={{ padding: "2%" }}>
 
                     <Nav className="flex-column">
 
                         <Nav.Item>
-                            <Stack direction='horizontal'>
-                                <Nav.Link href='earring'>
-                                    <img className='col-mb-3 mx-auto' src={IconOrdersUser} width={390} height={100} />
-                                </Nav.Link>
-
-                                <Nav.Link href='newOrder'>
-                                    <img className='col-mb-3 mx-auto' src={CreateNewOrder} width={390} height={100} />
-                                </Nav.Link>
+                            <Stack direction='horizontal' align="center" style={{ padding: "3%" }} className="mx-auto">
+                                <Row> 
+                                    <Col sm={6}>
+                                        <Nav.Link href='earring'>
+                                            <img className='col-mb-3 mx-auto' src={IconOrdersUser} width={390} height={100} />
+                                        </Nav.Link>
+                                    </Col>
+                                    <Col sm={4}>
+                                        <Nav.Link href='newOrder'>
+                                            <img className='col-mb-3 mx-auto' src={CreateNewOrder} width={390} height={100} />
+                                        </Nav.Link>
+                                    </Col>
+                                </Row>
                             </Stack>
 
-                            <Stack direction='horizontal'>
-                                <Nav.Link href='activeRequest'>
-                                    <img className='col-mb-3 mx-auto' src={IconMaintenanceRequestsUser} width={390} height={100} />
-                                </Nav.Link>
-
-                                <Nav.Link href='newUser'>
-                                    <img className='col-mb-3 mx-auto' src={IconNewUser} width={390} height={100} />
-                                </Nav.Link>
+                            <Stack direction='horizontal' align="center" style={{ padding: "3%" }} className="mx-auto">
+                                <Row>
+                                    <Col sm={6}>
+                                        <Nav.Link href='activeRequest'>
+                                            <img className='col-mb-3 mx-auto' src={IconMaintenanceRequestsUser} width={390} height={100} />
+                                        </Nav.Link>
+                                    </Col>
+                                    <Col sm={4}>
+                                        <Nav.Link href='newUser'>
+                                            <img className='col-mb-3 mx-auto' src={IconNewUser} width={390} height={100} />
+                                        </Nav.Link>
+                                    </Col>
+                                </Row>
                             </Stack>
 
 

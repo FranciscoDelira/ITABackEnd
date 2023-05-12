@@ -4,6 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Row from 'react-bootstrap/Row';
+import Menu from '../Menu';
 import Footer from '../Footer';
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
@@ -79,10 +80,20 @@ const theme = {
 const card = {
   backgroundColor: "yellow"
 };
-
-function NewUser() {
-  const [validated, setValidated] = useState(false);
   
+function Register() {
+  const endpoint = 'http://localhost/ITAFrontEndWeb/public/api/personalData_register';
+  //Form data
+  const[name,setName]=useState('');
+  const[lastname,setLastName]=useState('');
+  const[area,setArea]=useState('');
+  const[plantel,setPlantel]=useState('');
+  const[email,setEmail]=useState('');
+  const[password,setPassword]=useState('');
+  const[signature, setSignature] = useState('');
+  
+  //States
+  const [validated, setValidated] = useState(false);
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -90,15 +101,25 @@ function NewUser() {
   const [show2, setShow2] = useState(false);
   const handleClose2 = () => setShow2(false);
   const handleShow2 = () => setShow2(true);
-
+  //handleSubmit
   const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
+    const form = event.preventDefault();
 
-    setValidated(true);
+    console.log(name, lastname, password, area, plantel, email, signature);
+    const data= new FormData();
+    data.append('name', name)
+    data.append('lastname', lastname)
+    data.append('password',password)
+    data.append('area',area)
+    data.append('plantel',plantel)
+    data.append('email',email)
+
+    data.append('signature',signature)
+
+    axios.post('http://localhost/ITAFrontEndWeb/public/api/personalData_register',data, {headers:{
+      'Content-Type':'multipart/form-data', 'Accept':'application/json'
+    }})
+
   };
 
   const [input, setInput] = useState({
@@ -117,7 +138,7 @@ function NewUser() {
     email:'',
     confirmEmail:''
   })
- 
+ //Onchange
   const onInputChange = e => {
     const { name, value } = e.target;
     setInput(prev => ({
@@ -126,7 +147,8 @@ function NewUser() {
     }));
     validateInput(e);
   }
- 
+
+  //validation
   const validateInput = e => {
     let { name, value } = e.target;
     setError(prev => {
@@ -178,7 +200,6 @@ function NewUser() {
         default:
           break;
       }
- 
       return stateObj;
     });
   }
@@ -196,6 +217,7 @@ function NewUser() {
           <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Control
               required
+              onChange={(e) => setName(e.target.value)}
               type="text"
               placeholder="Nombre"
               style={theme.fControl}
@@ -205,6 +227,7 @@ function NewUser() {
             <Form.Control
               required
               type="text"
+              onChange={(e) => setLastName(e.target.value)}
               placeholder="Apellidos"
               style={theme.fControl}
             />
@@ -216,6 +239,7 @@ function NewUser() {
               required
               type="text"
               placeholder="Area"
+              onChange={(e) => setArea(e.target.value)}
               style={theme.fControl}
             />
           </Form.Group>
@@ -223,6 +247,7 @@ function NewUser() {
             <Form.Control
               required
               type="text"
+              onChange={(e) => setPlantel(e.target.value)}
               placeholder="Plantel"
               style={theme.fControl}
             />
@@ -232,11 +257,12 @@ function NewUser() {
           <Form.Group as={Col} md="6" controlId="validationCustom01">
             <Form.Control
               required
-              type="email"
+              type="email"    
               name="email"
               placeholder="Correo"
+
               onBlur={validateInput}
-              onChange={onInputChange}
+              onChange={(e) => setEmail(e.target.value)}
               style={theme.fControl}
             />
             {error.email && <span className='err'>{error.email}</span>}
@@ -261,8 +287,8 @@ function NewUser() {
               type="password"
               name="password"
               placeholder='Enter Password'
-              value={input.password}
-              onChange={onInputChange}
+             
+              onChange={(e) => setPassword(e.target.value)}
               onBlur={validateInput}
               style={theme.fControl}
             />
@@ -286,7 +312,7 @@ function NewUser() {
             <h1 style={theme.fHText}>Firma</h1>
           </Stack>
           <Stack direction="horizontal"gap={2} className="col-md-6 mx-auto">
-            <input id='fileUpload' type='file' style={theme.input} multiple accept='application/pdf, image/png' responsive/>
+            <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e)=> setSignature(e.target.files[0])} responsive/>
           </Stack>
         </Row>
         <Stack direction="horizontal"gap={2} className="col-md-9 mx-auto">
@@ -296,12 +322,12 @@ function NewUser() {
         <div/>
         <div/>
         <div/>
-          <Button style={theme.button} onClick={handleShow}>Enviar</Button>
+          <Button style={theme.button} onClick={handleShow} type="submit">Enviar</Button>
             <Modal show={show} onHide={handleClose}>
             <Modal.Body style={theme.modalBg}> ¿Estas seguro de enviar la informacion?</Modal.Body>
             <Modal.Footer style={theme.modalBg}>
             <Stack direction="horizontal"gap={2} className="col-md-5 mx-auto">
-            <Button style={theme.button} onClick={handleShow2}>
+            <Button style={theme.button}  onClick={handleShow2}>
               Enviar
             </Button>
             <Button style={theme.button2} onClick={handleClose}>
@@ -316,7 +342,7 @@ function NewUser() {
               </Modal.Body>
             <Modal.Footer style={theme.modalBg}>
             <Stack direction="horizontal"gap={2} className="col-md-3 mx-auto">
-              <Button type="submit" style={theme.button} onClick={handleClose2}>
+              <Button  style={theme.button} onClick={handleClose2}>
                 Aceptar
               </Button>
             </Stack>
@@ -339,7 +365,7 @@ function NewUser() {
           <div/>
           <div/>
           <div/>
-          <Button type="submit" align="right" style={theme.button2}>Cancelar</Button>
+          <Button  align="right" style={theme.button2}>Cancelar</Button>
           
           </Stack>
       </Form>
@@ -352,4 +378,4 @@ function NewUser() {
   );
 }
 
-export default NewUser;
+export default Register;

@@ -6,27 +6,13 @@ import Stack from 'react-bootstrap/Stack';
 import IconProfileUse from '/src/IconsOrders/IconProfileUser.png';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
-import {
-  MDBCol,
-  MDBContainer,
-  MDBRow,
-  MDBCard,
-  MDBCardText,
-  MDBCardBody,
-  MDBCardImage,
-  MDBBtn,
-  MDBBreadcrumb,
-  MDBBreadcrumbItem,
-  MDBProgress,
-  MDBProgressBar,
-  MDBIcon,
-  MDBListGroup,
-  MDBListGroupItem
-} from 'mdb-react-ui-kit';
+import Form from 'react-bootstrap/Form';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
 const theme = {
-  nav:{
-    backgroundColor:"#1B396A"
+  nav: {
+    backgroundColor: "#1B396A"
   },
   bg: {
     backgroundColor: 'white',
@@ -36,7 +22,7 @@ const theme = {
     width: 70,
     height: 70
   },
-  navImg:{
+  navImg: {
     alignContent: "center",
     weith: 40,
     height: 40
@@ -81,72 +67,47 @@ const card = {
   backgroundColor: "blue"
 };
 
-function Profile(){
-    return (
-      <>
+function Profile() {
+
+  const [name, setName] = useState([]);
+  const [lastname, setLastName] = useState([]);
+  const [area, setArea] = useState([]);
+  const [plantel, setPlantel] = useState([]);
+
+  const postData = async () => {
+    const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/1');
+
+    setName(response.data.name)
+    setLastName(response.data.lastname)
+    setArea(response.data.area)
+    setPlantel(response.data.plantel)
+  }
+
+  useEffect(() => {
+    postData()
+  }, [])
+
+  return (
+    <>
       <section>
-      <MDBContainer className="py-5">
-        <MDBRow>
-          <MDBCol lg="3">
-          </MDBCol>
-          <MDBCol lg="6">
-            <MDBCard className="mb-4">
-              <MDBCardBody>
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Full Name</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Johnatan Smith</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Email</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">example@example.com</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Phone</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(097) 234-5678</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Mobile</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">(098) 765-4321</MDBCardText>
-                  </MDBCol>
-                </MDBRow>
-                <hr />
-                <MDBRow>
-                  <MDBCol sm="3">
-                    <MDBCardText>Address</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="9">
-                    <MDBCardText className="text-muted">Bay Area, San Francisco, CA</MDBCardText>
-                  </MDBCol>
-                  <MDBCol sm="12" align="center">
-                    <br/>
-                    <Button style={theme.button} href="#" >Editar Perfil</Button>
-                  </MDBCol>
-                </MDBRow>
-              </MDBCardBody>
-            </MDBCard>
-          </MDBCol>
-        </MDBRow>
-      </MDBContainer>
-    </section>
-      </>
-    );
+        <Form.Group className="mb-3">
+          <Form.Label>Nombre</Form.Label>
+          <Form.Control value={name} disabled />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Apellidos</Form.Label>
+          <Form.Control value={lastname} disabled />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Area</Form.Label>
+          <Form.Control value={area} disabled />
+        </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Plantel</Form.Label>
+          <Form.Control value={plantel} disabled />
+        </Form.Group>
+      </section>
+    </>
+  );
 }
 export default Profile;
