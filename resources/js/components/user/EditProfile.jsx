@@ -73,24 +73,9 @@ const card = {
 };
 
 function EditProfile() {
-  const [validated, setValidated] = useState(false);
 
-  const handleSubmit = (event) => {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    }
-
-    setValidated(true);
-  };
 
   /*===============================================AXIOS======================================*/
-
-  const ruta = "http://localhost/ITAFrontEndWeb/public/api/personalData_update/";
-  const ruta2 = "http://localhost/ITAFrontEndWeb/public/api/personalData_show/";
-  const ruta3 = "http://localhost/ITAFrontEndWeb/public/api/user_update/";
-  const ruta4 = "http://localhost/ITAFrontEndWeb/public/api/user_show/";
 
   const HEADERS = {
     headers: {
@@ -99,158 +84,65 @@ function EditProfile() {
     },
   };
 
-  const [name, setName] = useState("");
-  const [lastName, setLastName] = useState("");
-  const [area, setArea] = useState("");
-  const [plantel, setPlantel] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [role, setRole] = useState("");
-  
-  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [lastname, setLastName] = useState('');
+  const [area, setArea] = useState('');
+  const [plantel, setPlantel] = useState('');
+  const [role, setRole] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [signature, setSignature] = useState('');
 
-  const { id } = useParams();
+  const getData = async () => {
+    const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/user_show/' + 1)//id del usuario en sesion
+    const responseTwo = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/' + response.data.personaldata_id)
+    console.log(response, responseTwo)
+    setEmail(response.data.email)
+    setPassword(response.data.password)
+    setRole(response.data.role)
 
-  //const [school, setSchool] = useState([]);
+    setName(responseTwo.data.name)
+    setLastName(responseTwo.data.lastname)
+    setArea(responseTwo.data.area)
+    setPlantel(responseTwo.data.plantel)
+    setSignature(responseTwo.data.signature)
+  }
 
-  const updatePersonalData = async (e) => {
+  useEffect(()=>
+    {
+      getData()
+    },[])
+
+
+
+  const handleSubmit = (e) => {
     e.preventDefault();
-    await axios.put(
-      `${ruta}${id}`,
-      {
-        name: name,
-        lastName: lastName,
-        area: area,
-        plantel: plantel,
-      },
-      HEADERS
-    );
-    //navigate("/showCareer");
-  };
+    
+    const formData = new FormData();
 
-  const updateUser = async (e) => {
-    e.preventDefault();
-    await axios.put(
-      `${ruta3}${id}`,
-      {
-        email: email,
-        password: password,
-        role: role,
-      },
-      HEADERS
-    );
-    //navigate("/showCareer");
-  };
+    formData.append('name', name)
+    formData.append('lastname', lastname)
+    formData.append('area', area)
+    formData.append('signature', signature)
+    formData.append('plantel', plantel)
+    formData.append('email', email)
+    formData.append('password', password)
+    formData.append('role', role)
+    console.log(role)
+    
 
-  useEffect(() => {
-    const getPersonalDataById = async () => {
-      const response = await axios.get(`${ruta2}${id}`, HEADERS);
-      setName(response?.data?.name);
-      setLastName(response?.data?.lastName);
-      setArea(response?.data?.area);
-      setPlantel(response?.data?.plantel);
-    };
-    getPersonalDataById();
-
-    const getUserById = async () => {
-      const response = await axios.get(`${ruta4}${id}`, HEADERS);
-      setEmail(response?.data?.name);
-      setPassword(response?.data?.lastName);
-      setRole(response?.data?.area);
-    };
-    getUserById();
-  }, []);
-
-  const handle = function (e) {
-    const option = e.target.value;
-    //console.log(option);
-
-    setIdSchool(option);
-  };
+    //hacer update de tabla user
+    axios.post(`http://localhost/ITAFrontEndWeb/public/api/personalData_updateProfile/${1}`, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', 'Accept': 'application/json'
+      }
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   //FIN AXIOS----------------------
-
-  const [input, setInput] = useState({
-    username: '',
-    password: '',
-    confirmPassword: '',
-    email: '',
-    confirmEmail: ''
-
-  });
-
-  const [error, setError] = useState({
-    username: '',
-    password: '',
-    confirmPassword: '',
-    email: '',
-    confirmEmail: ''
-  })
-
-  const onInputChange = e => {
-    const { name, value } = e.target;
-    setInput(prev => ({
-      ...prev,
-      [name]: value
-    }));
-    validateInput(e);
-  }
-
-  const validateInput = e => {
-    let { name, value } = e.target;
-    setError(prev => {
-      const stateObj = { ...prev, [name]: "" };
-
-      switch (name) {
-        case "username":
-          if (!value) {
-            stateObj[name] = "Please enter Username.";
-          }
-          break;
-
-        case "password":
-          if (!value) {
-            stateObj[name] = "Porfavor ingrese la contraseña.";
-          } else if (input.confirmPassword && value !== input.confirmPassword) {
-            stateObj["confirmPassword"] = "Error, Las contraseñas no coinciden.";
-          } else {
-            stateObj["confirmPassword"] = input.confirmPassword ? "" : error.confirmPassword;
-          }
-          break;
-
-        case "confirmPassword":
-          if (!value) {
-            stateObj[name] = "Por favor confirme la contraseña.";
-          } else if (input.password && value !== input.password) {
-            stateObj[name] = "Error, Las contraseñas no coinciden.";
-          }
-          break;
-
-        case "email":
-          if (!value) {
-            stateObj[name] = "Porfavor ingrese el correo.";
-          } else if (input.confirmEmail && value !== input.confirmEmail) {
-            stateObj["confirmEmail"] = "Error, Los correos no coinciden.";
-          } else {
-            stateObj["confirmEmail"] = input.confirmEmail ? "" : error.confirmEmail;
-          }
-          break;
-
-        case "confirmEmail":
-          if (!value) {
-            stateObj[name] = "Porfavor ingrese el correo.";
-          } else if (input.email && value !== input.email) {
-            stateObj[name] = "Error, Los correos no coinciden.";
-          }
-          break;
-
-        default:
-          break;
-      }
-
-      return stateObj;
-    });
-  }
 
   /*==============================================FORMULARIO===================================================*/
 
@@ -258,90 +150,51 @@ function EditProfile() {
     <>
       <section>
         <Container fluid style={{ padding: 40, position: 'sticky', alignItems: 'center' }}>
-          <Stack align="center" className="col-md-6 mx-auto" style={{ borderColor: "#1B396A", borderWidth: 3 }}>
-            <Form noValidate validated={validated} onSubmit={handleSubmit}>
-              <Row className="mb-3">
-                <h1 style={theme.header}>Editar Usuario</h1>
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="6" controlId="validationCustom01">
-                  <h1 style={theme.fHText}>Nombre</h1>
-                  <Form.Control
-                    required
-                    value={name}
-                    type="text"
-                    placeholder="Nombre"
-                    style={theme.fControl}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom02">
-                  <h1 style={theme.fHText}>Apellidos</h1>
-                  <Form.Control
-                    required
-                    type="text"
-                    style={theme.fControl}
-                  />
-                </Form.Group>
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="6" controlId="validationCustom01">
-                  <h1 style={theme.fHText}>Area</h1>
-                  <Form.Control
-                    required
-                    type="text"
-                    style={theme.fControl}
-                  />
-                </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom02">
-                  <h1 style={theme.fHText}>Plantel</h1>
-                  <Form.Control
-                    required
-                    type="text"
-                    style={theme.fControl}
-                  />
-                </Form.Group>
-              </Row>
-              <Row className="mb-3">
-                <Form.Group as={Col} md="6" controlId="validationCustom01">
-                  <h1 style={theme.fHText}>Correo</h1>
-                  <Form.Control
-                    required
-                    type="email"
-                    name="email"
-                    onBlur={validateInput}
-                    onChange={onInputChange}
-                    style={theme.fControl}
-                  />
-                  {error.email && <span className='err'>{error.email}</span>}
-                </Form.Group>
-                <Form.Group as={Col} md="6" controlId="validationCustom02">
-                  <h1 style={theme.fHText}>Rol</h1>
-                  <Form.Control
-                    required
-                    type="text"
-                    style={theme.fControl}
-                  />
-                </Form.Group>
-              </Row>
+          <Form onSubmit={handleSubmit}>
 
-              <Row className="m-2">
-                <Stack>
-                  <h1 style={theme.fHText}>Subir firma</h1>
-                </Stack>
-                <Stack direction="horizontal" gap={2} className="col-md-6 mx-auto">
-                  <input id='fileUpload' type='file' style={theme.input} multiple accept='application/pdf, image/png' responsive />
-                </Stack>
-              </Row>
-              <Stack direction="horizontal" gap={2} className="col-md-9 mx-auto">
-                
-                <Button type="submit" style={theme.button}>Guardar</Button>
-          
-                <Button type="submit" align="right" style={theme.button2}>Cancelar</Button>
-
-              </Stack>
-            </Form>
+            <Form.Label>Nombre</Form.Label>
+            <Form.Control type='text'  value={name} onChange={(e) => setName(e.target.value)} />
             <br />
-          </Stack>
+
+            <Form.Label>Apellidos</Form.Label>
+            <Form.Control type='text' placeholder='Apellidos' value={lastname} onChange={(e) => setLastName(e.target.value)} />
+            <br />
+
+            <Form.Label>Área</Form.Label>
+            <Form.Control type='text' placeholder='Área' value={area} onChange={(e) => setArea(e.target.value)} />
+            <br />
+
+            <Form.Label>Plantel</Form.Label>
+            <Form.Control type='text' placeholder='Plantel' value={plantel} onChange={(e) => setPlantel(e.target.value)} />
+            <br />
+
+            <Form.Label>Correo</Form.Label>
+            <Form.Control type='email' placeholder='Correo' value={email} onChange={(e) => setEmail(e.target.value)} />
+            <br />
+
+            <Form.Label>Contraseña</Form.Label>
+            <Form.Control type='password' placeholder='Contraseña' value={password} onChange={(e) => setPassword(e.target.value)} />
+            <br />
+
+            <Form.Label>Rol</Form.Label>
+            <Form.Select defaultValue={"Selecciona rol"} type='text' placeholder='Rol' onChange={(e) => setRole(e.target.value)} >
+              <option value={'Jefe Departamento'}>Jefe Departamento</option>
+              <option value={'Mantenimiento'}>Mantenimiento</option>
+            </Form.Select>
+            <br />
+
+            <Form.Label>Firma</Form.Label>
+            <Stack direction="horizontal" gap={2} className="col-md-6 mx-auto">
+              <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
+            </Stack>
+            {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} />*/}
+            <br />
+
+            <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+              Registrar
+            </button>
+
+          </Form>
 
         </Container>
       </section>

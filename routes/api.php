@@ -8,6 +8,8 @@ use App\Http\Controllers\PassportAuthController;
 use App\Http\Controllers\PersonalDataController;
 use App\Http\Controllers\MaintenanceRequestController;
 use App\Http\Controllers\WorkOrderController;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -45,7 +47,8 @@ Route::post('/personalData_update/{id}',[PersonalDataController::class,'update']
 Route::delete('/personalData_destroy/{id}',[PersonalDataController::class, 'destroy']);
 Route::get('/personalData_show/{id}',[PersonalDataController::class, 'show']);
 Route::get('/personalData_index',[PersonalDataController::class, 'index']);
-Route::post('/personalData_register',[PersonalDataController::class, 'register']);
+Route::post('/personalData_registerPersonalUser',[PersonalDataController::class, 'registerPersonalUser']);
+Route::post('/personalData_updateProfile/{id}',[PersonalDataController::class,'updateProfile']);
 
 //User
 Route::post('/user_register',[UserController::class, 'register']);
