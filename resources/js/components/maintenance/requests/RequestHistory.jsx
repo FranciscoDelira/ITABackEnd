@@ -16,6 +16,7 @@ const RequestHistory = () => {
     }
 
     const [requestsHistory, setRequestsHistory] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getAllRequestsHistory();
@@ -26,6 +27,19 @@ const RequestHistory = () => {
         setRequestsHistory(response.data);
         console.log(response.data);
     }
+
+    const filteredActives = requestsHistory.filter((requestHistory) => {
+        if (searchTerm === "") {
+            return requestHistory;
+        } else if (
+            requestHistory.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            requestHistory.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            requestHistory.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            requestHistory.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+        ) {
+            return requestHistory;
+        }
+    });
 
 
     return (
@@ -49,6 +63,14 @@ const RequestHistory = () => {
                 </Nav.Item>
             </Nav>
 
+            <input
+                type="text"
+                placeholder="Buscar..."
+                onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                }}
+            />
+
             <Table responsive>
                 <thead>
                     <tr>
@@ -68,7 +90,7 @@ const RequestHistory = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {requestsHistory.map((requestHistory) => (
+                    {filteredActives.map((requestHistory) => (
                         <tr key={requestHistory.id}>
                             <td> {requestHistory.id} </td>
                             <td> {requestHistory.requestDate} </td>
@@ -78,9 +100,9 @@ const RequestHistory = () => {
                             <td> {requestHistory.releasedDate} </td>
                             <td> {requestHistory.dateApproved} </td>
                             <td> {requestHistory.employeeName} </td>
-                            <td> {requestHistory.evidence1} </td>
-                            <td> {requestHistory.evidence2} </td>
-                            <td> {requestHistory.evidence3} </td>
+                            <td> <img src={requestHistory.evidence1} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={requestHistory.evidence2} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={requestHistory.evidence3} alt="signature" width={100} height={100}/> </td>
                             <td> {requestHistory.status} </td>
                             <td></td>
                         </tr>

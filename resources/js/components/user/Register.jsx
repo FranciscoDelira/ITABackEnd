@@ -111,7 +111,7 @@ function Register() {
     formData.append('role', role)
 
 
-    axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_registerPersonalUser', formData, {
+    axios.post('http://localhost/ITAFrontEndWeb/public/api/personalData_registerPersonalUser', formData, {
       headers: {
         'Content-Type': 'multipart/form-data', 'Accept': 'application/json'
       }
@@ -125,7 +125,7 @@ function Register() {
     <Form onSubmit={handleSubmit}>
 
       <Form.Label>Nombre</Form.Label>
-      <Form.Control type='text' placeholder='Nombre'  onChange={(e) => setName(e.target.value)} />
+      <Form.Control type='text' placeholder='Nombre' onChange={(e) => setName(e.target.value)} />
       <br />
 
       <Form.Label>Apellidos</Form.Label>
@@ -162,9 +162,17 @@ function Register() {
       {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} />*/}
       <br />
 
-      <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
-        Registrar
-      </button>
+      <Stack >
+        <Stack direction='horizontal' gad={2} className="col-md-2 mx-auto">
+          <button style={theme.button} type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+            Registrar
+          </button>
+
+          <Button style={theme.button2} href='home'>
+            Cancelar
+          </Button>
+        </Stack>
+      </Stack>
 
     </Form>
   )

@@ -18,6 +18,7 @@ const ruta = "http://localhost/ITAFrontEndWeb/api";
 const Approved = () => {
 
     const [approveds, setApproveds] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getAllApproveds();
@@ -34,9 +35,19 @@ const Approved = () => {
         getAllApproveds();
     };
 
-    function testClickEvent(param) {
-        alert('Row Click Event');
-    }
+    const filteredApproveds = approveds.filter((approved) => {
+        if (searchTerm === "") {
+            return approved;
+        } else if (
+            approved.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            approved.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            approved.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            approved.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            approved.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+        ) {
+            return approved;
+        }
+    });
 
     return (
         <>
@@ -66,6 +77,14 @@ const Approved = () => {
                     </Stack>
                 </Nav.Item>
             </Nav>
+
+            <input
+                type="text"
+                placeholder="Buscar..."
+                onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                }}
+            />
 
             <Table responsive>
                 <thead>
@@ -98,9 +117,9 @@ const Approved = () => {
                             <td> {approved.maintenanceDate} </td>
                             <td> {approved.dateApproved} </td>
                             <td> {approved.employeeName} </td>
-                            <td> {approved.evidence1} </td>
-                            <td> {approved.evidence2} </td>
-                            <td> {approved.evidence3} </td>
+                            <td> <img src={approved.evidence1} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={approved.evidence2} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={approved.evidence3} alt="signature" width={100} height={100}/> </td>
                             <td> {approved.status} </td>
                             <td>
                                 <Link

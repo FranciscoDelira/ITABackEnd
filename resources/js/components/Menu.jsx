@@ -31,7 +31,7 @@ function Menu() {
                   <NavDropdown.Item href="newOrder">Crear nueva órden</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Usuarios" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="newUser">Crear nuevo usuario</NavDropdown.Item>
+                  <NavDropdown.Item href="register">Crear nuevo usuario</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>

@@ -16,9 +16,9 @@ const Earring = () => {
         alert('Row Click Event');
     }
 
-
-
+    const [searchTerm, setSearchTerm] = useState("");
     const [earrings, setEarrings] = useState([]);
+
     useEffect(() => {
         getAllEarrings();
     }, [])
@@ -34,11 +34,18 @@ const Earring = () => {
         getAllEarrings();
     }
 
-    const data = () => {
-        return (
-            <Col>Folio</Col>
-        )
-    };
+    const filteredActives = earrings.filter((earring) => {
+        if (searchTerm === "") {
+            return earring;
+        } else if (
+            earring.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            earring.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            earring.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            earring.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+        ) {
+            return earring;
+        }
+    });
 
 
     return (
@@ -70,6 +77,14 @@ const Earring = () => {
                 </Nav.Item>
             </Nav>
 
+            <input
+                type="text"
+                placeholder="Buscar..."
+                onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                }}
+            />
+
             <Table responsive>
                 <thead>
                     <tr>
@@ -85,16 +100,16 @@ const Earring = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {earrings.map((earring) => (
+                    {filteredActives.map((earring) => (
                         <tr key={earring.id}>
                             <td> {earring.id} </td>
                             <td> {earring.requestDate} </td>
                             <td> {earring.area} </td>
                             <td> {earring.name} </td>
                             <td> {earring.requestDescription} </td>
-                            <td> {earring.evidence1} </td>
-                            <td> {earring.evidence2} </td>
-                            <td> {earring.evidence3} </td>
+                            <td> <img src={earring.evidence1} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={earring.evidence2} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={earring.evidence3} alt="signature" width={100} height={100}/> </td>
                             <td> {earring.status} </td>
                         </tr>
                     ))}

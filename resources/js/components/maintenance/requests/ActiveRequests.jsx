@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
+import { Link } from "react-router-dom";
 
 const ActiveRequests = () => {
     function testClickEvent(param) {
@@ -16,6 +17,7 @@ const ActiveRequests = () => {
     }
 
     const [actives, setActives] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getAllActives();
@@ -26,7 +28,20 @@ const ActiveRequests = () => {
         setActives(response.data);
         console.log(response.data);
     }
-    
+
+    const filteredActives = actives.filter((active) => {
+        if (searchTerm === "") {
+            return active;
+        } else if (
+            active.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            active.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            active.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            active.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+        ) {
+            return active;
+        }
+    });
+
     return (
         <>
 
@@ -49,6 +64,14 @@ const ActiveRequests = () => {
                 </Nav.Item>
             </Nav>
 
+            <input
+                type="text"
+                placeholder="Buscar..."
+                onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                }}
+            />
+
             <Table responsive>
                 <thead>
                     <tr>
@@ -66,19 +89,32 @@ const ActiveRequests = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {actives.map((active) => (
+                    {filteredActives.map((active) => (
                         <tr key={active.id}>
                             <td> {active.id} </td>
                             <td> {active.requestDate} </td>
                             <td> {active.name} </td>
                             <td> {active.department} </td>
                             <td> {active.requestDescription} </td>
-                            <td> {active.evidence1} </td>
-                            <td> {active.evidence2} </td>
-                            <td> {active.evidence3} </td>
-                            <td> {active.signature} </td>
+                            <td> <img src={active.evidence1} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={active.evidence2} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={active.evidence3} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={active.signature} alt="signature" width={100} height={100}/> </td>
                             <td> {active.status} </td>
-                            <td></td>
+                            <td>
+                                <Link
+                                    to={`newOrder/${active.id}`}
+                                    className="btn btn-warning"
+                                >
+                                    Orden
+                                </Link>
+                                <button
+                                    onClick={() => deleteApproveds(active.id)}
+                                    className="btn btn-danger"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

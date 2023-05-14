@@ -14,6 +14,7 @@ import Table from 'react-bootstrap/Table';
 const Release = () => {
 
     const [releases, setReleases] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     useEffect(() => {
         getAllReleases();
@@ -24,6 +25,20 @@ const Release = () => {
         setReleases(response.data);
         console.log(response.data);
     }
+
+    const filteredReleases = releases.filter((release) => {
+        if (searchTerm === "") {
+            return release;
+        } else if (
+            release.maintenanceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.jobDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.status.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+            return release;
+        }
+    });
 
     return (
         <>
@@ -52,6 +67,15 @@ const Release = () => {
                     </Stack>
                 </Nav.Item>
             </Nav>
+
+            <input
+                type="text"
+                placeholder="Buscar..."
+                onChange={(event) => {
+                    setSearchTerm(event.target.value);
+                }}
+            />
+
             <Table responsive>
                 <thead>
                     <tr>
@@ -68,7 +92,7 @@ const Release = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {releases.map((release) => (
+                    {filteredReleases.map((release) => (
                         <tr key={release.id}>
                             <td> {release.id} </td>
                             <td> {release.maintenanceType} </td>
@@ -76,9 +100,9 @@ const Release = () => {
                             <td> {release.employeeName} </td>
                             <td> {release.maintenanceDate} </td>
                             <td> {release.jobDescription} </td>
-                            <td> {release.evidence1} </td>
-                            <td> {release.evidence2} </td>
-                            <td> {release.evidence3} </td>
+                            <td> <img src={release.evidence1} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={release.evidence2} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={release.evidence3} alt="signature" width={100} height={100}/> </td>
                             <td> {release.status} </td>
                         </tr>
                     ))}

@@ -14,7 +14,7 @@ function Home() {
 
     return (
         <>
-            <Container fluid style={{ position: 'sticky', paddingTop: 25, backgroundColor:"black" }} >
+            <Container fluid style={{ position: 'sticky', paddingTop: 25, }} >
                 <Stack align="center" style={{ padding: "2%" }}>
 
                     <Nav className="flex-column">
@@ -43,7 +43,7 @@ function Home() {
                                         </Nav.Link>
                                     </Col>
                                     <Col sm={4}>
-                                        <Nav.Link href='newUser'>
+                                        <Nav.Link href='register'>
                                             <img className='col-mb-3 mx-auto' src={IconNewUser} width={390} height={100} />
                                         </Nav.Link>
                                     </Col>

@@ -12,6 +12,9 @@ import Button from 'react-bootstrap/Button';
 import { auto, left } from '@popperjs/core';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
+import InputGroup from 'react-bootstrap/InputGroup';
+import Badge from 'react-bootstrap/Badge';
+import { useParams } from 'react-router-dom';
 
 
 const theme = {
@@ -47,7 +50,7 @@ const theme = {
     width: '450px',
     borderRadius: 10,
     textAlign: "left"
-  },fControlDate: {
+  }, fControlDate: {
     backgroundColor: "white",
     borderColor: "#807E82",
     fontFamily: 'Montserrat',
@@ -73,18 +76,18 @@ const theme = {
     color: '#EE7044',
     fontSize: '20px',
     backgroundColor: 'white',
-    borderColor:"white",
+    borderColor: "white",
     borderRadius: 15
   },
   optionIcons: {
     align: "center",
     width: 350,
     height: 100
-  },input:{
+  }, input: {
     color: 'white',
     fontSize: '20px',
     backgroundColor: '#1B396A',
-  },modalBg:{
+  }, modalBg: {
     backgroundColor: '#807E82',
     fontFamily: 'Montserrat',
     fontSize: '20px',
@@ -96,152 +99,178 @@ const theme = {
 const card = {
   backgroundColor: "yellow"
 };
+
+function NewOrder() {
+  const [employeeName, setEmployeeName] = useState('');
+  const [maintenanceType, setMaintenanceType] = useState('');
+  const [serviceType, setServiceType] = useState('');
+  const [maintenanceDate, setMaintenanceDate] = useState('');
+
+  const [name, setName] = useState('');
+  const [signature, setSignature] = useState('');
+  const [department, setDepartment] = useState('');
+  const [requestDescription, setRequestDescription] = useState('');
+  const [status, setStatus] = useState('');
+  const [ID, setID] = useState('');
   
-function NewOrder(){
-  const [show, setShow] = useState(false);
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  
+  const {id} = useParams();
 
-  const [show2, setShow2] = useState(false);
-  const handleClose2 = () => setShow2(false);
-  const handleShow2 = () => setShow2(true);
-
-  const postData = async () =>{
-    const response = await axios.post('http://localhost/ITAFrontEndWeb/public/api/workorder_store');
-
-    setMaintenanceType(response.data.maintenanceType)
-    setServiceType(response.data.serviceType)
-    setEmployeeName(response.data.employeeName)
-    setJobDescription(response.data.jobDescription)
+  const getData = async () => {
+    const response = await axios.get(`http://localhost/ITAFrontEndWeb/public/api/maintenance_show/${id}`)
+    const response2 = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/' + response.data.personaldata_id)
+    const response3 = await axios.get('http://localhost/ITAFrontEndWeb/public/api/user_show/' + response2.data.id)//id del usuario en sesion
+    
+    console.log(response, response2)
+    setID(response.data.id)
+    setName(response2.data.name)
+    setDepartment(response.data.department)
+    setSignature(response2.data.signature)
+    setRequestDescription(response.data.requestDescription)
+    setStatus(response.data.status)
   }
 
-  useEffect(()=>{
-    postData()
-  },[])
+  useEffect(()=>
+    {
+      getData()
+    },[])
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    formData.append('employeeName', employeeName)
+    formData.append('maintenanceType', maintenanceType)
+    formData.append('serviceType', serviceType)
+    formData.append('maintenanceDate', maintenanceDate)
+
+
+    axios.post('http://localhost/ITAFrontEndWeb/public/api/personalData_store', formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data', 'Accept': 'application/json'
+      }
+    })
+      .catch((error) => {
+        console.log(error);
+      });
+  }
 
   return (
-      <>
+    <>
       <section>
-        <br/>
+        <br />
         <Container>
-        <Stack>
-          <Stack align="center" gap={3}> 
+          <Stack>
+
+            <Stack align="center" gap={3}>
               <div><img className='mb-3' src={IconReleasedUser} style={theme.optionIcons} /></div>
+            </Stack>
           </Stack>
-        </Stack>
+
         </Container>
       </section>
-      <section>
-        <Stack  align="center" className="col-md-6 mx-auto" style={{ borderColor: "#1B396A", borderWidth: 3 }}>
-        <br/>
-        <Form>
+
+
+      <Container fluid className="col-md-9 mx-auto" style={{ position: 'sticky', borderColor: "#1B396A", borderWidth: 3 }}>
+
+        <br />
+        <Form className='text-center form-control-lg' onSubmit={handleSubmit}>
+
+          <Form.Label className='mb-3' style={{fontWeight:'bold'}}>Datos para la orden de trabajo</Form.Label>
+
+          <Form.Group className='row mb-3'>
+            <Form.Label className='col-4'>Nombre del empleado</Form.Label>
+            <Col>
+              <Form.Control className='col-8' onChange={(e) => setEmployeeName(e.target.value)}/>
+            </Col>
+          </Form.Group>
+
+          <Form.Group className='row mb-3'>
+            <Form.Label className='col-4'>Tipo de mantenimiento</Form.Label>
+            <Col>
+              <Form.Control className='col-8' value={"Interno"} type='text' placeholder='Rol' onChange={(e) => setMaintenanceType(e.target.value)} disabled readOnly />
+            </Col>
+
+            <Form.Label className='col'>Tipo de servicio</Form.Label>
+            <Col>
+              <Form.Select className='col-8 mb-3' type='text' placeholder='Rol' onChange={(e) => setServiceType(e.target.value)} >
+                <option>Servicio</option>
+                <option value={'Eléctico'}>Eléctrico</option>
+                <option value={'Plomería'}>Plomería</option>
+                <option value={'Herrería'}>Herrería</option>
+                <option value={'Pintura'}>Pintura</option>
+                <option value={'Obra Civil'}>Obra Civil</option>
+                <option value={'Otro'}>Otro</option>
+              </Form.Select>
+            </Col>
+          </Form.Group>
+
           <Row className="mb-3">
-            <Form.Group as={Col} md="6" controlId="validationCustom01">
-              <Form.Control
-                required
-                type="text"
-                fontFamily='Montserrat'
-                placeholder="Folio"
-                style={theme.fControl}
-              />
-            </Form.Group>
-            <Form.Group as={Col} md="6" controlId="validationCustom02">
-                  <Form.Control type="date" name="dob" placeholder="Fecha" style={theme.fControlDate}/>
-            </Form.Group>
+            <Form.Label style={{fontWeight:'bold'}}>Datos de la solicitud de mantenimiento</Form.Label>
           </Row>
-          <Row className="m-2">
-            <Form.Group as={Col} controlId="validationCustom02">
-              <Form.Control
-                required
-                type="text"
-                placeholder='Trabajador'
-                fontFamily='Montserrat'
-                style={theme.fControl2}
-              />
-            </Form.Group>
-          </Row>
-          <Row className="m-2">
-            <Form.Group as={Col} controlId="validationCustom02">
-              <Form.Control
-                required
-                type="text"
-                placeholder='Descripción'
-                fontFamily='Montserrat'
-                style={theme.fControl2}
-              />
-            </Form.Group>
-          </Row>
-          <Stack>
-            <h1 style={theme.fHText}>Subir Evidencia</h1>
-          </Stack>
-          <Stack direction="horizontal"gap={2} className="col-md-6 mx-auto">
-            <input id='fileUpload' type='file' style={theme.input} multiple accept='application/pdf, image/png' responsive/>
-          </Stack>
-          <Stack>
-            <br/>
-            <br/>
-          <Stack direction="horizontal"gap={2} className="col-md-9 mx-auto">
-          <div/>
-          <div/>
-          <div/>
-          <div/>
-          <div/>
-          <div/>
-            <Button style={theme.button} onClick={handleShow}>Enviar</Button>
-            <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton style={theme.modalBg}>
-              <Modal.Title>Confirmar envio de información</Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={theme.modalBg}>¿Estas seguro de enviar la informacion?</Modal.Body>
-            <Modal.Footer style={theme.modalBg}>
-            <Stack direction="horizontal"gap={2} className="col-md-5 mx-auto">
-            <Button style={theme.button} onClick={handleShow2}>
-              Enviar
-            </Button>
-            <Button style={theme.button2} onClick={handleClose}>
-              Cancelar
-            </Button>
-            </Stack>
-            <Modal show={show2}  onHide={handleClose2}>
-            <Modal.Header style={theme.modalBg}>
-              <Modal.Title style={theme.header}>Envio confirmado</Modal.Title>
-            </Modal.Header>
-            <Modal.Body style={theme.modalBg}>La información ha sido enviada correctamente</Modal.Body>
-            <Modal.Footer style={theme.modalBg}>
-            <Stack direction="horizontal"gap={2} className="col-md-3 mx-auto">
-              <Button type="submit" style={theme.button} onClick={handleClose2}>
-                Aceptar
-              </Button>
-            </Stack>
-            </Modal.Footer>
-            </Modal>
-          </Modal.Footer>
-      </Modal>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <div/>
-            <Button type="submit" align="right" style={theme.button2}>Cancelar</Button>
-          </Stack>
-          </Stack>
+
+          <Form.Group className='row mb-3' style={{ display: "flex", flexlDirection: "", justifyContent: "center", alignItems: "center" }}>
+
+            <Row className='mb-3'>
+              <Col sm>
+                <label>ID</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '100%' }} value={ID} type='text' placeholder='Rol' disabled readOnly />
+              </Col>
+              <Col sm>
+                <label >Fecha de mantenimiento</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '85%' }} type="date" name="dob" onChange={(e) => setMaintenanceDate(e.target.value)}/>
+              </Col>
+            </Row>
+
+            <Row className='mb-3'>
+              <Col sm>
+                <label>Solicitante</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '100%' }} value={name} type='text' disabled readOnly />
+              </Col>
+              <Col sm>
+                <label >Departamento</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '85%' }} value={department} type='text' disabled readOnly />
+              </Col>
+            </Row>
+
+            <Row className='mb-3'>
+              <Col sm>
+                <label>Descripción de la solicitud</label>
+                <Form.Control rows={3} style={{ width: '100%' }} value={requestDescription} as='textarea' disabled readOnly />
+              </Col>
+            </Row>
+
+            <Row className='mb-3'>
+              <Col sm>
+                <label>Firma del solicitante</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '100%' }} value={signature} type='text' disabled readOnly />
+              </Col>
+              <Col sm>
+                <label >Estatus</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '85%' }} value={status} type='text' disabled readOnly />
+              </Col>
+            </Row>
+
+          </Form.Group>
+
         </Form>
-        <br/>
-        </Stack>
-      </section>
-      <br/>
-      </>
-    );
+        <br />
+      </Container>
+      <br />
+    </>
+  );
 }
 export default NewOrder;
