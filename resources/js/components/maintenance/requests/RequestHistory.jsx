@@ -35,7 +35,7 @@ const RequestHistory = () => {
             requestHistory.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             requestHistory.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
             requestHistory.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            requestHistory.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+            requestHistory.status.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
             return requestHistory;
         }
@@ -100,11 +100,18 @@ const RequestHistory = () => {
                             <td> {requestHistory.releasedDate} </td>
                             <td> {requestHistory.dateApproved} </td>
                             <td> {requestHistory.employeeName} </td>
-                            <td> <img src={requestHistory.evidence1} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={requestHistory.evidence2} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={requestHistory.evidence3} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={requestHistory.evidence1} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={requestHistory.evidence2} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={requestHistory.evidence3} alt="signature" width={100} height={100} /> </td>
                             <td> {requestHistory.status} </td>
-                            <td></td>
+                            <td>
+                                <button
+                                    onClick={() => deleteApproveds(active.id)}
+                                    className="btn btn-danger"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

@@ -9,6 +9,7 @@ import Stack from 'react-bootstrap/Stack';
 import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { auto } from '@popperjs/core';
+import IconNewUser from '/src/IconsUser/IconNewUser.png';
 
 
 const theme = {
@@ -122,59 +123,98 @@ function Register() {
   }
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <>
+      <section>
+        <br />
+        <Container>
+          <Stack>
 
-      <Form.Label>Nombre</Form.Label>
-      <Form.Control type='text' placeholder='Nombre' onChange={(e) => setName(e.target.value)} />
-      <br />
+            <Stack align="center" gap={3}>
+              <div><img className='mb-3' src={IconNewUser} style={theme.optionIcons} width={400} height={100} /></div>
+            </Stack>
+          </Stack>
 
-      <Form.Label>Apellidos</Form.Label>
-      <Form.Control type='text' placeholder='Apellidos' onChange={(e) => setLastName(e.target.value)} />
-      <br />
+        </Container>
+      </section>
 
-      <Form.Label>Área</Form.Label>
-      <Form.Control type='text' placeholder='Área' onChange={(e) => setArea(e.target.value)} />
-      <br />
+      <section style={{ paddingBlockEnd: 25 }}>
+        <Container fluid className="col-md-9 mx-auto" style={{ position: 'sticky', borderColor: "#1B396A", borderWidth: 3 }}>
+          <Form className='text-center form-control-lg' onSubmit={handleSubmit}>
 
-      <Form.Label>Plantel</Form.Label>
-      <Form.Control type='text' placeholder='Plantel' onChange={(e) => setPlantel(e.target.value)} />
-      <br />
+            <Form.Label className='mb-3' style={{ fontWeight: 'bold' }}>Nuevo registro</Form.Label>
 
-      <Form.Label>Correo</Form.Label>
-      <Form.Control type='email' placeholder='Correo' onChange={(e) => setEmail(e.target.value)} />
-      <br />
+            <Form.Group className='row mb-3'>
+              <Form.Label className='col-2'>Nombre</Form.Label>
+              <Col sm>
+                <Form.Control placeholder='Nombre' onChange={(e) => setName(e.target.value)} />
+              </Col>
+              <Form.Label className='col-2'>Apellidos</Form.Label>
+              <Col sm>
+                <Form.Control type='text' placeholder='Apellidos' onChange={(e) => setLastName(e.target.value)} />
+              </Col>
+            </Form.Group>
 
-      <Form.Label>Contraseña</Form.Label>
-      <Form.Control type='password' placeholder='Contraseña' onChange={(e) => setPassword(e.target.value)} />
-      <br />
+            <Form.Group className='row mb-3'>
+              <Form.Label className='col-2'>Área</Form.Label>
+              <Col sm>
+                <Form.Control type='text' placeholder='Área' onChange={(e) => setArea(e.target.value)} />
+              </Col>
+              <Form.Label className='col-2'>Plantel</Form.Label>
+              <Col sm>
+                <Form.Control type='text' placeholder='Plantel' onChange={(e) => setPlantel(e.target.value)} />
+              </Col>
+            </Form.Group>
 
-      <Form.Label>Rol</Form.Label>
-      <Form.Select defaultValue={"Selecciona rol"} type='text' placeholder='Rol' onChange={(e) => setRole(e.target.value)} >
-        <option value={'Jefe Departamento'}>Jefe Departamento</option>
-        <option value={'Mantenimiento'}>Mantenimiento</option>
-      </Form.Select>
-      <br />
+            <Form.Group className='row mb-3'>
+              <Form.Label className='col-2'>Correo</Form.Label>
+              <Col sm>
+              <Form.Control placeholder='Correo' type="email" name="dob" onChange={(e) => setEmail(e.target.value)} />
+              </Col>
+              <Form.Label className='col-2'>Contraseña</Form.Label>
+              <Col sm>
+              <Form.Control placeholder='Contraseña' type='password' onChange={(e) => setPassword(e.target.value)} />
+              </Col>
+            </Form.Group>
 
-      <Form.Label>Firma</Form.Label>
-      <Stack direction="horizontal" gap={2} className="col-md-6 mx-auto">
-        <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
-      </Stack>
-      {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} />*/}
-      <br />
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Rol</Form.Label>
+              <Col>
+                <Form.Select type='text' placeholder='Rol' onChange={(e) => setRole(e.target.value)} >
+                  <option>Selecciona rol</option>
+                  <option value={'Jefe Departamento'}>Jefe Departamento</option>
+                  <option value={'Mantenimiento'}>Mantenimiento</option>
+                </Form.Select>
+              </Col>
+            </Form.Group>
 
-      <Stack >
-        <Stack direction='horizontal' gad={2} className="col-md-2 mx-auto">
-          <button style={theme.button} type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
-            Registrar
-          </button>
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Firma</Form.Label>
+              <Col>
+                <Stack direction="horizontal" gap={2} >
+                  <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
+                </Stack>
+              </Col>
+            </Form.Group>
 
-          <Button style={theme.button2} href='home'>
-            Cancelar
-          </Button>
-        </Stack>
-      </Stack>
+            <Form.Group className="row mb-3">
+            <Row>
+              <Col sm>
+                <button type="submit" className="btn btn-danger btn-lg mt-2 mb-2 text-white">
+                  Cancelar
+                </button>
+              </Col>
+              <Col sm>
+                <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+                  Registrar
+                </button>
+              </Col>
+            </Row>
+            </Form.Group>
 
-    </Form>
+          </Form>
+        </Container >
+      </section>
+    </>
   )
 
 }

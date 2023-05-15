@@ -8,6 +8,7 @@ import Stack from 'react-bootstrap/Stack';
 import axios from 'axios';
 import { auto, left } from '@popperjs/core';
 import { Link, useNavigate, useParams } from "react-router-dom";
+import IconUser from '/src/IconsUser/IconUser.png';
 
 const theme = {
   bg: {
@@ -108,16 +109,15 @@ function EditProfile() {
     setSignature(responseTwo.data.signature)
   }
 
-  useEffect(()=>
-    {
-      getData()
-    },[])
+  useEffect(() => {
+    getData()
+  }, [])
 
 
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    
+
     const formData = new FormData();
 
     formData.append('name', name)
@@ -129,7 +129,7 @@ function EditProfile() {
     formData.append('password', password)
     formData.append('role', role)
     console.log(role)
-    
+
 
     //hacer update de tabla user
     axios.post(`http://localhost/ITAFrontEndWeb/public/api/personalData_updateProfile/${1}`, formData, {
@@ -148,51 +148,93 @@ function EditProfile() {
 
   return (
     <>
+
       <section>
-        <Container fluid style={{ padding: 40, position: 'sticky', alignItems: 'center' }}>
-          <Form onSubmit={handleSubmit}>
+        <br />
+        <Container>
+          <Stack>
 
-            <Form.Label>Nombre</Form.Label>
-            <Form.Control type='text'  value={name} onChange={(e) => setName(e.target.value)} />
-            <br />
-
-            <Form.Label>Apellidos</Form.Label>
-            <Form.Control type='text' placeholder='Apellidos' value={lastname} onChange={(e) => setLastName(e.target.value)} />
-            <br />
-
-            <Form.Label>Área</Form.Label>
-            <Form.Control type='text' placeholder='Área' value={area} onChange={(e) => setArea(e.target.value)} />
-            <br />
-
-            <Form.Label>Plantel</Form.Label>
-            <Form.Control type='text' placeholder='Plantel' value={plantel} onChange={(e) => setPlantel(e.target.value)} />
-            <br />
-
-            <Form.Label>Correo</Form.Label>
-            <Form.Control type='email' placeholder='Correo' value={email} onChange={(e) => setEmail(e.target.value)} />
-            <br />
-
-            <Form.Label>Contraseña</Form.Label>
-            <Form.Control type='password' placeholder='Contraseña' value={password} onChange={(e) => setPassword(e.target.value)} />
-            <br />
-
-            <Form.Label>Rol</Form.Label>
-            <Form.Select defaultValue={"Selecciona rol"} type='text' placeholder='Rol' onChange={(e) => setRole(e.target.value)} >
-              <option value={'Jefe Departamento'}>Jefe Departamento</option>
-              <option value={'Mantenimiento'}>Mantenimiento</option>
-            </Form.Select>
-            <br />
-
-            <Form.Label>Firma</Form.Label>
-            <Stack direction="horizontal" gap={2} className="col-md-6 mx-auto">
-              <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
+            <Stack align="center">
+              <div><img className='mb-3' src={IconUser} style={theme.optionIcons} width={300} height={100} /></div>
             </Stack>
-            {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} />*/}
-            <br />
+          </Stack>
 
-            <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
-              Registrar
-            </button>
+        </Container>
+      </section>
+
+      <section style={{ paddingBlockEnd: 25 }}>
+        <Container fluid className="col-md-9 mx-auto" style={{ padding: 40, position: 'sticky', alignItems: 'center', borderColor: "#1B396A", borderWidth: 3 }}>
+          <Form onSubmit={handleSubmit} className='text-center form-control-lg'>
+
+            <Form.Label className='mb-5' style={{ fontWeight: 'bold' }}>Editar información personal</Form.Label>
+
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Nombre</Form.Label>
+              <Col sm>
+                <Form.Control type='text' value={name} onChange={(e) => setName(e.target.value)} placeholder='Nombre' />
+              </Col>
+              <Form.Label className='col-2'>Apellidos</Form.Label>
+              <Col sm>
+                <Form.Control type='text' value={lastname} onChange={(e) => setLastName(e.target.value)} placeholder='Apellidos' />
+              </Col>
+            </Form.Group>
+
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Área</Form.Label>
+              <Col sm>
+                <Form.Control type='text' value={area} onChange={(e) => setArea(e.target.value)} placeholder='Área' />
+              </Col>
+              <Form.Label className='col-2'>Plantel</Form.Label>
+              <Col sm>
+                <Form.Control type='text' value={plantel} onChange={(e) => setPlantel(e.target.value)} placeholder='Plantel' />
+              </Col>
+            </Form.Group>
+
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Correo</Form.Label>
+              <Col sm>
+                <Form.Control type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo' />
+              </Col>
+              <Form.Label className='col-2'>Contraseña</Form.Label>
+              <Col sm>
+                <Form.Control type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
+              </Col>
+            </Form.Group>
+
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Rol</Form.Label>
+              <Col sm>
+                <Form.Select type='text' placeholder='Rol' onChange={(e) => setRole(e.target.value)} >
+                  <option>Selecciona rol</option>
+                  <option value={'Jefe Departamento'}>Jefe Departamento</option>
+                  <option value={'Mantenimiento'}>Mantenimiento</option>
+                </Form.Select>
+              </Col>
+            </Form.Group>
+
+            <Form.Group className="row mb-3">
+              <Form.Label className='col-2'>Firma</Form.Label>
+              <Col sm>
+                <Stack direction="horizontal" gap={2} >
+                  <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
+                </Stack>
+              </Col>
+            </Form.Group>
+
+            {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} className="col-md-6 mx-auto" />*/}
+            <Row>
+              <Col sm>
+                <button type="submit" className="btn btn-danger btn-lg mt-2 mb-2 text-white">
+                  Cancelar
+                </button>
+              </Col>
+              <Col sm>
+                <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+                  Aceptar
+                </button>
+              </Col>
+            </Row>
+
 
           </Form>
 

@@ -122,12 +122,7 @@ const Approved = () => {
                             <td> <img src={approved.evidence3} alt="signature" width={100} height={100}/> </td>
                             <td> {approved.status} </td>
                             <td>
-                                <Link
-                                    to={'http://localhost/ITAFrontEndWeb/public/editOrder'}
-                                    className="btn btn-warning"
-                                >
-                                    Editar
-                                </Link>
+                                
                                 <button
                                     onClick={() => deleteApproveds(approved.id)}
                                     className="btn btn-danger"

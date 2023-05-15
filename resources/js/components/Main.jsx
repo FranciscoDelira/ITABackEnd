@@ -1,18 +1,23 @@
-import { Routes, Route, Navigate } from "react-router-dom";
+import React from "react";
+import { HashRouter as Router, Route, Routes } from "react-router-dom";
 
 import Menu from "./Menu";
+
 import Login from "./auth/Login";
+
 import Home from "./Home";
+
 import ActiveRequests from "./maintenance/requests/ActiveRequests";
 import RequestHistory from "./maintenance/requests/RequestHistory";
+
 import Earring from "./maintenance/orders/Earring";
 import Release from "./maintenance/orders/Release";
 import Approved from "./maintenance/orders/Approved";
 import NewOrder from "./maintenance/orders/NewOrder";
+
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
 import Register from "./user/Register";
-import EditOrder from "./maintenance/orders/EditOrder";
 
 //import NotFound from './NotFound';
 
@@ -43,7 +48,7 @@ function Main() {
             ###########################--[ HOME ]--########################################*/}
 
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="home" element={<Home />} />
+                <Route path="/Home" element={<Home />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
@@ -75,7 +80,7 @@ function Main() {
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
             <Route exact path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="newOrder/:id" element={<NewOrder />} />
+                <Route path="newOrder" element={<NewOrder />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 

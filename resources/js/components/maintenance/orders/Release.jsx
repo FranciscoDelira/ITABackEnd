@@ -89,6 +89,7 @@ const Release = () => {
                         <th>Evidencia 2</th>
                         <th>Evidencia 3</th>
                         <th>Estado</th>
+                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,10 +101,23 @@ const Release = () => {
                             <td> {release.employeeName} </td>
                             <td> {release.maintenanceDate} </td>
                             <td> {release.jobDescription} </td>
-                            <td> <img src={release.evidence1} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={release.evidence2} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={release.evidence3} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={release.evidence1} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={release.evidence2} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={release.evidence3} alt="signature" width={100} height={100} /> </td>
                             <td> {release.status} </td>
+                            <td> <Link
+                                to={`newOrder/${active.id}`}
+                                className="btn btn-warning"
+                            >
+                                Orden
+                            </Link>
+                                <button
+                                    onClick={() => deleteApproveds(active.id)}
+                                    className="btn btn-danger"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

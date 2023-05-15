@@ -27,11 +27,12 @@ function Menu() {
                   <NavDropdown.Item href="earring">Pendientes</NavDropdown.Item>
                   <NavDropdown.Item href="release">Liberadas</NavDropdown.Item>
                   <NavDropdown.Item href="approved">Aprobadas</NavDropdown.Item>
-                  <NavDropdown.Divider />
-                  <NavDropdown.Item href="newOrder">Crear nueva órden</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Usuarios" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="register">Crear nuevo usuario</NavDropdown.Item>
+                </NavDropdown>
+                <NavDropdown title="Estadísticas" id="collasible-nav-dropdown">
+                  <NavDropdown.Item href="register">Mostrar</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>

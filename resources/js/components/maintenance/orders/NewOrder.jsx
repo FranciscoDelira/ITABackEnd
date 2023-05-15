@@ -112,15 +112,14 @@ function NewOrder() {
   const [requestDescription, setRequestDescription] = useState('');
   const [status, setStatus] = useState('');
   const [ID, setID] = useState('');
-  
-  
-  const {id} = useParams();
+
+
+  const { id } = useParams();
 
   const getData = async () => {
     const response = await axios.get(`http://localhost/ITAFrontEndWeb/public/api/maintenance_show/${id}`)
     const response2 = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/' + response.data.personaldata_id)
-    const response3 = await axios.get('http://localhost/ITAFrontEndWeb/public/api/user_show/' + response2.data.id)//id del usuario en sesion
-    
+
     console.log(response, response2)
     setID(response.data.id)
     setName(response2.data.name)
@@ -130,10 +129,9 @@ function NewOrder() {
     setStatus(response.data.status)
   }
 
-  useEffect(()=>
-    {
-      getData()
-    },[])
+  useEffect(() => {
+    getData()
+  }, [])
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -177,12 +175,12 @@ function NewOrder() {
         <br />
         <Form className='text-center form-control-lg' onSubmit={handleSubmit}>
 
-          <Form.Label className='mb-3' style={{fontWeight:'bold'}}>Datos para la orden de trabajo</Form.Label>
+          <Form.Label className='mb-3' style={{ fontWeight: 'bold' }}>Datos para la orden de trabajo</Form.Label>
 
           <Form.Group className='row mb-3'>
             <Form.Label className='col-4'>Nombre del empleado</Form.Label>
             <Col>
-              <Form.Control className='col-8' onChange={(e) => setEmployeeName(e.target.value)}/>
+              <Form.Control className='col-8' onChange={(e) => setEmployeeName(e.target.value)} />
             </Col>
           </Form.Group>
 
@@ -207,7 +205,7 @@ function NewOrder() {
           </Form.Group>
 
           <Row className="mb-3">
-            <Form.Label style={{fontWeight:'bold'}}>Datos de la solicitud de mantenimiento</Form.Label>
+            <Form.Label style={{ fontWeight: 'bold' }}>Datos de la solicitud de mantenimiento</Form.Label>
           </Row>
 
           <Form.Group className='row mb-3' style={{ display: "flex", flexlDirection: "", justifyContent: "center", alignItems: "center" }}>
@@ -223,7 +221,7 @@ function NewOrder() {
                 <label >Fecha de mantenimiento</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '85%' }} type="date" name="dob" onChange={(e) => setMaintenanceDate(e.target.value)}/>
+                <Form.Control style={{ width: '85%' }} type="date" name="dob" onChange={(e) => setMaintenanceDate(e.target.value)} />
               </Col>
             </Row>
 
@@ -242,19 +240,19 @@ function NewOrder() {
               </Col>
             </Row>
 
-            <Row className='mb-3'>
+            <Row className='mb-4'>
               <Col sm>
                 <label>Descripción de la solicitud</label>
                 <Form.Control rows={3} style={{ width: '100%' }} value={requestDescription} as='textarea' disabled readOnly />
               </Col>
             </Row>
 
-            <Row className='mb-3'>
+            <Row className='mb-5'>
               <Col sm>
                 <label>Firma del solicitante</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '100%' }} value={signature} type='text' disabled readOnly />
+                <img src={signature} alt="signature" width={100} height={100} />
               </Col>
               <Col sm>
                 <label >Estatus</label>
@@ -263,6 +261,15 @@ function NewOrder() {
                 <Form.Control style={{ width: '85%' }} value={status} type='text' disabled readOnly />
               </Col>
             </Row>
+
+            <Form.Group className="row">
+              <Col>
+              <Button className="btn btn-danger">Cancelar</Button>
+              </Col>
+              <Col>
+                <Button>Aceptar</Button>
+              </Col>
+            </Form.Group>
 
           </Form.Group>
 

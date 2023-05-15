@@ -14,50 +14,39 @@ function Home() {
 
     return (
         <>
-            <Container fluid style={{ position: 'sticky', paddingTop: 25, }} >
-                <Stack align="center" style={{ padding: "2%" }}>
-
+            <Container fluid style={{ position: 'sticky', paddingTop: 25 }} className="d-flex align-items-center">
+                <Stack align="center" className="mx-auto">
                     <Nav className="flex-column">
-
                         <Nav.Item>
-                            <Stack direction='horizontal' align="center" style={{ padding: "3%" }} className="mx-auto">
-                                <Row> 
-                                    <Col sm={6}>
-                                        <Nav.Link href='earring'>
-                                            <img className='col-mb-3 mx-auto' src={IconOrdersUser} width={390} height={100} />
-                                        </Nav.Link>
-                                    </Col>
-                                    <Col sm={4}>
-                                        <Nav.Link href='newOrder'>
-                                            <img className='col-mb-3 mx-auto' src={CreateNewOrder} width={390} height={100} />
-                                        </Nav.Link>
-                                    </Col>
-                                </Row>
-                            </Stack>
-
-                            <Stack direction='horizontal' align="center" style={{ padding: "3%" }} className="mx-auto">
+                            <Stack align="center" style={{ padding: "3%" }} className="mx-auto justify-content-center align-items-center">
                                 <Row>
-                                    <Col sm={6}>
-                                        <Nav.Link href='activeRequest'>
-                                            <img className='col-mb-3 mx-auto' src={IconMaintenanceRequestsUser} width={390} height={100} />
+                                    <Col sm>
+                                        <Nav.Link href='earring'>
+                                            <img className='col-mb-3 mx-auto' src={IconOrdersUser} width={380} height={100} />
                                         </Nav.Link>
                                     </Col>
-                                    <Col sm={4}>
+                                </Row>
+                                <Row>
+                                    <Col sm>
+                                        <Nav.Link href='activeRequest'>
+                                            <img className='col-mb-3 mx-auto' src={IconMaintenanceRequestsUser} width={380} height={100} />
+                                        </Nav.Link>
+                                    </Col>
+                                </Row>
+                                <Row>
+                                    <Col sm>
                                         <Nav.Link href='register'>
-                                            <img className='col-mb-3 mx-auto' src={IconNewUser} width={390} height={100} />
+                                            <img className='col-mb-3 mx-auto' src={IconNewUser} width={380} height={100} />
                                         </Nav.Link>
                                     </Col>
                                 </Row>
                             </Stack>
-
-
                         </Nav.Item>
-
                     </Nav>
-
                 </Stack>
-
             </Container>
+
+
         </>
     );
 

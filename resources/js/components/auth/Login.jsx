@@ -8,6 +8,8 @@ import Stack from 'react-bootstrap/Stack';
 import React, { useState } from 'react';
 import axios from 'axios';
 import { auto } from '@popperjs/core';
+import { useNavigate } from 'react-router-dom';
+import swal from 'sweetalert';
 
 
 const theme = {
@@ -60,6 +62,8 @@ function Login() {
     password: ''
   })
 
+  let navigate = useNavigate();
+
   const onChange = (e) => {
     e.persist();
     setformValue({ ...formValue, [e.target.name]: e.target.value });
@@ -70,7 +74,7 @@ function Login() {
     const formData = new FormData();
     formData.append("email", formValue.email)
     formData.append("password", formValue.password)
-    axios.post("http://localhost/laravel/topicos/public/api/login",
+    axios.post('http://localhost/ITAFrontEndWeb/public/api/login',
       formData,
       {
         headers: {
@@ -79,10 +83,21 @@ function Login() {
         }
       }
     ).then(response => {
+
+      localStorage.setItem("user-info", response.data.access_token)
+
+      navigate({pathname: "/Home", state: {token: response.data.access_token}})
+
       console.log('response:');
       console.log(response);
     }).catch(error => {
       console.log(error);
+      swal({
+        title: "No Autorizado",
+        text: "Error Al Iniciar Sesión",
+        icon: "error",
+        buttons: "Aceptar"
+      });
     });
   };
 
@@ -94,7 +109,9 @@ function Login() {
       </Stack>
 
       <Stack align="center" className="col-md-5 mx-auto" style={{ borderColor: "#1B396A", borderWidth: 3 }}>
+
         <Form onSubmit={handleSubmit} style={{ position: 'sticky' }}>
+
           <Form.Label className='mb-3' style={theme.header} >Departamento de mantenimiento</Form.Label>
 
           <Form.Group className="mb-3" controlId="formBasicEmail" >
@@ -112,6 +129,7 @@ function Login() {
           </Button>
 
         </Form>
+
       </Stack>
 
 

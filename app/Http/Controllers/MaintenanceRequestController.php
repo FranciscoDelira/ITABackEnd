@@ -178,8 +178,7 @@ class MaintenanceRequestController extends Controller
     public function showRelease()
     {
         $maintenance = Maintenancerequest::join('workorders', 'workorders.id', '=', 'maintenancerequest_id')
-        ->where('maintenancerequests.status', 'Por liberar')
-        ->orWhere('maintenancerequests.status', 'Liberada')
+        ->where('workorders.released', 'true')
         ->get([
             'workorders.id', 
             'workorders.maintenanceType', 

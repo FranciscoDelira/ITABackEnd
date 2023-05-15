@@ -103,7 +103,7 @@ const ActiveRequests = () => {
                             <td> {active.status} </td>
                             <td>
                                 <Link
-                                    to={`newOrder/${active.id}`}
+                                    to={'newOrder'}
                                     className="btn btn-warning"
                                 >
                                     Orden
