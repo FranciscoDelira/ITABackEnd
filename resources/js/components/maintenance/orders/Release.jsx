@@ -109,7 +109,7 @@ const Release = () => {
                                 to={`newOrder/${active.id}`}
                                 className="btn btn-warning"
                             >
-                                Orden
+                                Aprobar
                             </Link>
                                 <button
                                     onClick={() => deleteApproveds(active.id)}

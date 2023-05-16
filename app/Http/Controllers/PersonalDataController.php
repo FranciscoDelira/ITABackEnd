@@ -268,11 +268,16 @@ class PersonalDataController extends Controller
         $data->save();
 
 
-        $dataU = new User;
-        $dataU->email=$request->email;
-        $dataU->password=$request->password;
-        $dataU->personaldata_id=$data->id;
-        $dataU->save();
+        $user = User::create([
+            'email' => $request->email,
+            'password' => bcrypt($request->password),
+            'personaldata_id' => $data->id,
+            'role' => $request->role
+        ]);
+
+        $token = $user->createToken('LaravelAuthApp')->accessToken;
+
+        return response()->json(['token'=>$token],200);
 
     }
 

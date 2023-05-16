@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { auto } from '@popperjs/core';
 import { useNavigate } from 'react-router-dom';
-import swal from 'sweetalert';
+import swal from "sweetalert";
 
 
 const theme = {
@@ -84,12 +84,13 @@ function Login() {
       }
     ).then(response => {
 
-      localStorage.setItem("user-info", response.data.access_token)
+      localStorage.setItem("token", response.data.access_token)
 
-      navigate({pathname: "/Home", state: {token: response.data.access_token}})
+      navigate({pathname: "/ITAFrontEndWeb/public/home", state: {token: response.data.access_token}})
 
       console.log('response:');
       console.log(response);
+      localStorage('token', JSON.stringify(response.data))
     }).catch(error => {
       console.log(error);
       swal({

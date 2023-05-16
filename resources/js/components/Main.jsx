@@ -1,5 +1,6 @@
 import React from "react";
 import { HashRouter as Router, Route, Routes } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 
 import Menu from "./Menu";
 
@@ -48,7 +49,7 @@ function Main() {
             ###########################--[ HOME ]--########################################*/}
 
             <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="/Home" element={<Home />} />
+                <Route path="home" element={<Home />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
