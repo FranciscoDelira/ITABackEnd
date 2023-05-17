@@ -81,7 +81,7 @@ function Main() {
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
             <Route exact path="ITAFrontEndWeb/public/" element={<Menu />} >
-                <Route path="newOrder" element={<NewOrder />} />
+                <Route path="newOrder/:id" element={<NewOrder />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 

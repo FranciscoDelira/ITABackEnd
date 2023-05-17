@@ -264,7 +264,7 @@ function NewOrder() {
 
             <Form.Group className="row">
               <Col>
-              <Button className="btn btn-danger">Cancelar</Button>
+                <Link className="btn btn-danger" to={`http://localhost/ITAFrontEndWeb/public/newOrder/${active.id}`}>Cancelar</Link>
               </Col>
               <Col>
                 <Button>Aceptar</Button>

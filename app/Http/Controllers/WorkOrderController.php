@@ -239,6 +239,10 @@ class WorkOrderController extends Controller
             'workorders.evidence3', 
             'maintenancerequests.status'
         ]);
+
+        //$workorder = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=' 'workorders.maintenancerequest_id')
+        //->where('workorders')
+
         return $workorder;
     }
 
@@ -246,6 +250,7 @@ class WorkOrderController extends Controller
     {
         $workorder = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
         ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
+        ->where('maintenancerequests.status', 'Liberado')
         ->get([
             'maintenancerequests.id', 
             'maintenancerequests.requestDate', 
@@ -262,4 +267,42 @@ class WorkOrderController extends Controller
             ]);
         return $workorder;
     }
+
+    /*public function showRelease()
+    {
+        $maintenance = Maintenancerequest::join('workorders', 'workorders.id', '=', 'maintenancerequest_id')
+        ->where('workorders.released', 'true')
+        ->get([
+            'workorders.id', 
+            'workorders.maintenanceType', 
+            'workorders.serviceType', 
+            'workorders.employeeName', 
+            'workorders.maintenanceDate', 
+            'workorders.jobDescription', 
+            'maintenancerequests.evidence1', 
+            'maintenancerequests.evidence2', 
+            'maintenancerequests.evidence3',
+            'maintenancerequests.status'
+        ]);
+        return $maintenance;
+    }*/
+
+
+    public function showRelease()
+    {
+       
+
+    DB::table('workorders')
+    ->where('maintenancerequest_id', DB::raw('(SELECT id FROM maintenancerequests WHERE status = "Liberada")'))
+    ->update(['released' => 1]);
+
+    $workorders = DB::table('workorders')
+    ->join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
+    ->select('workorders.*')
+    ->where('workorders.released', '=', 1)
+    ->get();
+
+    return $workorders;
+}
+
 }

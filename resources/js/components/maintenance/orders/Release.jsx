@@ -21,7 +21,7 @@ const Release = () => {
     }, [])
 
     const getAllReleases = async () => {
-        const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/maintenance_showRelease');
+        const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/workoder_showRelease');
         setReleases(response.data);
         console.log(response.data);
     }
@@ -106,7 +106,7 @@ const Release = () => {
                             <td> <img src={release.evidence3} alt="signature" width={100} height={100} /> </td>
                             <td> {release.status} </td>
                             <td> <Link
-                                to={`newOrder/${active.id}`}
+                                to={`${active.id}`}
                                 className="btn btn-warning"
                             >
                                 Aprobar

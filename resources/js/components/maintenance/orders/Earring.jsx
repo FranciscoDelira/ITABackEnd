@@ -41,7 +41,7 @@ const Earring = () => {
             earring.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
             earring.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             earring.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            earring.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+            earring.status.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
             return earring;
         }
@@ -107,10 +107,18 @@ const Earring = () => {
                             <td> {earring.area} </td>
                             <td> {earring.name} </td>
                             <td> {earring.requestDescription} </td>
-                            <td> <img src={earring.evidence1} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={earring.evidence2} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={earring.evidence3} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={earring.evidence1} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={earring.evidence2} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={earring.evidence3} alt="signature" width={100} height={100} /> </td>
                             <td> {earring.status} </td>
+                            <td>
+                                <button
+                                    onClick={() => deleteEarring(earring.id)}
+                                    className="btn btn-danger"
+                                >
+                                    Eliminar
+                                </button>
+                            </td>
                         </tr>
                     ))}
                 </tbody>

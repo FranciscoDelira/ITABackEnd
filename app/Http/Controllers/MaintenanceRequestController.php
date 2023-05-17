@@ -175,24 +175,7 @@ class MaintenanceRequestController extends Controller
         $maintenance->delete();
     }
     
-    public function showRelease()
-    {
-        $maintenance = Maintenancerequest::join('workorders', 'workorders.id', '=', 'maintenancerequest_id')
-        ->where('workorders.released', 'true')
-        ->get([
-            'workorders.id', 
-            'workorders.maintenanceType', 
-            'workorders.serviceType', 
-            'workorders.employeeName', 
-            'workorders.maintenanceDate', 
-            'workorders.jobDescription', 
-            'maintenancerequests.evidence1', 
-            'maintenancerequests.evidence2', 
-            'maintenancerequests.evidence3',
-            'maintenancerequests.status'
-        ]);
-        return $maintenance;
-    }
+    
 
     public function showEarring()
     {

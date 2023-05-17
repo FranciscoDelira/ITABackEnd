@@ -36,7 +36,7 @@ const ActiveRequests = () => {
             active.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
             active.department.toLowerCase().includes(searchTerm.toLowerCase()) ||
             active.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            active.status.toLowerCase().includes(searchTerm.toLowerCase()) 
+            active.status.toLowerCase().includes(searchTerm.toLowerCase())
         ) {
             return active;
         }
@@ -96,14 +96,14 @@ const ActiveRequests = () => {
                             <td> {active.name} </td>
                             <td> {active.department} </td>
                             <td> {active.requestDescription} </td>
-                            <td> <img src={active.evidence1} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={active.evidence2} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={active.evidence3} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={active.signature} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={active.evidence1} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={active.evidence2} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={active.evidence3} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={active.signature} alt="signature" width={100} height={100} /> </td>
                             <td> {active.status} </td>
                             <td>
                                 <Link
-                                    to={'newOrder'}
+                                    to={`http://localhost/ITAFrontEndWeb/public/newOrder/${active.id}`}
                                     className="btn btn-warning"
                                 >
                                     Orden
