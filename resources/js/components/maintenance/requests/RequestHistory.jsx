@@ -15,6 +15,7 @@ const RequestHistory = () => {
         alert('Row Click Event');
     }
 
+    const ruta = "http://localhost/ITABackEnd/public/api";
     const [requestsHistory, setRequestsHistory] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -23,7 +24,14 @@ const RequestHistory = () => {
     }, [])
 
     const getAllRequestsHistory = async () => {
-        const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/workorder_showRequestHistory');
+        const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showRequestHistory',
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
+            });
         setRequestsHistory(response.data);
         console.log(response.data);
     }
@@ -41,6 +49,13 @@ const RequestHistory = () => {
         }
     });
 
+    const deleteRequestHistory = async (id) => {
+        await axios.delete(`${ruta}/maintenance_destroy/${id}`).then(response => {
+            console.log(`Eliminacion exitosa`);
+        }).catch(error => {
+            console.error(`Error al eliminar la request `, error);
+        });
+    }
 
     return (
         <>
@@ -106,7 +121,7 @@ const RequestHistory = () => {
                             <td> {requestHistory.status} </td>
                             <td>
                                 <button
-                                    onClick={() => deleteApproveds(active.id)}
+                                    onClick={() => deleteRequestHistory(active.id)}
                                     className="btn btn-danger"
                                 >
                                     Eliminar

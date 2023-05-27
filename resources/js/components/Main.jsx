@@ -15,10 +15,12 @@ import Earring from "./maintenance/orders/Earring";
 import Release from "./maintenance/orders/Release";
 import Approved from "./maintenance/orders/Approved";
 import NewOrder from "./maintenance/orders/NewOrder";
+import ApproveOrder from "./maintenance/orders/ApproveOrder";
 
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
 import Register from "./user/Register";
+
 
 //import NotFound from './NotFound';
 
@@ -41,14 +43,14 @@ function Main() {
             {/*####################################################################
             ###########################--[ LOGIN ]--#######################################*/}
 
-            <Route path="ITAFrontEndWeb/public/" element={<Login />} >
+            <Route path="ITABackEnd/public/" element={<Login />} >
                 <Route path="login" element={<Login />} />
             </Route>
 
             {/*####################################################################
             ###########################--[ HOME ]--########################################*/}
 
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="home" element={<Home />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
@@ -56,11 +58,11 @@ function Main() {
             {/*####################################################################
             ##########################--[ REQUESTS ]--########################################*/}
 
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="activeRequest" element={<ActiveRequests />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="requestHistory" element={<RequestHistory />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
@@ -68,24 +70,28 @@ function Main() {
             {/*####################################################################
             ###########################--[ ORDERS ]--########################################*/}
 
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="earring" element={<Earring />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="release" element={<Release />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="approved" element={<Approved />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route exact path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
+                <Route path="approveOrder" element={<ApproveOrder />} />
+                <Route path="*" element={<Navigate replace to="/" />} />
+            </Route>
+            <Route exact path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="newOrder/:id" element={<NewOrder />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
 
-            {/*<Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            {/*<Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="editOrder/:id" element={<EditOrder />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
@@ -93,15 +99,15 @@ function Main() {
             {/*####################################################################
             ###########################--[ USERS ]--########################################*/}
 
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="profile" element={<Profile />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="editProfile" element={<EditProfile />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>
-            <Route path="ITAFrontEndWeb/public/" element={<Menu />} >
+            <Route path="ITABackEnd/public/" element={<Menu />} >
                 <Route path="register" element={<Register />} />
                 <Route path="*" element={<Navigate replace to="/" />} />
             </Route>

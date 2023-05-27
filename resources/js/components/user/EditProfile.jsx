@@ -9,6 +9,7 @@ import axios from 'axios';
 import { auto, left } from '@popperjs/core';
 import { Link, useNavigate, useParams } from "react-router-dom";
 import IconUser from '/src/IconsUser/IconUser.png';
+import swal from "sweetalert";
 
 const theme = {
   bg: {
@@ -78,7 +79,7 @@ function EditProfile() {
 
   /*===============================================AXIOS======================================*/
 
-  const HEADERS = {
+  const headers = {
     headers: {
       Accept: "application/json",
       Authorization: `Bearer ${localStorage.getItem("user-info")}`,
@@ -95,8 +96,22 @@ function EditProfile() {
   const [signature, setSignature] = useState('');
 
   const getData = async () => {
-    const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/user_show/' + 1)//id del usuario en sesion
-    const responseTwo = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/' + response.data.personaldata_id)
+    const response = await axios.get('http://localhost/ITABackEnd/public/api/user_show/' + localStorage.getItem('user-id'),
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })//id del usuario en sesion
+    const responseTwo = await axios.get('http://localhost/ITABackEnd/public/api/personalData_show/' + response.data.personaldata_id,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
     console.log(response, responseTwo)
     setEmail(response.data.email)
     setPassword(response.data.password)
@@ -132,13 +147,34 @@ function EditProfile() {
 
 
     //hacer update de tabla user
-    axios.post(`http://localhost/ITAFrontEndWeb/public/api/personalData_updateProfile/${1}`, formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data', 'Accept': 'application/json'
-      }
-    })
+    axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
+      .then((response) => {
+        console.log(response);
+        swal({
+          title: "Guardado",
+          text: "Información actualizada correctamente",
+          icon: "success",
+          buttons: false,
+          timer: 2000
+        }).then(() => {
+          window.location.href = 'http://localhost/ITABackEnd/public/profile';
+        });
+      })
       .catch((error) => {
         console.log(error);
+        swal({
+          titlle: "Error al actualizar perfil",
+          text: "Revisar la información que sea correcta",
+          icon: "error",
+          buttons: "Aceptar"
+        })
       });
   }
 
@@ -224,14 +260,14 @@ function EditProfile() {
             {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} className="col-md-6 mx-auto" />*/}
             <Row>
               <Col sm>
-                <button type="submit" className="btn btn-danger btn-lg mt-2 mb-2 text-white">
+                <Button as={Link} to='http://localhost/ITABackEnd/public/profile' className="btn btn-danger btn-lg mt-2 mb-2 text-white">
                   Cancelar
-                </button>
+                </Button>
               </Col>
               <Col sm>
-                <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+                <Button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
                   Aceptar
-                </button>
+                </Button>
               </Col>
             </Row>
 

@@ -38,11 +38,12 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/showToken',[PersonalDataController::class,'showToken']);
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/personalData_registerPersonalUser',[PersonalDataController::class, 'registerPersonalUser']);
-Route::get('/showToken',[PersonalDataController::class,'showToken']);
+Route::post('/user_register',[UserController::class, 'register']);
 
-//Route::middleware('auth:api') ->group(function(){
+Route::middleware('auth:api') ->group(function(){
 
 //PERSONAL DATA
 Route::post('/personalData_store',[PersonalDataController::class, 'store']);
@@ -54,11 +55,12 @@ Route::get('/personalData_index',[PersonalDataController::class, 'index']);
 Route::post('/personalData_updateProfile/{id}',[PersonalDataController::class,'updateProfile']);
 
 //User
-Route::post('/user_register',[UserController::class, 'register']);
+
 Route::get('/user_show/{id}',[UserController::class, 'show']);
 Route::post('/user_update/{id}',[UserController::class,'update']);
 Route::delete('/user_destroy/{id}',[UserController::class, 'destroy']);
 Route::get('/user_index',[UserController::class, 'index']);
+Route::get('/user_authProfile',[UserController::class, 'authProfile']);
 
 
 //Maintenance Request
@@ -80,5 +82,7 @@ Route::delete('/workorder_destroy/{id}',[WorkOrderController::class, 'destroy'])
 Route::get('/workorder_showApproved',[WorkOrderController::class, 'showApproved']);
 Route::get('/workorder_showRequestHistory',[WorkOrderController::class, 'showRequestHistory']);
 Route::get('/workorder_showRelease',[WorkOrderController::class, 'showRelease']);
+Route::post('/workorder_newOrder',[WorkOrderController::class, 'newOrder']);
+Route::post('/workorder_approvedOrder',[WorkOrderController::class, 'approvedOrder']);
 
-//});
+});

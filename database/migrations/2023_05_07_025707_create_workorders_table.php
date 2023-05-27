@@ -17,7 +17,8 @@ return new class extends Migration
             $table->id();
             $table->enum('maintenanceType',['Interno','Externo'])->nullable();
             $table->enum('serviceType',['Eléctrico','Plomería','Herrería','Pintura','Obra Civil','Otro'])->nullable();
-            $table->string('employeeName');
+            $table->unsignedBigInteger('personaldata_id');
+            $table->foreign('personaldata_id')->references('id')->on('personaldatas')->onDelete('cascade')->onUpdate('cascade');
             $table->date('maintenanceDate')->nullable();
             $table->string('jobDescription')->nullable();
             $table->string('evidence1')->nullable();

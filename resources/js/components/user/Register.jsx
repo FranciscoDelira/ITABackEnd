@@ -10,6 +10,7 @@ import Modal from 'react-bootstrap/Modal';
 import axios from 'axios';
 import { auto } from '@popperjs/core';
 import IconNewUser from '/src/IconsUser/IconNewUser.png';
+import { Link } from 'react-router-dom';
 
 
 const theme = {
@@ -112,11 +113,14 @@ function Register() {
     formData.append('role', role)
 
 
-    axios.post('http://localhost/ITAFrontEndWeb/public/api/personalData_registerPersonalUser', formData, {
-      headers: {
-        'Content-Type': 'multipart/form-data', 'Accept': 'application/json'
-      }
-    })
+    axios.post('http://localhost/ITABackEnd/public/api/personalData_registerPersonalUser', formData,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
       .catch((error) => {
         console.log(error);
       });
@@ -168,11 +172,11 @@ function Register() {
             <Form.Group className='row mb-3'>
               <Form.Label className='col-2'>Correo</Form.Label>
               <Col sm>
-              <Form.Control placeholder='Correo' type="email" name="dob" onChange={(e) => setEmail(e.target.value)} />
+                <Form.Control placeholder='Correo' type="email" name="dob" onChange={(e) => setEmail(e.target.value)} />
               </Col>
               <Form.Label className='col-2'>Contraseña</Form.Label>
               <Col sm>
-              <Form.Control placeholder='Contraseña' type='password' onChange={(e) => setPassword(e.target.value)} />
+                <Form.Control placeholder='Contraseña' type='password' onChange={(e) => setPassword(e.target.value)} />
               </Col>
             </Form.Group>
 
@@ -191,24 +195,24 @@ function Register() {
               <Form.Label className='col-2'>Firma</Form.Label>
               <Col>
                 <Stack direction="horizontal" gap={2} >
-                  <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
+                <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
                 </Stack>
               </Col>
             </Form.Group>
 
             <Form.Group className="row mb-3">
-            <Row>
-              <Col sm>
-                <button type="submit" className="btn btn-danger btn-lg mt-2 mb-2 text-white">
-                  Cancelar
-                </button>
-              </Col>
-              <Col sm>
-                <button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
-                  Registrar
-                </button>
-              </Col>
-            </Row>
+              <Row>
+                <Col sm>
+                  <Button as={Link} to='http://localhost/ITABackEnd/public/home' className="btn btn-danger btn-lg mt-2 mb-2 text-white">
+                    Cancelar
+                  </Button>
+                </Col>
+                <Col sm>
+                  <Button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+                    Registrar
+                  </Button>
+                </Col>
+              </Row>
             </Form.Group>
 
           </Form>

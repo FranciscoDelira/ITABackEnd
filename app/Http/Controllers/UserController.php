@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Validator; //Import the Validator class
 
+
 class UserController extends Controller
 {
     /**
@@ -148,7 +149,8 @@ class UserController extends Controller
     
         if(auth()->attempt($credentials)){
             $token=auth()->user()->createToken('LaravelAuthApp')->accessToken;
-            return response()->json(['token'=>$token, 'status'=>200,'user'=>auth()->user()]);
+            //return response()->json(['token'=>$token, 'status'=>200,'user'=>auth()->user()]); SE QUITO ESTE
+            return [$token, auth()->user()];
         }else{
             return response()->json(['error' => 'Unauthorised','status'=>401], 401);
         }
@@ -185,7 +187,18 @@ class UserController extends Controller
         ]);
 
         $token = $user->createToken('LaravelAuthApp')->accessToken;
-        return response()->json(['token'=>$token],200);
+        //return response()->json(['token'=>$token],200); SE QUITO ESTE
+        return [$token, $user];
     }
     
+    public function authProfile(){
+        auth()->user()->email;
+        auth()->user()->role;
+        auth()->id();
+        auth()->user()->personaldata_id->name;
+        auth()->user()->personaldata_id->lastname;
+        auth()->user()->personaldata_id->area;
+        auth()->user()->personaldata_id->plantel;   
+    }
+
 }

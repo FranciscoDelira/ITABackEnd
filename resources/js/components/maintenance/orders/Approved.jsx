@@ -13,29 +13,37 @@ import { Link } from "react-router-dom";
 
 import axios from "axios";
 
-const ruta = "http://localhost/ITAFrontEndWeb/api";
+const ruta = "http://localhost/ITABackEnd/api";
 
 const Approved = () => {
 
     const [approveds, setApproveds] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
+    const ruta = "http://localhost/ITABackEnd/public/api";
 
     useEffect(() => {
         getAllApproveds();
     }, []);
 
     const getAllApproveds = async () => {
-        const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/workorder_showApproved');
+        const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showApproved',
+        { //acceder con el token
+            headers: {
+              'Content-Type': 'multipart/form-data',
+              'Accept': 'application/json',
+              'Authorization':`Bearer ${localStorage.getItem('user-info')}`
+            }
+          });
         setApproveds(response.data);
         console.log(response.data);
     };
 
     const deleteApproveds = async (id) => {
-        await axios.post(`${ruta}/workorder_destroy/${id}`, {});
+        await axios.delete(`${ruta}/workorder_destroy/${id}`, {});
         getAllApproveds();
     };
 
-    const filteredApproveds = approveds.filter((approved) => {
+    /*const filteredApproveds = approveds.filter((approved) => {
         if (searchTerm === "") {
             return approved;
         } else if (
@@ -47,7 +55,7 @@ const Approved = () => {
         ) {
             return approved;
         }
-    });
+    });*/
 
     return (
         <>
@@ -94,9 +102,6 @@ const Approved = () => {
                         <th>Área del solicitante</th>
                         <th>Nombre del solicitante</th>
                         <th>Descripción</th>
-                        <th>Fecha de liberación</th>
-                        <th>Fecha de mantenimiento</th>
-                        <th>Fecha de aprovación</th>
                         <th>Empleado</th>
                         <th>Evidencia 1</th>
                         <th>Evidencia 2</th>
@@ -113,14 +118,11 @@ const Approved = () => {
                             <td> {approved.area} </td>
                             <td> {approved.name} </td>
                             <td> {approved.requestDescription} </td>
-                            <td> {approved.releasedDate} </td>
-                            <td> {approved.maintenanceDate} </td>
-                            <td> {approved.dateApproved} </td>
                             <td> {approved.employeeName} </td>
                             <td> <img src={approved.evidence1} alt="signature" width={100} height={100}/> </td>
                             <td> <img src={approved.evidence2} alt="signature" width={100} height={100}/> </td>
                             <td> <img src={approved.evidence3} alt="signature" width={100} height={100}/> </td>
-                            <td> {approved.status} </td>
+                            <td> Aprobado </td>
                             <td>
                                 
                                 <button

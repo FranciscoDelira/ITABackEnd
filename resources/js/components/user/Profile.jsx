@@ -12,6 +12,7 @@ import axios from "axios";
 import Col from 'react-bootstrap/Col';
 import Row from 'react-bootstrap/Row';
 import IconProfileUser from '/src/IconsHome/IconProfileUser.png';
+import { Link, useParams } from 'react-router-dom';
 
 const theme = {
   nav: {
@@ -77,18 +78,47 @@ function Profile() {
   const [area, setArea] = useState('');
   const [plantel, setPlantel] = useState('');
   const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('');
+
+  const { id } = useParams();
 
   const postData = async () => {
-    const response = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/' + 7)
-    const response2 = await axios.get('http://localhost/ITAFrontEndWeb/public/api/user_show/' + response.data.personaldata_id)
+    const response2 = await axios.get('http://localhost/ITABackEnd/public/api/user_show/'
+      + localStorage.getItem('user-id'),
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
+    const response = await axios.get(`http://localhost/ITABackEnd/public/api/personalData_show/${response2.data.personaldata_id}`,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
 
+
+    const response3 = await axios.get(`http://localhost/ITABackEnd/public/api/user_authProfle`,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
+
+    //setID(response.data.id)
     setName(response.data.name)
     setLastName(response.data.lastname)
     setArea(response.data.area)
     setPlantel(response.data.plantel)
+    setEmail(response.data.email)
     setEmail(response2.data.email)
-    setPassword(response2.data.password)
+    setRole(response2.data.role)
   }
 
   useEffect(() => {
@@ -142,9 +172,9 @@ function Profile() {
               <Col>
                 <Form.Control value={email} placeholder='Correo' disabled />
               </Col>
-              <Form.Label className='col-2'>Contraseña</Form.Label>
+              <Form.Label className='col-2'>Rol</Form.Label>
               <Col>
-                <Form.Control value={password} placeholder='Contraseña' disabled />
+                <Form.Control value={role} placeholder='Contraseña' disabled />
               </Col>
             </Form.Group>
 
@@ -153,7 +183,7 @@ function Profile() {
                 <Button>Regresar</Button>
               </Col>
               <Col>
-                <Button className="btn btn-success">Editar</Button>
+                <Button as={Link} to='http://localhost/ITABackEnd/public/editProfile' className="btn btn-success">Editar</Button>
               </Col>
             </Form.Group>
 

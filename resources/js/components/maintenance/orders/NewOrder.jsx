@@ -1,8 +1,6 @@
 import { Nav } from 'react-bootstrap';
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Menu from '../../Menu';
-import Footer from '../../Footer';
 import Stack from 'react-bootstrap/Stack';
 import IconReleasedUser from '/src/IconsOrders/CreateNewOrder.png';
 import Col from 'react-bootstrap/Col';
@@ -15,7 +13,8 @@ import { useEffect } from 'react';
 import InputGroup from 'react-bootstrap/InputGroup';
 import Badge from 'react-bootstrap/Badge';
 import { useParams } from 'react-router-dom';
-
+import { Link } from "react-router-dom";
+import swal from "sweetalert";
 
 const theme = {
   bg: {
@@ -101,8 +100,9 @@ const card = {
 };
 
 function NewOrder() {
+
   const [employeeName, setEmployeeName] = useState('');
-  const [maintenanceType, setMaintenanceType] = useState('');
+  const [maintenanceType, setMaintenanceType] = useState('Interno');
   const [serviceType, setServiceType] = useState('');
   const [maintenanceDate, setMaintenanceDate] = useState('');
 
@@ -111,14 +111,28 @@ function NewOrder() {
   const [department, setDepartment] = useState('');
   const [requestDescription, setRequestDescription] = useState('');
   const [status, setStatus] = useState('');
-  const [ID, setID] = useState('');
+  const [ID, setID] = useState(0);
 
 
   const { id } = useParams();
 
   const getData = async () => {
-    const response = await axios.get(`http://localhost/ITAFrontEndWeb/public/api/maintenance_show/${id}`)
-    const response2 = await axios.get('http://localhost/ITAFrontEndWeb/public/api/personalData_show/' + response.data.personaldata_id)
+    const response = await axios.get(`/ITABackEnd/public/api/maintenance_show/${id}`,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
+    const response2 = await axios.get('/ITABackEnd/public/api/personalData_show/' + response.data.personaldata_id,
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
 
     console.log(response, response2)
     setID(response.data.id)
@@ -136,21 +150,36 @@ function NewOrder() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const formData = new FormData();
-
-    formData.append('employeeName', employeeName)
-    formData.append('maintenanceType', maintenanceType)
-    formData.append('serviceType', serviceType)
-    formData.append('maintenanceDate', maintenanceDate)
-
-
-    axios.post('http://localhost/ITAFrontEndWeb/public/api/personalData_store', formData, {
+    axios.post('http://localhost/ITABackEnd/public/api/workorder_newOrder', {
+      maintenancerequest_id: ID, employeeName: employeeName,
+      maintenanceType: maintenanceType, serviceType: serviceType, maintenanceDate: maintenanceDate
+    }, {
       headers: {
-        'Content-Type': 'multipart/form-data', 'Accept': 'application/json'
+
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${localStorage.getItem('user-info')}`
       }
     })
+      .then((response) => {
+        console.log(response);
+        swal({
+          title: "Guardado",
+          text: "Añadido exitosamente",
+          icon: "success",
+          buttons: false,
+          timer: 2000
+        }).then(() => {
+          window.location.href = 'http://localhost/ITABackEnd/public/activeRequest';
+        });
+      })
       .catch((error) => {
         console.log(error);
+        swal({
+          titlle: "Error al enviar",
+          text: "Revisar la información que sea correcta",
+          icon: "error",
+          buttons: "Aceptar"
+        })
       });
   }
 
@@ -187,14 +216,14 @@ function NewOrder() {
           <Form.Group className='row mb-3'>
             <Form.Label className='col-4'>Tipo de mantenimiento</Form.Label>
             <Col>
-              <Form.Control className='col-8' value={"Interno"} type='text' placeholder='Rol' onChange={(e) => setMaintenanceType(e.target.value)} disabled readOnly />
+              <Form.Control className='col-8' value={"Interno"} type='text' placeholder='Rol' disabled readOnly />
             </Col>
 
             <Form.Label className='col'>Tipo de servicio</Form.Label>
             <Col>
               <Form.Select className='col-8 mb-3' type='text' placeholder='Rol' onChange={(e) => setServiceType(e.target.value)} >
                 <option>Servicio</option>
-                <option value={'Eléctico'}>Eléctrico</option>
+                <option value={'Eléctrico'}>Eléctrico</option>
                 <option value={'Plomería'}>Plomería</option>
                 <option value={'Herrería'}>Herrería</option>
                 <option value={'Pintura'}>Pintura</option>
@@ -215,7 +244,7 @@ function NewOrder() {
                 <label>ID</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '100%' }} value={ID} type='text' placeholder='Rol' disabled readOnly />
+                <Form.Control style={{ width: '100%' }} value={ID} type='text' placeholder='ID' />
               </Col>
               <Col sm>
                 <label >Fecha de mantenimiento</label>
@@ -264,10 +293,10 @@ function NewOrder() {
 
             <Form.Group className="row">
               <Col>
-                <Link className="btn btn-danger" to={`http://localhost/ITAFrontEndWeb/public/newOrder/${active.id}`}>Cancelar</Link>
+                <Link className="btn btn-danger" to={'http://localhost/ITABackEnd/public/activeRequest'}>Regresar</Link>
               </Col>
               <Col>
-                <Button>Aceptar</Button>
+                <Button type="submit" className="btn btn-submit">Aceptar</Button>
               </Col>
             </Form.Group>
 

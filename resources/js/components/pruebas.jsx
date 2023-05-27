@@ -107,7 +107,7 @@ function pruebas(){
   const handleShow2 = () => setShow2(true);
 
   const postData = async () =>{
-    const response = await axios.post('http://localhost/ITAFrontEndWeb/public/api/workorder_store');
+    const response = await axios.post('http://localhost/ITABackEnd/public/api/workorder_store');
 
     setMaintenanceType(response.data.maintenanceType)
     setServiceType(response.data.serviceType)
