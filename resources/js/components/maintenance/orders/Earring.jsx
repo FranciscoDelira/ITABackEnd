@@ -25,7 +25,7 @@ const Earring = () => {
     }, [])
 
     const getAllEarrings = async () => {
-        const response = await axios.get('http://localhost/ITABackEnd/public/api/maintenance_showEarring',
+        const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showEarring',
         {
             headers: {
               'Content-Type': 'multipart/form-data',

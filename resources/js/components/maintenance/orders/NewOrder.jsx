@@ -101,23 +101,31 @@ const card = {
 
 function NewOrder() {
 
-  const [employeeName, setEmployeeName] = useState('');
-  const [maintenanceType, setMaintenanceType] = useState('Interno');
-  const [serviceType, setServiceType] = useState('');
-  const [maintenanceDate, setMaintenanceDate] = useState('');
 
-  const [name, setName] = useState('');
-  const [signature, setSignature] = useState('');
-  const [department, setDepartment] = useState('');
-  const [requestDescription, setRequestDescription] = useState('');
-  const [status, setStatus] = useState('');
-  const [ID, setID] = useState(0);
+  const [maintenanceType, setMaintenanceType] = useState('Interno'); //Interno se mantiene constante para el tipo de mantenimiento, se muestra y guarda
+  const [serviceType, setServiceType] = useState(''); //Para mostrar y guardar el tipo de servicio
+  const [maintenanceDate, setMaintenanceDate] = useState(''); //Para mostrar y guardar la fecha de mantenimiento asignada
+
+  const [maintenancePersons, setMaintenancePersons] = useState([]); //Mostrar los nombres de los empleados de mantenimiento desde el select
+  const [employeeID, setEmployeeID] = useState(''); //Para guardar el nombre del empleado de mantenimiento
+
+  const [name, setName] = useState(''); //Para mostrar el nombre del solicitante
+  const [lastname, setLastName] = useState(''); //Para mostrar los apelldios del solicitante
+  const [area, setArea] = useState(''); //Para mostrar el área del solicitante
+  const [role, setRole] = useState(''); //Para mostrar el rol del solicitante
+  const [signature, setSignature] = useState(''); //Para mostrar la firma del solicitante
+
+  const [department, setDepartment] = useState(''); //Para mostrar el departemento de la solicitud 
+  const [requestDescription, setRequestDescription] = useState(''); // Para mostrar la descripción de la solicitud
+  const [status, setStatus] = useState(''); //Para mostrar el estado de la solicitud
+  const [ID, setID] = useState(0); //Para mostrar el ID de la solicitud
+  const [requestDate, setRequestDate] = useState(''); //Para mostrar la fecha de la solcitud
 
 
   const { id } = useParams();
 
   const getData = async () => {
-    const response = await axios.get(`/ITABackEnd/public/api/maintenance_show/${id}`,
+    const response = await axios.get(`/ITABackEnd/public/api/maintenance_show/${id}`, //Obtener datos de la solicitud
       {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -125,7 +133,7 @@ function NewOrder() {
           'Authorization': `Bearer ${localStorage.getItem('user-info')}`
         }
       })
-    const response2 = await axios.get('/ITABackEnd/public/api/personalData_show/' + response.data.personaldata_id,
+    const response2 = await axios.get('/ITABackEnd/public/api/personalData_show/' + response.data.personaldata_id, //Obtener datos personales
       {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -134,13 +142,42 @@ function NewOrder() {
         }
       })
 
-    console.log(response, response2)
-    setID(response.data.id)
-    setName(response2.data.name)
-    setDepartment(response.data.department)
-    setSignature(response2.data.signature)
-    setRequestDescription(response.data.requestDescription)
-    setStatus(response.data.status)
+    const response3 = await axios.get('/ITABackEnd/public/api/user_show/' + response.data.personaldata_id, //Obtener datos del usuario
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
+
+    const response4 = await axios.get('/ITABackEnd/public/api/personalData_showMaintenancePerson/', //Obtener datos de personas de mantenimiento
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+        }
+      })
+
+    console.log(response, response2, response3, response4)
+    setID(response.data.id) //ID - solicitud de mantenimiento
+    setDepartment(response.data.department) //Departamento - solicitud de mantenimiento
+    setRequestDescription(response.data.requestDescription) // Descripción de la solicitud - solicitud de mantenimiento
+    setStatus(response.data.status) //Estado - solicitud de mantenimiento
+    setRequestDate(response.data.requestDate) //Fecha de solicitud - solicitud de mantenimiento
+
+    setName(response2.data.name) //Nombre - solicitante
+    setLastName(response2.data.lastname) //Apellidos - solicitante
+    setArea(response2.data.area) //Área - solicitante
+    setSignature(response2.data.signature) //Firma - solicitante
+
+    setRole(response3.data.role)// Rol - solicitante
+
+    setMaintenancePersons(response4.data) //Nombre - info personal
+
+
+
   }
 
   useEffect(() => {
@@ -150,8 +187,8 @@ function NewOrder() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    axios.post('http://localhost/ITABackEnd/public/api/workorder_newOrder', {
-      maintenancerequest_id: ID, employeeName: employeeName,
+    axios.post('http://localhost/ITABackEnd/public/api/workorder_newOrder', { //Para guardar los datos de la nueva orden
+      maintenancerequest_id: ID, personaldata_id: employeeID,
       maintenanceType: maintenanceType, serviceType: serviceType, maintenanceDate: maintenanceDate
     }, {
       headers: {
@@ -207,9 +244,23 @@ function NewOrder() {
           <Form.Label className='mb-3' style={{ fontWeight: 'bold' }}>Datos para la orden de trabajo</Form.Label>
 
           <Form.Group className='row mb-3'>
+            <Col sm>
+              <Form.Label className='col-10'>Fecha de mantenimiento</Form.Label>
+            </Col>
+            <Col sm>
+              <Form.Control style={{ width: '85%' }} type="date" name="dob" onChange={(e) => setMaintenanceDate(e.target.value)} />
+            </Col>
             <Form.Label className='col-4'>Nombre del empleado</Form.Label>
             <Col>
-              <Form.Control className='col-8' onChange={(e) => setEmployeeName(e.target.value)} />
+              {/* <Form.Control className='col-8' onChange={(e) => setEmployeeName(e.target.value)} /> */}
+
+              <Form.Select className='col-8' onChange={(e) => setEmployeeID(e.target.value)}>
+                <option>Seleccione empleado</option>
+                {maintenancePersons.map(maintenancePerson => (
+                  <option key={maintenancePerson.id} value={maintenancePerson.id}>{maintenancePerson.name}</option>
+                ))}
+              </Form.Select>
+
             </Col>
           </Form.Group>
 
@@ -234,6 +285,42 @@ function NewOrder() {
           </Form.Group>
 
           <Row className="mb-3">
+            <Form.Label style={{ fontWeight: 'bold' }}>Datos del solicitante</Form.Label>
+          </Row>
+
+          <Form.Group className='row mb-3' style={{ display: "flex", flexlDirection: "", justifyContent: "center", alignItems: "center" }}>
+            <Row className='mb-3'>
+              <Col sm>
+                <label>Nombre</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '100%' }} value={name} type='text' disabled readOnly />
+              </Col>
+              <Col sm>
+                <label >Apellidos</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '85%' }} value={lastname} type='text' disabled readOnly />
+              </Col>
+            </Row>
+
+            <Row className='mb-3'>
+              <Col sm>
+                <label>Área</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '100%' }} value={area} type='text' disabled readOnly />
+              </Col>
+              <Col sm>
+                <label >Rol</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '85%' }} value={role} type='text' disabled readOnly />
+              </Col>
+            </Row>
+          </Form.Group>
+
+          <Row className="mb-3">
             <Form.Label style={{ fontWeight: 'bold' }}>Datos de la solicitud de mantenimiento</Form.Label>
           </Row>
 
@@ -241,31 +328,31 @@ function NewOrder() {
 
             <Row className='mb-3'>
               <Col sm>
-                <label>ID</label>
+                <label>ID de la solicitud</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '100%' }} value={ID} type='text' placeholder='ID' />
+                <Form.Control style={{ width: '100%' }} value={ID} type='text' placeholder='ID' disabled />
               </Col>
               <Col sm>
-                <label >Fecha de mantenimiento</label>
+                <label >Fecha de solicitud</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '85%' }} type="date" name="dob" onChange={(e) => setMaintenanceDate(e.target.value)} />
+                <Form.Control style={{ width: '85%' }} value={requestDate} type="text" name="dob" placeholder='Fecha' disabled />
               </Col>
             </Row>
 
             <Row className='mb-3'>
               <Col sm>
-                <label>Solicitante</label>
-              </Col>
-              <Col sm>
-                <Form.Control style={{ width: '100%' }} value={name} type='text' disabled readOnly />
-              </Col>
-              <Col sm>
                 <label >Departamento</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '85%' }} value={department} type='text' disabled readOnly />
+                <Form.Control style={{ width: '100%' }} value={department} type='text' disabled readOnly />
+              </Col>
+              <Col sm>
+                <label >Estatus</label>
+              </Col>
+              <Col sm>
+                <Form.Control style={{ width: '85%' }} value={status} type='text' disabled readOnly />
               </Col>
             </Row>
 
@@ -281,14 +368,9 @@ function NewOrder() {
                 <label>Firma del solicitante</label>
               </Col>
               <Col sm>
-                <img src={signature} alt="signature" width={100} height={100} />
+                <img src={`http://localhost/ITABackEnd/public/${signature}`} alt="signature" width={100} height={100} />
               </Col>
-              <Col sm>
-                <label >Estatus</label>
-              </Col>
-              <Col sm>
-                <Form.Control style={{ width: '85%' }} value={status} type='text' disabled readOnly />
-              </Col>
+
             </Row>
 
             <Form.Group className="row">

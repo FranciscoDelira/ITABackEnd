@@ -356,4 +356,17 @@ class PersonalDataController extends Controller
         $data->plantel=$request->plantel;
         $data->save();
     }
+
+    public function showMaintenancePerson()
+    {
+
+        $data = PersonalData::join('users', 'users.personaldata_id', '=', 'personaldatas.id')
+        ->where('users.role', 'Mantenimiento')
+        ->get([
+            'personaldatas.name', 
+            'personaldatas.lastname',
+            ]);
+        return $data;
+    }
+
 }

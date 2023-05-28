@@ -12,4 +12,8 @@ class Workorder extends Model
     public function Maintenancerequest(){
         return $this->belongsTo(Maintenancerequest::class);
     }
+
+    public function personalData(){
+        return $this->belongsTo(PersonalData::class);
+    }
 }

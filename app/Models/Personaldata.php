@@ -16,4 +16,8 @@ class Personaldata extends Model
     public function maintenancerequest(){
         return $this->hasMany(Maintenancerequest::class);
     }
+
+    public function workorder(){
+        return $this->hasMany(Workorder::class);
+    }
 }

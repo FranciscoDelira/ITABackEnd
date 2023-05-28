@@ -384,12 +384,33 @@ class WorkOrderController extends Controller
     return $workorders;
 }*/
 
+    public function showEarring()
+    {
+        $workorder = WorkOrder::
+        join('personaldatas', 'personaldatas.id', '=', 'workorders.personaldata_id')
+        ->join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
+        ->where('workorders.released', '0')
+        ->where('workorders.approved', '0')
+        ->get([
+            'maintenancerequests.id', 
+            'maintenancerequests.requestDate', 
+            'personaldatas.area',
+            'personaldatas.name', 
+            'maintenancerequests.requestDescription', 
+            'maintenancerequests.evidence1', 
+            'maintenancerequests.evidence2', 
+            'maintenancerequests.evidence3', 
+            'maintenancerequests.status'
+    ]);
+        return $workorder;
+    }
+
     public function newOrder(Request $request){
 
         $rules = [
             'maintenanceType' => 'required|in:Interno',
             'serviceType' => 'in:Eléctrico,Plomería,Herrería,Pintura,Obra Civil,Otro',
-            'employeeName' => 'required|string|max:255|min:3',
+            'personaldata_id' => 'required|exists:personaldatas,id',
             'maintenanceDate' => 'nullable|date',
             'maintenancerequest_id' => 'required|exists:maintenancerequests,id',
         ];
@@ -413,7 +434,7 @@ class WorkOrderController extends Controller
         $workorder = new WorkOrder;
         $workorder->maintenanceType=$request->maintenanceType;
         $workorder->serviceType=$request->serviceType;
-        $workorder->employeeName=$request->employeeName;
+        $workorder->personaldata_id=$request->personaldata_id;
         $workorder->maintenanceDate=$request->maintenanceDate;
         $workorder->maintenancerequest_id=$request->maintenancerequest_id;
         $workorder->save();

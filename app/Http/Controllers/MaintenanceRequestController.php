@@ -177,7 +177,7 @@ class MaintenanceRequestController extends Controller
     
     
 
-    public function showEarring()
+    /*public function showEarring()
     {
         $maintenance = Maintenancerequest::join(
             'personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id'
@@ -195,7 +195,7 @@ class MaintenanceRequestController extends Controller
             'maintenancerequests.status'
     ]);
         return $maintenance;
-    }
+    }*/
 
     public function showActiveRequest()
     {

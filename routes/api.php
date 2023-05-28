@@ -43,6 +43,8 @@ Route::post('/login', [UserController::class, 'login']);
 Route::post('/personalData_registerPersonalUser',[PersonalDataController::class, 'registerPersonalUser']);
 Route::post('/user_register',[UserController::class, 'register']);
 
+Route::post('/maintenance_store',[MaintenanceRequestController::class, 'store']);
+
 Route::middleware('auth:api') ->group(function(){
 
 //PERSONAL DATA
@@ -53,6 +55,7 @@ Route::get('/personalData_show/{id}',[PersonalDataController::class, 'show']);
 Route::get('/personalData_index',[PersonalDataController::class, 'index']);
 
 Route::post('/personalData_updateProfile/{id}',[PersonalDataController::class,'updateProfile']);
+Route::get('/personalData_showMaintenancePerson',[PersonalDataController::class, 'showMaintenancePerson']);
 
 //User
 
@@ -65,11 +68,11 @@ Route::get('/user_authProfile',[UserController::class, 'authProfile']);
 
 //Maintenance Request
 Route::get('/maintenance_index',[MaintenanceRequestController::class, 'index']);
-Route::post('/maintenance_store',[MaintenanceRequestController::class, 'store']);
+
 Route::get('/maintenance_show/{id}',[MaintenanceRequestController::class, 'show']);
 Route::post('/maintenance_update/{id}',[MaintenanceRequestController::class,'update']);
 Route::delete('/maintenance_destroy/{id}',[MaintenanceRequestController::class, 'destroy']);
-Route::get('/maintenance_showEarring',[MaintenanceRequestController::class, 'showEarring']);
+
 Route::get('/maintenance_showRelease',[MaintenanceRequestController::class, 'showRelease']);
 Route::get('/maintenance_showActiveRequest',[MaintenanceRequestController::class, 'showActiveRequest']);
 
@@ -84,5 +87,6 @@ Route::get('/workorder_showRequestHistory',[WorkOrderController::class, 'showReq
 Route::get('/workorder_showRelease',[WorkOrderController::class, 'showRelease']);
 Route::post('/workorder_newOrder',[WorkOrderController::class, 'newOrder']);
 Route::post('/workorder_approvedOrder',[WorkOrderController::class, 'approvedOrder']);
+Route::get('/workorder_showEarring',[WorkOrderController::class, 'showEarring']);
 
 });
