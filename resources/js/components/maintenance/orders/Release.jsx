@@ -128,7 +128,7 @@ const Release = () => {
                             <td> {release.id} </td>
                             <td> {release.maintenanceType} </td>
                             <td> {release.serviceType} </td>
-                            <td> {release.employeeName} </td>
+                            <td> {release.name} </td>
                             <td> {release.maintenanceDate} </td>
                             <td> {release.jobDescription} </td>
                             <td> <img src={release.evidence1} alt="signature" width={100} height={100} /> </td>
