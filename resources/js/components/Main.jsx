@@ -45,19 +45,22 @@ function Main() {
             <Route path="ITABackEnd/public/" element={<Login />} >
                 <Route path="login" element={<Login />} />
             </Route>
-            
+
             <Route element={<PrivateRoute canActivate={user}
                 redirectPath="ITABackEnd/public/login" />}>
                 <Route path="ITABackEnd/public/" element={<Menu />} >
 
                     <Route path="home" element={<Home />} />
+
                     <Route path="activeRequest" element={<ActiveRequests />} />
                     <Route path="requestHistory" element={<RequestHistory />} />
+
                     <Route path="earring" element={<Earring />} />
                     <Route path="release" element={<Release />} />
                     <Route path="approved" element={<Approved />} />
                     <Route path="approveOrder" element={<ApproveOrder />} />
                     <Route path="newOrder/:id" element={<NewOrder />} />
+                    
                     <Route path="profile" element={<Profile />} />
                     <Route path="editProfile" element={<EditProfile />} />
                     <Route path="register" element={<Register />} />

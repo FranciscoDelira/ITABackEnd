@@ -112,7 +112,7 @@ const ActiveRequests = () => {
                             <td> {active.name} </td>
                             <td> {active.department} </td>
                             <td> {active.requestDescription} </td>
-                            <td> <img src="https://localhost/ITABackEnd/storage/app/${active.evidence2}" alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={active.evidence2} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={active.evidence3} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={active.signature} alt="signature" width={100} height={100} /> </td>

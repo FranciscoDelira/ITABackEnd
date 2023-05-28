@@ -437,6 +437,8 @@ class WorkOrderController extends Controller
         $workorder->personaldata_id=$request->personaldata_id;
         $workorder->maintenanceDate=$request->maintenanceDate;
         $workorder->maintenancerequest_id=$request->maintenancerequest_id;
+        $workorder->approved = 0;
+        $workorder->released = 0;
         $workorder->save();
 
     }
