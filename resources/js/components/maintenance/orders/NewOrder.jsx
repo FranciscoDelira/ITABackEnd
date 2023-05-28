@@ -107,7 +107,7 @@ function NewOrder() {
   const [maintenanceDate, setMaintenanceDate] = useState(''); //Para mostrar y guardar la fecha de mantenimiento asignada
 
   const [maintenancePersons, setMaintenancePersons] = useState([]); //Mostrar los nombres de los empleados de mantenimiento desde el select
-  const [employeeID, setEmployeeID] = useState(''); //Para guardar el nombre del empleado de mantenimiento
+  const [employeeID, setEmployeeID] = useState(0); //Para guardar el ID del empleado de mantenimiento
 
   const [name, setName] = useState(''); //Para mostrar el nombre del solicitante
   const [lastname, setLastName] = useState(''); //Para mostrar los apelldios del solicitante
@@ -211,6 +211,7 @@ function NewOrder() {
       })
       .catch((error) => {
         console.log(error);
+        console.log(employeeID);
         swal({
           titlle: "Error al enviar",
           text: "Revisar la información que sea correcta",
@@ -258,6 +259,7 @@ function NewOrder() {
                 <option>Seleccione empleado</option>
                 {maintenancePersons.map(maintenancePerson => (
                   <option key={maintenancePerson.id} value={maintenancePerson.id}>{maintenancePerson.name}</option>
+                
                 ))}
               </Form.Select>
 
@@ -294,13 +296,13 @@ function NewOrder() {
                 <label>Nombre</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '100%' }} value={name} type='text' disabled readOnly />
+                <Form.Control style={{ width: '100%' }} value={name} placeholder='Nombre' type='text' disabled readOnly />
               </Col>
               <Col sm>
                 <label >Apellidos</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '85%' }} value={lastname} type='text' disabled readOnly />
+                <Form.Control style={{ width: '85%' }} value={lastname} placeholder='Apellidos' type='text' disabled readOnly />
               </Col>
             </Row>
 
@@ -309,13 +311,13 @@ function NewOrder() {
                 <label>Área</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '100%' }} value={area} type='text' disabled readOnly />
+                <Form.Control style={{ width: '100%' }} value={area} placeholder='Área' type='text' disabled readOnly />
               </Col>
               <Col sm>
                 <label >Rol</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '85%' }} value={role} type='text' disabled readOnly />
+                <Form.Control style={{ width: '85%' }} value={role} placeholder='Rol' type='text' disabled readOnly />
               </Col>
             </Row>
           </Form.Group>
@@ -346,20 +348,20 @@ function NewOrder() {
                 <label >Departamento</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '100%' }} value={department} type='text' disabled readOnly />
+                <Form.Control style={{ width: '100%' }} value={department} placeholder='Departamento' type='text' disabled readOnly />
               </Col>
               <Col sm>
                 <label >Estatus</label>
               </Col>
               <Col sm>
-                <Form.Control style={{ width: '85%' }} value={status} type='text' disabled readOnly />
+                <Form.Control style={{ width: '85%' }} value={status} placeholder='Estatus' type='text' disabled readOnly />
               </Col>
             </Row>
 
             <Row className='mb-4'>
               <Col sm>
                 <label>Descripción de la solicitud</label>
-                <Form.Control rows={3} style={{ width: '100%' }} value={requestDescription} as='textarea' disabled readOnly />
+                <Form.Control rows={3} style={{ width: '100%' }} value={requestDescription} placeholder='Descripción de la solicitud' as='textarea' disabled readOnly />
               </Col>
             </Row>
 

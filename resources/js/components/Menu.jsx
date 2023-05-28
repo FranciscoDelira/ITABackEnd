@@ -27,15 +27,15 @@ function Menu() {
                 <Nav.Link as={Link} to='http://localhost/ITABackEnd/public/home'>Inicio</Nav.Link>
                 <NavDropdown title="Solicitudes" id="collasible-nav-dropdown">
                   <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/activeRequest'>Solicitudes activas</NavDropdown.Item>
-                  <NavDropdown.Item href="requestHistory">Historial de solicitudes</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/requestHistory'>Historial de solicitudes</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Órdenes" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="earring">Pendientes</NavDropdown.Item>
-                  <NavDropdown.Item href="release">Liberadas</NavDropdown.Item>
-                  <NavDropdown.Item href="approved">Aprobadas</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/earring'>Pendientes</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/release'>Liberadas</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/approved'>Aprobadas</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Usuarios" id="collasible-nav-dropdown">
-                  <NavDropdown.Item href="register">Crear nuevo usuario</NavDropdown.Item>
+                  <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/register'>Crear nuevo usuario</NavDropdown.Item>
                 </NavDropdown>
               </Nav>
               <Nav>

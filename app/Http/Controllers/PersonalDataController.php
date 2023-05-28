@@ -365,6 +365,7 @@ class PersonalDataController extends Controller
         ->get([
             'personaldatas.name', 
             'personaldatas.lastname',
+            'personaldatas.id'
             ]);
         return $data;
     }

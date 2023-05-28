@@ -1,11 +1,16 @@
-import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
 
-const PrivateRoute = ({ component:Component, ...rest }) => {
+const PrivateRoute = ({
+    canActivate = localStorage.getItem('user-info'),
+    redirectPath = '/'
+}) => {
+    if (!canActivate) {
 
-    return(
-        localStorage.getItem('user-info')? <Outlet/>:<Navigate to = "Login"/>
-    );
-};
+        return <Navigate to={redirectPath} repleace />
+    }
+    return <Outlet />;
+}
+
+
 export default PrivateRoute;
