@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\Personaldata;
+use App\Http\Controllers\PersonalDataController;
 use Illuminate\Support\Facades\Validator; //Import the Validator class
 
 
@@ -148,9 +150,12 @@ class UserController extends Controller
 
     
         if(auth()->attempt($credentials)){
+            $user = auth()->user();//Obtener el usuario autenticado
+            $personaldata_id = $user->Personaldata->id; //Obtener el ID de personaldatas asociado al usuario
+            $id = $user->id;
             $token=auth()->user()->createToken('LaravelAuthApp')->accessToken;
             //return response()->json(['token'=>$token, 'status'=>200,'user'=>auth()->user()]); SE QUITO ESTE
-            return [$token, auth()->user()];
+            return [$token, auth()->user(),'status'=>200,'user'=>auth()->user(),'personaldata_id'=>$personaldata_id, 'id' => $user->id];
         }else{
             return response()->json(['error' => 'Unauthorised','status'=>401], 401);
         }
