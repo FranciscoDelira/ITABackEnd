@@ -131,9 +131,9 @@ const Release = () => {
                             <td> {release.name} </td>
                             <td> {release.maintenanceDate} </td>
                             <td> {release.jobDescription} </td>
-                            <td> <img src={release.evidence1} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={release.evidence2} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={release.evidence3} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence1}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence2}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> {release.status} </td>
                             <td>
                                 {/*<Link

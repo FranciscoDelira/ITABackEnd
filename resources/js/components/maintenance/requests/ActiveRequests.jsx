@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import { Link } from "react-router-dom";
+import ReactDOM from 'react-dom';
 
 const ActiveRequests = () => {
     function testClickEvent(param) {
@@ -112,10 +113,10 @@ const ActiveRequests = () => {
                             <td> {active.name} </td>
                             <td> {active.department} </td>
                             <td> {active.requestDescription} </td>
-                            <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence2}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence3}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={active.signature} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence2}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence3}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/public/${active.signature}`} alt="signature" width={100} height={100} /> </td>
                             <td> {active.status} </td>
                             <td>
                                 <Link

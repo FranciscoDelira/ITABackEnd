@@ -9,6 +9,7 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
+import ReactDOM from 'react-dom';
 
 const RequestHistory = () => {
     function testClickEvent(param) {
@@ -113,9 +114,9 @@ const RequestHistory = () => {
                             <td> {requestHistory.requestDescription} </td>
                             <td> {requestHistory.releasedDate} </td>
                             <td> {requestHistory.dateApproved} </td>
-                            <td> <img src={requestHistory.evidence1} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={requestHistory.evidence2} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={requestHistory.evidence3} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence1}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence2}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> {requestHistory.status} </td>
                             <td>
                                 <button

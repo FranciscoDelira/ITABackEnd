@@ -135,7 +135,7 @@ function ApproveOrder() {
             })
 
         console.log(response, response2)
-        
+
 
         setApproversName(response2.data.name)
         setID(response3.data.id)
@@ -193,6 +193,13 @@ function ApproveOrder() {
                         <Form.Label className='mb-3' style={{ fontWeight: 'bold' }}>Aprobar orden</Form.Label>
 
                         <Form.Group className='row mb-3'>
+                            <Form.Label className='col-4'>ID de la orden</Form.Label>
+                            <Col>
+                                <Form.Control value={ID} className='col-8' onChange={(e) => setID(e.target.value)} disabled />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group className='row mb-3'>
                             <Form.Label className='col-4'>Nombre del que aprueba</Form.Label>
                             <Col>
                                 <Form.Control value={approversName} className='col-8' onChange={(e) => setApproversName(e.target.value)} disabled />
@@ -208,7 +215,7 @@ function ApproveOrder() {
 
                         <Form.Group className="row">
                             <Col>
-                                <Link className="btn btn-danger" to={'http://localhost/ITABackEnd/public/approved'}>Regresar</Link>
+                                <Link className="btn btn-danger" to={'http://localhost/ITABackEnd/public/earring'}>Regresar</Link>
                             </Col>
                             <Col>
                                 <Button type="submit" className="btn btn-submit">Aceptar</Button>

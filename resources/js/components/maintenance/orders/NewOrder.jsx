@@ -370,7 +370,7 @@ function NewOrder() {
                 <label>Firma del solicitante</label>
               </Col>
               <Col sm>
-                <img src={`http://localhost/ITABackEnd/public/${signature}`} alt="signature" width={100} height={100} />
+                <img src={`/ITABackEnd/public/${signature}`} alt="signature" width={100} height={100} />
               </Col>
 
             </Row>

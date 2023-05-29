@@ -123,9 +123,9 @@ const Earring = () => {
                             <td> {earring.area} </td>
                             <td> {earring.name} </td>
                             <td> {earring.requestDescription} </td>
-                            <td> <img src={earring.evidence1} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={earring.evidence2} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={earring.evidence3} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence1}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence2}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> {earring.status} </td>
                             <td>
                                 <button

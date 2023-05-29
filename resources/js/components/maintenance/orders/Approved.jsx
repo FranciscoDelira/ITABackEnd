@@ -119,9 +119,9 @@ const Approved = () => {
                             <td> {approved.name} </td>
                             <td> {approved.requestDescription} </td>
                             <td> {approved.name} </td>
-                            <td> <img src={approved.evidence1} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={approved.evidence2} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={approved.evidence3} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} alt="signature" width={100} height={100}/> </td>
                             <td> Aprobado </td>
                             <td>
                                 
