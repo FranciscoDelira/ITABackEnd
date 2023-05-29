@@ -102,15 +102,6 @@ function Profile() {
       })
 
 
-    const response3 = await axios.get(`http://localhost/ITABackEnd/public/api/user_authProfle`,
-      {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-          'Accept': 'application/json',
-          'Authorization': `Bearer ${localStorage.getItem('user-info')}`
-        }
-      })
-
     //setID(response.data.id)
     setName(response.data.name)
     setLastName(response.data.lastname)

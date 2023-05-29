@@ -96,7 +96,6 @@ const RequestHistory = () => {
                         <th>Descripción</th>
                         <th>Fecha de liberación</th>
                         <th>Fecha de aprobación</th>
-                        <th>Trabajo realizado por</th>
                         <th>Evidencia del empleado 1</th>
                         <th>Evidencia del empleado 2</th>
                         <th>Evidencia del empleado 3</th>
@@ -114,7 +113,6 @@ const RequestHistory = () => {
                             <td> {requestHistory.requestDescription} </td>
                             <td> {requestHistory.releasedDate} </td>
                             <td> {requestHistory.dateApproved} </td>
-                            <td> {requestHistory.employeeName} </td>
                             <td> <img src={requestHistory.evidence1} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={requestHistory.evidence2} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={requestHistory.evidence3} alt="signature" width={100} height={100} /> </td>

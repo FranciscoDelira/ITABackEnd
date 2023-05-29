@@ -58,7 +58,7 @@ function Main() {
                     <Route path="earring" element={<Earring />} />
                     <Route path="release" element={<Release />} />
                     <Route path="approved" element={<Approved />} />
-                    <Route path="approveOrder" element={<ApproveOrder />} />
+                    <Route path="approveOrder/:id" element={<ApproveOrder />} />
                     <Route path="newOrder/:id" element={<NewOrder />} />
                     
                     <Route path="profile" element={<Profile />} />

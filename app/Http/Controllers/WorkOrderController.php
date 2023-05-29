@@ -224,7 +224,7 @@ class WorkOrderController extends Controller
     {
         
     $workorder = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
-    ->where('maintenancerequests.status', '=', 'Liberada')
+    ->where('maintenancerequests.status', 'Liberada')
     
     ->update(['released' => 1]);    
 
@@ -249,7 +249,7 @@ class WorkOrderController extends Controller
     return $workorders;
     }
 
-    public function approvedOrder(Request $request, $id){
+    public function approvedOrder(Request $request){
         /*$workorder = WorkOrder::where('released', '=', '1')
         ->update([
             'workorders.dataApproved' => $request->dateApproved,
@@ -276,7 +276,8 @@ class WorkOrderController extends Controller
         }
 
         
-        $workorder=WorkOrder::findOrFail($id);
+        $workorde = new WorkOrder;
+        $workorder->id->$request->id;
         $workorder->approved=1;
         $workorder->approversName=$request->approversName;
         $workorder->dateApproved=$request->dateApproved;
@@ -308,8 +309,7 @@ class WorkOrderController extends Controller
     ]);*/
 
 
-    $workorders = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
-        ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
+    $workorders = WorkOrder::join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
         ->where('maintenancerequests.status', 'Liberada')
         ->get([
             'workorders.id',
@@ -317,7 +317,7 @@ class WorkOrderController extends Controller
             'personaldatas.area',
             'personaldatas.name',
             'maintenancerequests.requestDescription',
-            'workorders.employeeName',
+            'workorders.personaldatas.name',
             'workorders.evidence1',
             'workorders.evidence2',
             'workorders.evidence3'
@@ -340,7 +340,6 @@ class WorkOrderController extends Controller
             'maintenancerequests.requestDescription', 
             'workorders.releasedDate',
             'workorders.dateApproved',
-            'workorders.employeeName',
             'workorders.evidence1', 
             'workorders.evidence2', 
             'workorders.evidence3', 

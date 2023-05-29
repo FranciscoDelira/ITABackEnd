@@ -89,7 +89,7 @@ const ActiveRequests = () => {
             />
 
             <Table responsive>
-                <thead>
+            <thead>
                     <tr>
                         <th>ID</th>
                         <th>Fecha de solicitud</th>
@@ -113,8 +113,8 @@ const ActiveRequests = () => {
                             <td> {active.department} </td>
                             <td> {active.requestDescription} </td>
                             <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={active.evidence2} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={active.evidence3} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence2}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`https://localhost/ITABackEnd/storage/app/${active.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={active.signature} alt="signature" width={100} height={100} /> </td>
                             <td> {active.status} </td>
                             <td>

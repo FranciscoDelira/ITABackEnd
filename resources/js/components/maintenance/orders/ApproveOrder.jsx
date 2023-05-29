@@ -135,6 +135,7 @@ function ApproveOrder() {
             })
 
         console.log(response, response2)
+        
 
         setApproversName(response2.data.name)
         setID(response3.data.id)
@@ -150,8 +151,7 @@ function ApproveOrder() {
         e.preventDefault();
 
         axios.post('http://localhost/ITABackEnd/public/api/workorder_approvedOrder', {
-            id: ID, approversName: approversName,
-            dateApproved: dateApproved, serviceType: serviceType, maintenanceDate: maintenanceDate
+            id: ID, approversName: approversName, dateApproved: dateApproved
         }, {
             headers: {
 
@@ -168,7 +168,7 @@ function ApproveOrder() {
                     buttons: false,
                     timer: 2000
                 }).then(() => {
-                    window.location.href = 'http://localhost/ITABackEnd/public/activeRequest';
+                    window.location.href = 'http://localhost/ITABackEnd/public/approved';
                 });
             })
             .catch((error) => {
@@ -203,6 +203,15 @@ function ApproveOrder() {
                             <Form.Label className='col-4'>Fecha de aprobación</Form.Label>
                             <Col>
                                 <Form.Control className='col-8' type="date" name="dob" onChange={(e) => setDateApproved(e.target.value)} />
+                            </Col>
+                        </Form.Group>
+
+                        <Form.Group className="row">
+                            <Col>
+                                <Link className="btn btn-danger" to={'http://localhost/ITABackEnd/public/approved'}>Regresar</Link>
+                            </Col>
+                            <Col>
+                                <Button type="submit" className="btn btn-submit">Aceptar</Button>
                             </Col>
                         </Form.Group>
 

@@ -86,7 +86,7 @@ Route::get('/workorder_showApproved',[WorkOrderController::class, 'showApproved'
 Route::get('/workorder_showRequestHistory',[WorkOrderController::class, 'showRequestHistory']);
 Route::get('/workorder_showRelease',[WorkOrderController::class, 'showRelease']);
 Route::post('/workorder_newOrder',[WorkOrderController::class, 'newOrder']);
-Route::post('/workorder_approvedOrder',[WorkOrderController::class, 'approvedOrder']);
+Route::post('/workorder_approvedOrder/{id}',[WorkOrderController::class, 'approvedOrder']);
 Route::get('/workorder_showEarring',[WorkOrderController::class, 'showEarring']);
 
 });

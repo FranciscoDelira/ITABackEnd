@@ -143,7 +143,7 @@ const Release = () => {
                                     Aprobar
                                 </Link>*/}
                                 
-                                <Button as={Link} to='http://localhost/ITABackEnd/public/approveOrder' >
+                                <Button as={Link} to={`http://localhost/ITABackEnd/public/approveOrder/${release.id}`} >
                                     Aprobar
                                 </Button>
 

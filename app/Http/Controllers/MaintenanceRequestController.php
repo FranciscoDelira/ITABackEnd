@@ -199,7 +199,7 @@ class MaintenanceRequestController extends Controller
 
     public function showActiveRequest()
     {
-        $maintenance = Maintenancerequest::join(
+        /*$maintenance = Maintenancerequest::join(
             'personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id'
             )
         ->where('maintenancerequests.status', 'Pendiente')
@@ -215,8 +215,26 @@ class MaintenanceRequestController extends Controller
             'personaldatas.signature',
             'maintenancerequests.status'
             ]);
-        return $maintenance;
+        return $maintenance;*/
 
+        $maintenance = Maintenancerequest::join(
+            'personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id'
+            )
+        ->where('maintenancerequests.status', 'Pendiente')
+        ->where('maintenancerequests.id', '<>', 'workorders.maintenancerequest_id')
+        ->get([
+            'maintenancerequests.id', 
+            'maintenancerequests.requestDate', 
+            'personaldatas.name', 
+            'maintenancerequests.department', 
+            'maintenancerequests.requestDescription', 
+            'maintenancerequests.evidence1', 
+            'maintenancerequests.evidence2', 
+            'maintenancerequests.evidence3', 
+            'personaldatas.signature',
+            'maintenancerequests.status'
+            ]);
+        return $maintenance;
 
     }
 }
