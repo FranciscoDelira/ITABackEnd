@@ -6,7 +6,6 @@ import CreateNewOrder from '/src/IconsOrders/CreateNewOrder.png'
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
 import Nav from 'react-bootstrap/Nav';
-import Footer from './Footer';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 

@@ -42,7 +42,7 @@ class WorkOrderController extends Controller
         $rules = [
             'maintenanceType' => 'required|in:Interno,Externo',
             'serviceType' => 'in:Eléctrico,Plomería,Herrería,Pintura,Obra Civil,Otro',
-            'employeeName' => 'required|string|max:255|min:3',
+            'personaldata_id' => 'required|exists:personaldatas,id',
             'maintenanceDate' => 'nullable|date',
             'jobDescription' => 'nullable|string|min:3|max:255',
             'evidence1' => 'nullable|file|mimes:jpeg,png',
@@ -77,7 +77,7 @@ class WorkOrderController extends Controller
         $workorder = new WorkOrder;
         $workorder->maintenanceType=$request->maintenanceType;
         $workorder->serviceType=$request->serviceType;
-        $workorder->employeeName=$request->employeeName;
+        $workorder->personaldata_id=$request->personaldata_id;
         $workorder->maintenanceDate=$request->maintenanceDate;
         $workorder->jobDescription=$request->jobDescription;
         if(!empty($request->evidence1)){
@@ -142,7 +142,7 @@ class WorkOrderController extends Controller
         $rules = [
             'maintenanceType' => 'required|in:Interno,Externo',
             'serviceType' => 'in:Eléctrico,Plomería,Herrería,Pintura,Obra Civil,Otro',
-            'employeeName' => 'required|string|max:255|min:3',
+            'personaldata_id' => 'required|exists:personaldatas,id',
             'maintenanceDate' => 'nullable|date',
             'jobDescription' => 'nullable|string|min:3|max:255',
             'evidence1' => 'nullable|file|mimes:jpeg,png',
@@ -178,7 +178,7 @@ class WorkOrderController extends Controller
         $workorder=WorkOrder::findOrFail($id);
         $workorder->maintenanceType=$workorder->maintenanceType;
         $workorder->serviceType=$request->serviceType;
-        $workorder->employeeName=$workorder->employeeName;
+        $workorder->personaldata_id=$request->personaldata_id;
         $workorder->maintenanceDate=$request->maintenanceDate;
         $workorder->jobDescription=$request->jobDescription;
         if(!empty($request->evidence1)){
