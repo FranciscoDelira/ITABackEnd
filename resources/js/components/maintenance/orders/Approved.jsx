@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 
 import axios from "axios";
 
@@ -124,13 +125,16 @@ const Approved = () => {
                             <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} alt="signature" width={100} height={100}/> </td>
                             <td> Aprobado </td>
                             <td>
-                                
-                                <button
-                                    onClick={() => deleteApproveds(approved.id)}
-                                    className="btn btn-danger"
-                                >
-                                    Eliminar
-                                </button>
+                                <Stack direction='horizontal'>
+                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/summaryOrder/${approved.id}`} >
+                                        Resumen
+                                    </Button>
+                                    <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
+                                        onClick={() => deleteApproveds(approved.id)}
+                                    >
+                                        Eliminar
+                                    </Button>
+                                </Stack>
                             </td>
                         </tr>
                     ))}

@@ -16,6 +16,7 @@ import Release from "./maintenance/orders/Release";
 import Approved from "./maintenance/orders/Approved";
 import NewOrder from "./maintenance/orders/NewOrder";
 import ApproveOrder from "./maintenance/orders/ApproveOrder";
+import SummaryOrder from "./maintenance/orders/SummaryOrder";
 
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
@@ -60,6 +61,7 @@ function Main() {
                     <Route path="approved" element={<Approved />} />
                     <Route path="approveOrder/:id" element={<ApproveOrder />} />
                     <Route path="newOrder/:id" element={<NewOrder />} />
+                    <Route path="summaryOrder/:id" element={<SummaryOrder />}/>
                     
                     <Route path="profile" element={<Profile />} />
                     <Route path="editProfile" element={<EditProfile />} />

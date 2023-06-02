@@ -37,8 +37,6 @@ const Release = () => {
                 show[index].setAttribute('hidden', 'True')
             }
             
-            
-
         }
     }
 
