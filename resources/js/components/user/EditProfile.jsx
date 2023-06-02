@@ -94,6 +94,7 @@ function EditProfile() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signature, setSignature] = useState('');
+  const [id, setID] = useState(0);  
 
   const getData = async () => {
     const response = await axios.get('http://localhost/ITABackEnd/public/api/user_show/' + localStorage.getItem('user-id'),
@@ -104,7 +105,7 @@ function EditProfile() {
           'Authorization': `Bearer ${localStorage.getItem('user-info')}`
         }
       })//id del usuario en sesion
-    const responseTwo = await axios.get('http://localhost/ITABackEnd/public/api/personalData_show/' + response.data.personaldata_id,
+    const response2 = await axios.get('http://localhost/ITABackEnd/public/api/personalData_show/' + response.data.personaldata_id,
       {
         headers: {
           'Content-Type': 'multipart/form-data',
@@ -112,20 +113,22 @@ function EditProfile() {
           'Authorization': `Bearer ${localStorage.getItem('user-info')}`
         }
       })
-    console.log(response, responseTwo)
+    console.log(response, response2)
+    setID(response2.data.id)
     setEmail(response.data.email)
     setPassword(response.data.password)
     setRole(response.data.role)
 
-    setName(responseTwo.data.name)
-    setLastName(responseTwo.data.lastname)
-    setArea(responseTwo.data.area)
-    setPlantel(responseTwo.data.plantel)
-    setSignature(responseTwo.data.signature)
+    setName(response2.data.name)
+    setLastName(response2.data.lastname)
+    setArea(response2.data.area)
+    setPlantel(response2.data.plantel)
+    setSignature(response2.data.signature)
   }
 
   useEffect(() => {
     getData()
+    console.log(id)
   }, [])
 
 
@@ -142,7 +145,6 @@ function EditProfile() {
     formData.append('plantel', plantel)
     formData.append('email', email)
     formData.append('password', password)
-    formData.append('role', role)
     console.log(role)
 
 
@@ -240,11 +242,7 @@ function EditProfile() {
             <Form.Group className="row mb-3">
               <Form.Label className='col-2'>Rol</Form.Label>
               <Col sm>
-                <Form.Select type='text' placeholder='Rol' onChange={(e) => setRole(e.target.value)} >
-                  <option>Selecciona rol</option>
-                  <option value={'Jefe Departamento'}>Jefe Departamento</option>
-                  <option value={'Mantenimiento'}>Mantenimiento</option>
-                </Form.Select>
+                <Form.Control type='text' placeholder='Rol' value={role} disabled />
               </Col>
             </Form.Group>
 

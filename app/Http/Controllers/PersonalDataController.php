@@ -256,12 +256,20 @@ class PersonalDataController extends Controller
         $data->name=$request->name;
         $data->lastname=$request->lastname;
         $data->area=$request->area;
-        if($request->hasFile('signature')){
+        /*if($request->hasFile('signature')){
             $file = $request->file('signature');
             $destination = 'signatures/';
             $fileName = date('YmHis').'-'. $file->getClientOriginalName();
             $upload = $request->file('signature')->move($destination, $fileName);
             $data->signature = $destination.$fileName;
+            }*/
+        
+            if ($request->hasFile('signature')) {
+                $file = $request->file('signature');
+                $destination = 'signatures/';
+                $fileName = date('YmHis') . '-' . $file->getClientOriginalName();
+                $path = $file->storeAs($destination, $fileName);
+                $data->signature = $path;
             }
        
         $data->plantel=$request->plantel;
@@ -334,7 +342,6 @@ class PersonalDataController extends Controller
         $dataU =User::findOrFail($id);
         $dataU->email=$request->email;
         $dataU->password=$request->password;
-        $dataU->role=$request->role;
         $dataU->save();
 
 

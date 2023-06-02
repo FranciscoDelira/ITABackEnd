@@ -102,7 +102,7 @@ const Approved = () => {
                         <th>Área del solicitante</th>
                         <th>Nombre del solicitante</th>
                         <th>Descripción</th>
-                        <th>Empleado</th>
+                        <th>Aprobó</th>
                         <th>Evidencia 1</th>
                         <th>Evidencia 2</th>
                         <th>Evidencia 3</th>
@@ -118,7 +118,7 @@ const Approved = () => {
                             <td> {approved.area} </td>
                             <td> {approved.name} </td>
                             <td> {approved.requestDescription} </td>
-                            <td> {approved.name} </td>
+                            <td> {approved.approversName} </td>
                             <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} alt="signature" width={100} height={100}/> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} alt="signature" width={100} height={100}/> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} alt="signature" width={100} height={100}/> </td>

@@ -10,6 +10,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import { Link } from "react-router-dom";
+import { Button } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 
 const ActiveRequests = () => {
@@ -90,7 +91,7 @@ const ActiveRequests = () => {
             />
 
             <Table responsive>
-            <thead>
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Fecha de solicitud</th>
@@ -119,18 +120,16 @@ const ActiveRequests = () => {
                             <td> <img src={`/ITABackEnd/public/${active.signature}`} alt="signature" width={100} height={100} /> </td>
                             <td> {active.status} </td>
                             <td>
-                                <Link
-                                    to={`http://localhost/ITABackEnd/public/newOrder/${active.id}`}
-                                    className="btn btn-warning"
-                                >
-                                    Orden
-                                </Link>
-                                <button
-                                    onClick={() => deleteActiveRequest(active.id)}
-                                    className="btn btn-danger"
-                                >
-                                    Eliminar
-                                </button>
+                                <Stack direction='horizontal'>
+                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/newOrder/${active.id}`} >
+                                        Orden
+                                    </Button>
+                                    <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
+                                        onClick={() => deleteRelease(release.id)}
+                                    >
+                                        Eliminar
+                                    </Button>
+                                </Stack>
                             </td>
                         </tr>
                     ))}
