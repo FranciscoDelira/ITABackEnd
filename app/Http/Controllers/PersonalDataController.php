@@ -377,4 +377,21 @@ class PersonalDataController extends Controller
         return $data;
     }
 
+    public function showUsers()
+    {
+        $data = PersonalData::
+        //join('personaldatas', 'personaldatas.id', '=', 'users.personaldata_id')
+        join('users', 'users.personaldata_id', '=', 'personaldatas.id')
+        ->get([
+            'personaldatas.id', 
+            'personaldatas.name', 
+            'personaldatas.lastname',
+            'personaldatas.area', 
+            'personaldatas.plantel', 
+            'users.email',  
+            'users.role'
+    ]);
+        return $data;
+    }
+
 }

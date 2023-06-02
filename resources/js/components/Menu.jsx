@@ -35,6 +35,7 @@ function Menu() {
                   <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/approved'>Aprobadas</NavDropdown.Item>
                 </NavDropdown>
                 <NavDropdown title="Usuarios" id="collasible-nav-dropdown">
+                  <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/users'>Ver usuarios</NavDropdown.Item>
                   <NavDropdown.Item as={Link} to='http://localhost/ITABackEnd/public/register'>Crear nuevo usuario</NavDropdown.Item>
                 </NavDropdown>
               </Nav>

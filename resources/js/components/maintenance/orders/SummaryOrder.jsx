@@ -98,7 +98,7 @@ const card = {
     backgroundColor: "yellow"
 };
 
-function NewOrder() {
+function SummaryOrder() {
 
     //DATOS DEL SOLICITANTE
 
@@ -551,4 +551,4 @@ function NewOrder() {
         </>
     );
 }
-export default NewOrder;
+export default SummaryOrder;

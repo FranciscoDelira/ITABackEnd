@@ -21,6 +21,9 @@ import SummaryOrder from "./maintenance/orders/SummaryOrder";
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
 import Register from "./user/Register";
+import Users from "./user/Users";
+import EditUser from "./user/EditUser";
+
 import { useLocalStorage } from "react-use";
 import PrivateRoute from "./PrivateRoute";
 
@@ -66,6 +69,8 @@ function Main() {
                     <Route path="profile" element={<Profile />} />
                     <Route path="editProfile" element={<EditProfile />} />
                     <Route path="register" element={<Register />} />
+                    <Route path="users" element={<Users />} />
+                    <Route path="editUser/:id" element={<EditUser />} />
 
                     <Route path="*" element={<Navigate replace to="/" />} />
                 </Route>
