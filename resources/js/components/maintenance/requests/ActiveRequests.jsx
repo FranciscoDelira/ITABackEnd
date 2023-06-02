@@ -52,7 +52,15 @@ const ActiveRequests = () => {
     });
 
     const deleteActiveRequest = async (id) => {
-        await axios.delete(`${ruta}/maintenance_destroy/${id}`).then(response => {
+        await axios.delete(`${ruta}/maintenance_destroy/${id}`,
+        {
+            headers:{
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+            }
+        }
+        ).then(response => {
             console.log(`Eliminacion exitosa`);
         }).catch(error => {
             console.error(`Error al eliminar la request `, error);
@@ -116,7 +124,7 @@ const ActiveRequests = () => {
                             <td> <img src={`/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${active.evidence2}`} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${active.evidence3}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/public/${active.signature}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.signature}`} alt="signature" width={100} height={100} /> </td>
                             <td> {active.status} </td>
                             <td>
                                 <Link
