@@ -225,12 +225,11 @@ class WorkOrderController extends Controller
         
     $workorder = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
     ->where('maintenancerequests.status', 'Liberada')
-    
     ->update(['released' => 1]);    
 
     $workorders = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
     ->join('personaldatas', 'personaldatas.id', '=', 'workorders.personaldata_id')
-    
+    ->where('approved', '0')
     ->where('released', '1')
     ->get([
         'workorders.id',
@@ -249,7 +248,7 @@ class WorkOrderController extends Controller
     return $workorders;
     }
 
-    public function approvedOrder(Request $request){
+    public function approvedOrder(Request $request, $id){
         /*$workorder = WorkOrder::where('released', '=', '1')
         ->update([
             'workorders.dataApproved' => $request->dateApproved,
@@ -276,8 +275,8 @@ class WorkOrderController extends Controller
         }
 
         
-        $workorde = new WorkOrder;
-        $workorder->id->$request->id;
+        $workorder = WorkOrder::find($id);
+    
         $workorder->approved=1;
         $workorder->approversName=$request->approversName;
         $workorder->dateApproved=$request->dateApproved;
@@ -309,11 +308,11 @@ class WorkOrderController extends Controller
     ]);*/
 
 
-    $workorders = WorkOrder::join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
-        ->where('maintenancerequests.status', 'Liberada')
+    /*$workorders = WorkOrder::join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
+        ->where('approved', '1')
         ->get([
             'workorders.id',
-            'maintenancerequests.requestDate',
+           
             'personaldatas.area',
             'personaldatas.name',
             'maintenancerequests.requestDescription',
@@ -323,7 +322,27 @@ class WorkOrderController extends Controller
             'workorders.evidence3'
         ]);
 
-        return $workorders;
+        return $workorders;*/
+
+
+        $workorders = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
+    ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
+    
+    ->where('approved', '1')
+    ->get([
+        'workorders.id',
+        'maintenancerequests.requestDate',
+        'personaldatas.area',
+        'maintenancerequests.personaldata_id',
+        'personaldatas.name',
+        'workorders.maintenanceDate',
+        'workorders.approversName',
+        'workorders.evidence1',
+        'workorders.evidence2',
+        'workorders.evidence3',
+    ]);
+
+    return $workorders;
     
     }
 

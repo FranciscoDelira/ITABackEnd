@@ -12,12 +12,33 @@ import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
+import { setWith } from 'lodash';
 
 const Release = () => {
 
     const [releases, setReleases] = useState([]);
-    /*const [searchTerm, setSearchTerm] = useState("");
-    const [workOrders, setWorkOrders] = useState([]);*/
+    
+    const setSearchTermse =(data)=>{
+        let serviceType = ''
+        let show  = document.getElementsByClassName('release')
+        for (let index = 0; index < show.length; index++) {
+
+            maintenanceType = show[index].children[1].textContent.toLowerCase();
+            if(maintenanceType.includes(data.toLowerCase())){
+                show[index].removeAttribute('hidden')
+            }else{
+                show[index].setAttribute('hidden', 'True')
+            }
+
+            serviceType = show[index].children[2].textContent.toLowerCase();
+            if(serviceType.includes(data.toLowerCase())){
+                show[index].removeAttribute('hidden')
+            }else{
+                show[index].setAttribute('hidden', 'True')
+            }
+            
+        }
+    }
 
     useEffect(() => {
         getAllReleases();
@@ -35,7 +56,7 @@ const Release = () => {
         setReleases(response.data);
         console.log(response.data);
     }
-    
+
     const deleteRelease = async (id) => {
         await axios.post(`${ruta}/workorder_destroy/${id}`, {});
         getAllReleases();
@@ -68,7 +89,12 @@ const Release = () => {
     };
 */
 
+    const filteredActives = releases.filter((release) => {
+       
+            return release;
     
+    });
+
 
     return (
         <>
@@ -102,7 +128,7 @@ const Release = () => {
                 type="text"
                 placeholder="Buscar..."
                 onChange={(event) => {
-                    setSearchTerm(event.target.value);
+                    setSearchTermse(event.target.value);
                 }}
             />
 
@@ -123,8 +149,8 @@ const Release = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {releases.map((release) => (
-                        <tr key={release.id}>
+                    {filteredActives.map((release) => (
+                        <tr key={release.id} className='release'>
                             <td> {release.id} </td>
                             <td> {release.maintenanceType} </td>
                             <td> {release.serviceType} </td>
@@ -136,18 +162,11 @@ const Release = () => {
                             <td> <img src={`/ITABackEnd/storage/app/${release.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> {release.status} </td>
                             <td>
-                                {/*<Link
-                                    to={`http://localhost/ITABackEnd/public/approved`}
-                                    className="btn btn-warning"
-                                >
-                                    Aprobar
-                                </Link>*/}
-                                
-                                <Button as={Link} to={`http://localhost/ITABackEnd/public/approveOrder/${release.id}`} >
+                                <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/approveOrder/${release.id}`} >
                                     Aprobar
                                 </Button>
-
-
+                            </td>
+                            <td>
                                 <Button
                                     onClick={() => deleteRelease(release.id)}
                                     className="btn btn-danger"

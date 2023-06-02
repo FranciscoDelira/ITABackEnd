@@ -97,11 +97,10 @@ const RequestHistory = () => {
                         <th>Descripción</th>
                         <th>Fecha de liberación</th>
                         <th>Fecha de aprobación</th>
-                        <th>Evidencia del empleado 1</th>
-                        <th>Evidencia del empleado 2</th>
-                        <th>Evidencia del empleado 3</th>
+                        <th>Evidencia 1</th>
+                        <th>Evidencia 2</th>
+                        <th>Evidencia 3</th>
                         <th>Estatus</th>
-                        <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -118,14 +117,6 @@ const RequestHistory = () => {
                             <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence2}`} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> {requestHistory.status} </td>
-                            <td>
-                                <button
-                                    onClick={() => deleteRequestHistory(active.id)}
-                                    className="btn btn-danger"
-                                >
-                                    Eliminar
-                                </button>
-                            </td>
                         </tr>
                     ))}
                 </tbody>

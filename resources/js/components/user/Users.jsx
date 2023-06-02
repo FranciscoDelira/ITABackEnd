@@ -1,9 +1,7 @@
 import React from 'react';
 import Table from 'react-bootstrap/Table';
 
-import IconEarringsUser from '/src/IconsOrders/IconEarringsUser.png';
-import IconReleasedUser from '/src/IconsOrders/IconReleasedUser.png';
-import IconApprovedUser from '/src/IconsOrders/IconApprovedUser.png';
+import IconUser from '/src/IconsUser/IconUser.png';
 import Stack from 'react-bootstrap/Stack';
 import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
@@ -18,16 +16,16 @@ const ruta = "http://localhost/ITABackEnd/api";
 
 const Approved = () => {
 
-    const [approveds, setApproveds] = useState([]);
+    const [users, setUsers] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
     const ruta = "http://localhost/ITABackEnd/public/api";
 
     useEffect(() => {
-        getAllApproveds();
+        getAllUsers();
     }, []);
 
-    const getAllApproveds = async () => {
-        const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showApproved',
+    const getAllUsers = async () => {
+        const response = await axios.get('http://localhost/ITABackEnd/public/api/user_showUsers',
         { //acceder con el token
             headers: {
               'Content-Type': 'multipart/form-data',
@@ -35,13 +33,13 @@ const Approved = () => {
               'Authorization':`Bearer ${localStorage.getItem('user-info')}`
             }
           });
-        setApproveds(response.data);
+        setUsers(response.data);
         console.log(response.data);
     };
 
-    const deleteApproveds = async (id) => {
+    const deleteUsers = async (id) => {
         await axios.delete(`${ruta}/workorder_destroy/${id}`, {});
-        getAllApproveds();
+        getAllUsers();
     };
 
     /*const filteredApproveds = approveds.filter((approved) => {
@@ -66,19 +64,9 @@ const Approved = () => {
                     <Stack direction='horizontal' align="center" style={{ padding: "3%" }} className="mx-auto">
 
                         <Row>
-                            <Col md={4}>
-                                <Nav.Link href='earring'>
-                                    <img className='col-mb-3 mx-auto' src={IconEarringsUser} width={280} height={90} />
-                                </Nav.Link>
-                            </Col>
-                            <Col md={4}>
-                                <Nav.Link href='release'>
-                                    <img className='col-mb-3 mx-auto' src={IconReleasedUser} width={280} height={90} />
-                                </Nav.Link>
-                            </Col>
-                            <Col md={4}>
-                                <Nav.Link href='approved'>
-                                    <img className='col-mb-3 mx-auto' src={IconApprovedUser} width={280} height={90} />
+                            <Col md>
+                                <Nav.Link>
+                                    <img className='col-mb-3 mx-auto' src={IconUser} width={280} height={90} />
                                 </Nav.Link>
                             </Col>
                         </Row>
@@ -99,38 +87,32 @@ const Approved = () => {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Fecha solicitud</th>
-                        <th>Área del solicitante</th>
-                        <th>Nombre del solicitante</th>
-                        <th>Descripción</th>
-                        <th>Aprobó</th>
-                        <th>Evidencia 1</th>
-                        <th>Evidencia 2</th>
-                        <th>Evidencia 3</th>
-                        <th>Estado</th>
+                        <th>Nombre</th>
+                        <th>Apellidos</th>
+                        <th>Área</th>
+                        <th>Plantel</th>
+                        <th>Email</th>
+                        <th>Rol</th>
                         <th>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {approveds.map((approved) => (
-                        <tr key={approved.id}>
-                            <td> {approved.id} </td>
-                            <td> {approved.requestDate} </td>
-                            <td> {approved.area} </td>
-                            <td> {approved.name} </td>
-                            <td> {approved.requestDescription} </td>
-                            <td> {approved.approversName} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} alt="signature" width={100} height={100}/> </td>
-                            <td> Aprobado </td>
+                    {users.map((user) => (
+                        <tr key={user.id}>
+                            <td> {user.id} </td>
+                            <td> {user.name} </td>
+                            <td> {user.lastname} </td>
+                            <td> {user.area} </td>
+                            <td> {user.plantel} </td>
+                            <td> {user.email} </td>
+                            <td> {user.role} </td>
                             <td>
                                 <Stack direction='horizontal'>
-                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/summaryOrder/${approved.id}`} >
-                                        Resumen
+                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/editUser/${user.id}`} >
+                                        Editar
                                     </Button>
                                     <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
-                                        onClick={() => deleteApproveds(approved.id)}
+                                        onClick={() => deleteApproveds(user.id)}
                                     >
                                         Eliminar
                                     </Button>

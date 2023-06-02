@@ -16,10 +16,14 @@ import Release from "./maintenance/orders/Release";
 import Approved from "./maintenance/orders/Approved";
 import NewOrder from "./maintenance/orders/NewOrder";
 import ApproveOrder from "./maintenance/orders/ApproveOrder";
+import SummaryOrder from "./maintenance/orders/SummaryOrder";
 
 import Profile from "./user/Profile";
 import EditProfile from "./user/EditProfile";
 import Register from "./user/Register";
+import Users from "./user/Users";
+import EditUser from "./user/EditUser";
+
 import { useLocalStorage } from "react-use";
 import PrivateRoute from "./PrivateRoute";
 
@@ -60,10 +64,13 @@ function Main() {
                     <Route path="approved" element={<Approved />} />
                     <Route path="approveOrder/:id" element={<ApproveOrder />} />
                     <Route path="newOrder/:id" element={<NewOrder />} />
+                    <Route path="summaryOrder/:id" element={<SummaryOrder />}/>
                     
                     <Route path="profile" element={<Profile />} />
                     <Route path="editProfile" element={<EditProfile />} />
                     <Route path="register" element={<Register />} />
+                    <Route path="users" element={<Users />} />
+                    <Route path="editUser/:id" element={<EditUser />} />
 
                     <Route path="*" element={<Navigate replace to="/" />} />
                 </Route>

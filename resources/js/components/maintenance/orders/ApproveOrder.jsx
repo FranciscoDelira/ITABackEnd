@@ -150,8 +150,8 @@ function ApproveOrder() {
     const handleSubmit = (e) => {
         e.preventDefault();
 
-        axios.post('http://localhost/ITABackEnd/public/api/workorder_approvedOrder', {
-            id: ID, approversName: approversName, dateApproved: dateApproved
+        axios.post(`http://localhost/ITABackEnd/public/api/workorder_approvedOrder/${ID}`, {
+            approversName: approversName, dateApproved: dateApproved
         }, {
             headers: {
 
