@@ -66,7 +66,15 @@ const ActiveRequests = () => {
     });
 
     const deleteActiveRequest = async (id) => {
-        await axios.delete(`${ruta}/maintenance_destroy/${id}`).then(response => {
+        await axios.delete(`${ruta}/maintenance_destroy/${id}`,
+        {
+            headers:{
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+            }
+        }
+        ).then(response => {
             console.log(`Eliminacion exitosa`);
         }).catch(error => {
             console.error(`Error al eliminar la request `, error);
@@ -128,17 +136,29 @@ const ActiveRequests = () => {
                 </thead>
                 <tbody>
                     {filteredActives.map((active) => (
-                        <tr key={active.id} onClick={() => handleClick(active.id)}>
-                            <td style={theme.TdStyle}> {active.id} </td>
-                            <td style={theme.TdStyle}> {active.requestDate} </td>
-                            <td style={theme.TdStyle}> {active.name} </td>
-                            <td style={theme.TdStyle}> {active.department} </td>
-                            <td style={theme.TdStyle}> {active.requestDescription} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence1}`} alt="evidence1" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence2}`} alt="evidence2" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence3}`} alt="evidence3" width={100} height={100} /> </td>
+                        <tr key={active.id}>
+                            <td> {active.id} </td>
+                            <td> {active.requestDate} </td>
+                            <td> {active.name} </td>
+                            <td> {active.department} </td>
+                            <td> {active.requestDescription} </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence2}`} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence3}`} alt="signature" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/public/${active.signature}`} alt="signature" width={100} height={100} /> </td>
-                            <td style={theme.TdStyle}> {active.status} </td>
+                            <td> {active.status} </td>
+                            <td>
+                                <Stack direction='horizontal'>
+                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/newOrder/${active.id}`} >
+                                        Orden
+                                    </Button>
+                                    <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
+                                        onClick={() => deleteRelease(release.id)}
+                                    >
+                                        Eliminar
+                                    </Button>
+                                </Stack>
+                            </td>
                         </tr>
                     ))}
                 </tbody>
