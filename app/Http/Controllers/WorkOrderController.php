@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\WorkOrder;
 use App\Models\Maintenancerequests;
+use App\Models\Personaldata;
 use Illuminate\Support\Facades\Validator; //Import the validator class
 
 
@@ -249,11 +250,6 @@ class WorkOrderController extends Controller
     }
 
     public function approvedOrder(Request $request, $id){
-        /*$workorder = WorkOrder::where('released', '=', '1')
-        ->update([
-            'workorders.dataApproved' => $request->dateApproved,
-            'approved' => 1,
-        ]);*/
 
         $rules = [
             'approved' => 'nullable|in:0,1',
@@ -284,46 +280,6 @@ class WorkOrderController extends Controller
     }
 
     public function showApproved(){
-        /*$workorder = WorkOrder::where('workorders.approved', '=', '0')
-        ->where('workorders.id', '=', $request->id)
-        ->update(['approved' => 1]);
-
-        $workorders = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
-        ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
-        ->where('approved', '=', '1')
-        ->get([
-        'workorders.id',
-        'maintenancerequests.requestDate',
-        'personaldatas.area',
-        'personaldatas.name',
-        'maintenancerequests.requestDescription',
-        'workorders.releasedDate',
-        'workorders.maintenanceDate',
-        'workorders.dateApproved',
-        'workorders.employeeName',
-        'workorders.evidence1',
-        'workorders.evidence2',
-        'workorders.evidence3',
-        'maintenancerequests.status'
-    ]);*/
-
-
-    /*$workorders = WorkOrder::join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
-        ->where('approved', '1')
-        ->get([
-            'workorders.id',
-           
-            'personaldatas.area',
-            'personaldatas.name',
-            'maintenancerequests.requestDescription',
-            'workorders.personaldatas.name',
-            'workorders.evidence1',
-            'workorders.evidence2',
-            'workorders.evidence3'
-        ]);
-
-        return $workorders;*/
-
 
         $workorders = WorkOrder::join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
     ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
@@ -367,52 +323,15 @@ class WorkOrderController extends Controller
         return $workorder;
     }
 
-    /*public function showRelease()
-    {
-        $maintenance = Maintenancerequest::join('workorders', 'workorders.id', '=', 'maintenancerequest_id')
-        ->where('workorders.released', 'true')
-        ->get([
-            'workorders.id', 
-            'workorders.maintenanceType', 
-            'workorders.serviceType', 
-            'workorders.employeeName', 
-            'workorders.maintenanceDate', 
-            'workorders.jobDescription', 
-            'maintenancerequests.evidence1', 
-            'maintenancerequests.evidence2', 
-            'maintenancerequests.evidence3',
-            'maintenancerequests.status'
-        ]);
-        return $maintenance;
-    }*/
-
-
-    /*/public function showRelease()
-    //{
-       
-
-    DB::table('workorders')
-    ->where('maintenancerequest_id', DB::raw('(SELECT id FROM maintenancerequests WHERE status = "Liberada")'))
-    ->update(['released' => 1]);
-
-    $workorders = DB::table('workorders')
-    ->join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
-    ->select('workorders.*')
-    ->where('workorders.released', '=', 1)
-    ->get();
-
-    return $workorders;
-}*/
-
     public function showEarring()
     {
         $workorder = WorkOrder::
-        join('personaldatas', 'personaldatas.id', '=', 'workorders.personaldata_id')
-        ->join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
+        join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
+        ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
         ->where('workorders.released', '0')
         ->where('workorders.approved', '0')
         ->get([
-            'maintenancerequests.id', 
+            'workorders.id', 
             'maintenancerequests.requestDate', 
             'personaldatas.area',
             'personaldatas.name', 

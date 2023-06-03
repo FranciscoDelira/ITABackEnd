@@ -1,16 +1,11 @@
-import { Nav } from 'react-bootstrap';
 import Container from 'react-bootstrap/Container';
-import Menu from '../Menu';
-import Footer from '../Footer';
 import Stack from 'react-bootstrap/Stack';
-import IconProfileUse from '/src/IconsOrders/IconProfileUser.png';
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
 import IconProfileUser from '/src/IconsHome/IconProfileUser.png';
 import { Link, useParams } from 'react-router-dom';
 
@@ -67,10 +62,6 @@ const theme = {
   }
 };
 
-const card = {
-  backgroundColor: "blue"
-};
-
 function Profile() {
 
   const [name, setName] = useState('');
@@ -101,8 +92,6 @@ function Profile() {
         }
       })
 
-
-    //setID(response.data.id)
     setName(response.data.name)
     setLastName(response.data.lastname)
     setArea(response.data.area)
@@ -171,10 +160,14 @@ function Profile() {
 
             <Form.Group className="row mb-3">
               <Col>
-                <Button>Regresar</Button>
+                <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/home`} >
+                  Regresar
+                </Button>
               </Col>
               <Col>
-                <Button as={Link} to='http://localhost/ITABackEnd/public/editProfile' className="btn btn-success">Editar</Button>
+                <Button type="submit" style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/editProfile`}>
+                  Editar
+                </Button>
               </Col>
             </Form.Group>
 

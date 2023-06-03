@@ -11,17 +11,23 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 
-const Earring = () => {
-    function testClickEvent(param) {
-        alert('Row Click Event');
+const theme={
+    ThStyle:{
+        fontFamily:'Montserrat'
+    },
+    TdStyle:{
+        fontFamily:'Montserrat'
     }
+}
+
+const Earring = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [earrings, setEarrings] = useState([]);
     const ruta = "http://localhost/ITABackEnd/public/api";
-
     useEffect(() => {
         getAllEarrings();
+        console.log('TODOS LOS DATOS',earrings);
     }, [])
 
     const getAllEarrings = async () => {
@@ -38,9 +44,16 @@ const Earring = () => {
     }
 
     const deleteEarring = async (id) => {
-        await axios.delete(`${ruta}/workorder_destroy/${id}`, {});
+        await axios.delete(`${ruta}/workorder_destroy/${id}`);
         getAllEarrings();
     }
+
+    const handleClick = (id) => {
+        const confirmar = window.confirm(`¿Deseas eliminar la orden de solicitud con el ID: ${id}?`);
+        if (confirmar) {
+            deleteEarring(id);
+        }
+    };
 
     const filteredActives = earrings.filter((earring) => {
         if (searchTerm === "") {
@@ -54,15 +67,6 @@ const Earring = () => {
             return earring;
         }
     });
-
-    //const for the table
-    const handleClick = (id) => {
-        const confirmar = window.confirm(`¿Deseas crear una orden de solicitud con el ID: ${id}?`);
-    if (confirmar) {
-      history.push(`http://localhost/ITABackEnd/public/newOrder/${id}`);
-    }
-      };
-
 
     return (
         <>
@@ -104,29 +108,30 @@ const Earring = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Fecha de solicitud</th>
-                        <th>Área solicitante</th>
-                        <th>Nombre del solicitante</th>
-                        <th>Descripción</th>
-                        <th>Evidencia 1</th>
-                        <th>Evidencia 2</th>
-                        <th>Evidencia 3</th>
-                        <th>Estado</th>
+                        <th style={theme.ThStyle}>ID</th>
+                        <th style={theme.ThStyle}>Fecha solicitud</th>
+                        <th style={theme.ThStyle}>Área del solicitante</th>
+                        <th style={theme.ThStyle}>Nombre del solicitante</th>
+                        <th style={theme.ThStyle}>Descripción</th>
+                        <th style={theme.ThStyle}>Evidencia 1</th>
+                        <th style={theme.ThStyle}>Evidencia 2</th>
+                        <th style={theme.ThStyle}>Evidencia 3</th>
+                        <th style={theme.ThStyle}>Estado</th>
+                        <th style={theme.ThStyle}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredActives.map((earring) => (
                         <tr key={earring.id} onClick={() => handleClick(earring.id)}>
-                            <td> {earring.id} </td>
-                            <td> {earring.requestDate} </td>
-                            <td> {earring.area} </td>
-                            <td> {earring.name} </td>
-                            <td> {earring.requestDescription} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence1}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence2}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence3}`} alt="signature" width={100} height={100} /> </td>
-                            <td> {earring.status} </td>
+                            <td  style={theme.TdStyle}> {earring.id} </td>
+                            <td  style={theme.TdStyle}> {earring.requestDate} </td>
+                            <td  style={theme.TdStyle}> {earring.area} </td>
+                            <td  style={theme.TdStyle}> {earring.name} </td>
+                            <td  style={theme.TdStyle}> {earring.requestDescription} </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence1}`} alt="evidence1" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence2}`} alt="evidence2" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${earring.evidence3}`} alt="evidence3" width={100} height={100} /> </td>
+                            <td  style={theme.TdStyle}> {earring.status} </td>
                             <td>
                                 <button
                                     onClick={() => deleteEarring(earring.id)}

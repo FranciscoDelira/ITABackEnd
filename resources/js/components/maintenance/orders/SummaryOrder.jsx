@@ -1,102 +1,13 @@
-import { Nav } from 'react-bootstrap';
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import IconReleasedUser from '/src/IconsOrders/CreateNewOrder.png';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
-import { auto, left } from '@popperjs/core';
-import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Badge from 'react-bootstrap/Badge';
 import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
-
-const theme = {
-    bg: {
-        backgroundColor: 'white',
-    },
-    logo: {
-        width: 450,
-        height: auto
-    },
-    header: {
-        color: 'White',
-        fontSize: '50px',
-        fontFamily: 'Montserrat',
-        textAlign: 'center'
-    },
-    fControl: {
-        backgroundColor: "white",
-        borderColor: "#807E82",
-        fontFamily: 'Montserrat',
-        fontSize: '20px',
-        color: "#807E82",
-        width: 'auto',
-        borderRadius: 10,
-        textAlign: "left"
-    },
-    fControl2: {
-        backgroundColor: "white",
-        borderColor: "#807E82",
-        fontFamily: 'Montserrat',
-        fontSize: '20px',
-        color: "#807E82",
-        width: '450px',
-        borderRadius: 10,
-        textAlign: "left"
-    }, fControlDate: {
-        backgroundColor: "white",
-        borderColor: "#807E82",
-        fontFamily: 'Montserrat',
-        fontSize: '20px',
-        color: "#807E82",
-        width: '270px',
-        borderRadius: 10,
-        textAlign: "left"
-    },
-    fHText: {
-        fontFamily: 'Montserrat',
-        fontSize: '20px',
-        color: 'black',
-        textAlign: "center",
-    },
-    button: {
-        color: 'white',
-        fontSize: '20px',
-        backgroundColor: '#1B396A',
-        borderRadius: 15
-    },
-    button2: {
-        color: '#EE7044',
-        fontSize: '20px',
-        backgroundColor: 'white',
-        borderColor: "white",
-        borderRadius: 15
-    },
-    optionIcons: {
-        align: "center",
-        width: 350,
-        height: 100
-    }, input: {
-        color: 'white',
-        fontSize: '20px',
-        backgroundColor: '#1B396A',
-    }, modalBg: {
-        backgroundColor: '#807E82',
-        fontFamily: 'Montserrat',
-        fontSize: '20px',
-        color: 'white',
-        textAlign: "center",
-    }
-};
-
-const card = {
-    backgroundColor: "yellow"
-};
 
 function SummaryOrder() {
 
@@ -370,7 +281,7 @@ function SummaryOrder() {
                                         <label>Evidencia 1</label>
                                     </Row>
                                     <Row className='mb-4'>
-                                        <img src={`/ITABackEnd/storage/app/${evidence1}`} alt="signature" width={100} height={250} />
+                                        <img src={`/ITABackEnd/storage/app/${evidence1}`} alt="evidence1" width={100} height={250} />
                                     </Row>
                                 </Col>
 
@@ -379,7 +290,7 @@ function SummaryOrder() {
                                         <label>Evidencia 2</label>
                                     </Row>
                                     <Row className='mb-4'>
-                                        <img src={`/ITABackEnd/storage/app/${evidence2}`} alt="signature" width={100} height={250} />
+                                        <img src={`/ITABackEnd/storage/app/${evidence2}`} alt="evidence2" width={100} height={250} />
                                     </Row>
                                 </Col>
 
@@ -388,7 +299,7 @@ function SummaryOrder() {
                                         <label>Evidencia 3</label>
                                     </Row>
                                     <Row className='mb-4'>
-                                        <img src={`/ITABackEnd/storage/app/${evidence3}`} alt="signature" width={100} height={250} />
+                                        <img src={`/ITABackEnd/storage/app/${evidence3}`} alt="evidence3" width={100} height={250} />
                                     </Row>
                                 </Col>
                             </Row>
@@ -509,7 +420,7 @@ function SummaryOrder() {
                                         <label>Evidencia 1</label>
                                     </Row>
                                     <Row className='mb-4'>
-                                        <img src={`/ITABackEnd/storage/app/${evidence1Job}`} alt="signature" width={100} height={250} />
+                                        <img src={`/ITABackEnd/storage/app/${evidence1Job}`} alt="evidence1" width={100} height={250} />
                                     </Row>
                                 </Col>
 
@@ -518,7 +429,7 @@ function SummaryOrder() {
                                         <label>Evidencia 2</label>
                                     </Row>
                                     <Row className='mb-4'>
-                                        <img src={`/ITABackEnd/storage/app/${evidence2Job}`} alt="signature" width={100} height={250} />
+                                        <img src={`/ITABackEnd/storage/app/${evidence2Job}`} alt="evidence2" width={100} height={250} />
                                     </Row>
                                 </Col>
 
@@ -527,7 +438,7 @@ function SummaryOrder() {
                                         <label>Evidencia 3</label>
                                     </Row>
                                     <Row className='mb-4'>
-                                        <img src={`/ITABackEnd/storage/app/${evidence3Job}`} alt="signature" width={100} height={250} />
+                                        <img src={`/ITABackEnd/storage/app/${evidence3Job}`} alt="evidence3" width={100} height={250} />
                                     </Row>
                                 </Col>
                             </Row>

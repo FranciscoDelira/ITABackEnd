@@ -70,14 +70,7 @@ const theme = {
   }
 };
 
-const card = {
-  backgroundColor: "yellow"
-};
-
 function EditProfile() {
-
-
-  /*===============================================AXIOS======================================*/
 
   const headers = {
     headers: {
@@ -94,7 +87,7 @@ function EditProfile() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [signature, setSignature] = useState('');
-  const [id, setID] = useState(0);  
+  const [id, setID] = useState(0);
 
   const getData = async () => {
     const response = await axios.get('http://localhost/ITABackEnd/public/api/user_show/' + localStorage.getItem('user-id'),
@@ -130,8 +123,6 @@ function EditProfile() {
     getData()
     console.log(id)
   }, [])
-
-
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -179,10 +170,6 @@ function EditProfile() {
         })
       });
   }
-
-  //FIN AXIOS----------------------
-
-  /*==============================================FORMULARIO===================================================*/
 
   return (
     <>
@@ -254,22 +241,16 @@ function EditProfile() {
                 </Stack>
               </Col>
             </Form.Group>
-
-            {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} className="col-md-6 mx-auto" />*/}
             <Row>
               <Col sm>
-                <Button as={Link} to='http://localhost/ITABackEnd/public/profile' className="btn btn-danger btn-lg mt-2 mb-2 text-white">
+                <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/profile`} >
                   Cancelar
                 </Button>
               </Col>
               <Col sm>
-                <Button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
-                  Aceptar
-                </Button>
+                <Button type="submit" style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat' }}>Aceptar</Button>
               </Col>
             </Row>
-
-
           </Form>
 
         </Container>

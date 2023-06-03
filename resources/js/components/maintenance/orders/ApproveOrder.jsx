@@ -1,17 +1,10 @@
-import { Nav } from 'react-bootstrap';
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
-import Stack from 'react-bootstrap/Stack';
-import IconReleasedUser from '/src/IconsOrders/CreateNewOrder.png';
 import Col from 'react-bootstrap/Col';
 import Form from 'react-bootstrap/Form';
-import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { auto, left } from '@popperjs/core';
-import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Badge from 'react-bootstrap/Badge';
 import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
@@ -139,7 +132,6 @@ function ApproveOrder() {
 
         setApproversName(response2.data.name)
         setID(response3.data.id)
-        //setDateApproved(response2.data.dateApproved)
     }
 
 
@@ -215,10 +207,12 @@ function ApproveOrder() {
 
                         <Form.Group className="row">
                             <Col>
-                                <Link className="btn btn-danger" to={'http://localhost/ITABackEnd/public/earring'}>Regresar</Link>
+                                <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/release`} >
+                                    Regresar
+                                </Button>
                             </Col>
                             <Col>
-                                <Button type="submit" className="btn btn-submit">Aceptar</Button>
+                                <Button type="submit" style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat' }}>Aceptar</Button>
                             </Col>
                         </Form.Group>
 

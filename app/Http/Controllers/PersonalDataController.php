@@ -177,32 +177,6 @@ class PersonalDataController extends Controller
         $data->delete();
     }
 
-    /*public function register(Request $request){
-
-        $data = new Personaldata;
-        $data->name=$request->name;
-        $data->lastname=$request->lastname;
-        $data->area=$request->area;
-        if($request->hasFile('signature')){
-            $file = $request->file('signature');
-            $destination = 'signatures/';
-            $fileName = date('YmHis').'-'. $file->getClientOriginalName();
-            $upload = $request->file('signature')->move($destination, $fileName);
-            $data->signature = $destination.$fileName;
-            }
-       
-        $data->plantel=$request->plantel;
-        $data->save();
-
-
-        $dataU = new User;
-        $dataU->email=$request->email;
-        $dataU->password=$request->password;
-        $dataU->personaldata_id=$data->id;
-        $dataU->save();
-
-    }*/
-
     public function registerPersonalUser(Request $request){
 
         // Define validation rules for form fields
@@ -256,13 +230,6 @@ class PersonalDataController extends Controller
         $data->name=$request->name;
         $data->lastname=$request->lastname;
         $data->area=$request->area;
-        /*if($request->hasFile('signature')){
-            $file = $request->file('signature');
-            $destination = 'signatures/';
-            $fileName = date('YmHis').'-'. $file->getClientOriginalName();
-            $upload = $request->file('signature')->move($destination, $fileName);
-            $data->signature = $destination.$fileName;
-            }*/
         
             if ($request->hasFile('signature')) {
                 $file = $request->file('signature');
@@ -380,7 +347,6 @@ class PersonalDataController extends Controller
     public function showUsers()
     {
         $data = PersonalData::
-        //join('personaldatas', 'personaldatas.id', '=', 'users.personaldata_id')
         join('users', 'users.personaldata_id', '=', 'personaldatas.id')
         ->get([
             'personaldatas.id', 

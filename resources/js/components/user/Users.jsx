@@ -7,12 +7,18 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useState, useEffect } from 'react';
-import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 
 import axios from "axios";
 
-const ruta = "http://localhost/ITABackEnd/api";
+const theme={
+    ThStyle:{
+        fontFamily:'Montserrat'
+    },
+    TdStyle:{
+        fontFamily:'Montserrat'
+    }
+}
 
 const Approved = () => {
 
@@ -41,20 +47,21 @@ const Approved = () => {
         await axios.delete(`${ruta}/workorder_destroy/${id}`, {});
         getAllUsers();
     };
+    const handleDelete = (id) => {
 
-    /*const filteredApproveds = approveds.filter((approved) => {
-        if (searchTerm === "") {
-            return approved;
-        } else if (
-            approved.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.status.toLowerCase().includes(searchTerm.toLowerCase()) 
-        ) {
-            return approved;
+        // Mostrar alerta antes de eliminar
+
+        if (window.confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
+
+            deleteUsers(id);
+
         }
-    });*/
+
+    };
+
+    const handleClick = (id) => {
+        window.location.href = `http://localhost/ITABackEnd/public/editUser/${id}`;
+    };
 
     return (
         <>
@@ -86,33 +93,30 @@ const Approved = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Apellidos</th>
-                        <th>Área</th>
-                        <th>Plantel</th>
-                        <th>Email</th>
-                        <th>Rol</th>
-                        <th>Acciones</th>
+                        <th style={theme.ThStyle}>ID</th>
+                        <th style={theme.ThStyle}>Nombre</th>
+                        <th style={theme.ThStyle}>Apellidos</th>
+                        <th style={theme.ThStyle}>Área</th>
+                        <th style={theme.ThStyle}>Plantel</th>
+                        <th style={theme.ThStyle}>Email</th>
+                        <th style={theme.ThStyle}>Rol</th>
+                        <th style={theme.ThStyle}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {users.map((user) => (
                         <tr key={user.id}>
-                            <td> {user.id} </td>
-                            <td> {user.name} </td>
-                            <td> {user.lastname} </td>
-                            <td> {user.area} </td>
-                            <td> {user.plantel} </td>
-                            <td> {user.email} </td>
-                            <td> {user.role} </td>
+                            <td style={theme.ThStyle} onClick={() => handleClick(user.id)}> {user.id} </td>
+                            <td style={theme.ThStyle} onClick={() => handleClick(user.id)}> {user.name} </td>
+                            <td style={theme.ThStyle} onClick={() => handleClick(user.id)}> {user.lastname} </td>
+                            <td style={theme.ThStyle}> {user.area} </td>
+                            <td style={theme.ThStyle}> {user.plantel} </td>
+                            <td style={theme.ThStyle}> {user.email} </td>
+                            <td style={theme.ThStyle}> {user.role} </td>
                             <td>
                                 <Stack direction='horizontal'>
-                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/editUser/${user.id}`} >
-                                        Editar
-                                    </Button>
                                     <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
-                                        onClick={() => deleteApproveds(user.id)}
+                                        onClick={() => handleDelete(user.id)}
                                     >
                                         Eliminar
                                     </Button>

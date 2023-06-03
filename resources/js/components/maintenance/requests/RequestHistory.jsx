@@ -9,12 +9,16 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import ReactDOM from 'react-dom';
 
-const RequestHistory = () => {
-    function testClickEvent(param) {
-        alert('Row Click Event');
+const theme={
+    ThStyle:{
+        fontFamily:'Montserrat'
+    },
+    TdStyle:{
+        fontFamily:'Montserrat'
     }
+}
+const RequestHistory = () => {
 
     const ruta = "http://localhost/ITABackEnd/public/api";
     const [requestsHistory, setRequestsHistory] = useState([]);
@@ -90,33 +94,33 @@ const RequestHistory = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Fecha de solicitud</th>
-                        <th>Solicitante</th>
-                        <th>Departamento</th>
-                        <th>Descripción</th>
-                        <th>Fecha de liberación</th>
-                        <th>Fecha de aprobación</th>
-                        <th>Evidencia 1</th>
-                        <th>Evidencia 2</th>
-                        <th>Evidencia 3</th>
-                        <th>Estatus</th>
+                        <th style={theme.ThStyle}>ID</th>
+                        <th style={theme.ThStyle}>Fecha de solicitud</th>
+                        <th style={theme.ThStyle}>Solicitante</th>
+                        <th style={theme.ThStyle}>Departamento</th>
+                        <th style={theme.ThStyle}>Descripción</th>
+                        <th style={theme.ThStyle}>Fecha de liberación</th>
+                        <th style={theme.ThStyle}>Fecha de aprobación</th>
+                        <th style={theme.ThStyle}>Evidencia 1</th>
+                        <th style={theme.ThStyle}>Evidencia 2</th>
+                        <th style={theme.ThStyle}>Evidencia 3</th>
+                        <th style={theme.ThStyle}>Estatus</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredActives.map((requestHistory) => (
                         <tr key={requestHistory.id}>
-                            <td> {requestHistory.id} </td>
-                            <td> {requestHistory.requestDate} </td>
-                            <td> {requestHistory.name} </td>
-                            <td> {requestHistory.department} </td>
-                            <td> {requestHistory.requestDescription} </td>
-                            <td> {requestHistory.releasedDate} </td>
-                            <td> {requestHistory.dateApproved} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence1}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence2}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence3}`} alt="signature" width={100} height={100} /> </td>
-                            <td> {requestHistory.status} </td>
+                            <td style={theme.ThStyle}> {requestHistory.id} </td>
+                            <td style={theme.ThStyle}> {requestHistory.requestDate} </td>
+                            <td style={theme.ThStyle}> {requestHistory.name} </td>
+                            <td style={theme.ThStyle}> {requestHistory.department} </td>
+                            <td style={theme.ThStyle}> {requestHistory.requestDescription} </td>
+                            <td style={theme.ThStyle}> {requestHistory.releasedDate} </td>
+                            <td style={theme.ThStyle}> {requestHistory.dateApproved} </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence1}`} alt="evidence1" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence2}`} alt="evidence2" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${requestHistory.evidence3}`} alt="evidence3" width={100} height={100} /> </td>
+                            <td style={theme.ThStyle}> {requestHistory.status} </td>
                         </tr>
                     ))}
                 </tbody>

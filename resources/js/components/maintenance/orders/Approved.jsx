@@ -13,14 +13,19 @@ import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 
 import axios from "axios";
-
-const ruta = "http://localhost/ITABackEnd/api";
+const theme={
+    ThStyle:{
+        fontFamily:'Montserrat'
+    },
+    TdStyle:{
+        fontFamily:'Montserrat'
+    }
+}
 
 const Approved = () => {
 
     const [approveds, setApproveds] = useState([]);
     const [searchTerm, setSearchTerm] = useState("");
-    const ruta = "http://localhost/ITABackEnd/public/api";
 
     useEffect(() => {
         getAllApproveds();
@@ -28,7 +33,7 @@ const Approved = () => {
 
     const getAllApproveds = async () => {
         const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showApproved',
-        { //acceder con el token
+        { 
             headers: {
               'Content-Type': 'multipart/form-data',
               'Accept': 'application/json',
@@ -44,19 +49,12 @@ const Approved = () => {
         getAllApproveds();
     };
 
-    /*const filteredApproveds = approveds.filter((approved) => {
-        if (searchTerm === "") {
-            return approved;
-        } else if (
-            approved.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.requestDescription.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.employeeName.toLowerCase().includes(searchTerm.toLowerCase()) ||
-            approved.status.toLowerCase().includes(searchTerm.toLowerCase()) 
-        ) {
-            return approved;
+    const handleClick = (id) => {
+        const confirmar = window.confirm(`¿Deseas ver el resumen de la orden con el ID: ${id}?`);
+        if (confirmar) {
+            window.location.href = `http://localhost/ITABackEnd/public/summaryOrder/${id}`;
         }
-    });*/
+    };
 
     return (
         <>
@@ -98,37 +96,34 @@ const Approved = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Fecha solicitud</th>
-                        <th>Área del solicitante</th>
-                        <th>Nombre del solicitante</th>
-                        <th>Descripción</th>
-                        <th>Aprobó</th>
-                        <th>Evidencia 1</th>
-                        <th>Evidencia 2</th>
-                        <th>Evidencia 3</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
+                        <th style={theme.ThStyle}>ID</th>
+                        <th style={theme.ThStyle}>Fecha solicitud</th>
+                        <th style={theme.ThStyle}>Área del solicitante</th>
+                        <th style={theme.ThStyle}>Nombre del solicitante</th>
+                        <th style={theme.ThStyle}>Descripción</th>
+                        <th style={theme.ThStyle}>Aprobó</th>
+                        <th style={theme.ThStyle}>Evidencia 1</th>
+                        <th style={theme.ThStyle}>Evidencia 2</th>
+                        <th style={theme.ThStyle}>Evidencia 3</th>
+                        <th style={theme.ThStyle}>Estado</th>
+                        <th style={theme.ThStyle}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {approveds.map((approved) => (
                         <tr key={approved.id}>
-                            <td> {approved.id} </td>
-                            <td> {approved.requestDate} </td>
-                            <td> {approved.area} </td>
-                            <td> {approved.name} </td>
-                            <td> {approved.requestDescription} </td>
-                            <td> {approved.approversName} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} alt="signature" width={100} height={100}/> </td>
-                            <td> Aprobado </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.id} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.requestDate} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.area} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.name} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.requestDescription} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.approversName} </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
+                            <td style={theme.TdStyle}> Aprobado </td>
                             <td>
                                 <Stack direction='horizontal'>
-                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/summaryOrder/${approved.id}`} >
-                                        Resumen
-                                    </Button>
                                     <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
                                         onClick={() => deleteApproveds(approved.id)}
                                     >

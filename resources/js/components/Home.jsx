@@ -1,7 +1,6 @@
 import IconMaintenanceRequestsUser from '/src/IconsHome/IconMaintenanceRequestsUser.png';
 import IconOrdersUser from '/src/IconsHome/IconOrdersUser.png';
 import IconNewUser from '/src/IconsHome/IconNewUser.png';
-import CreateNewOrder from '/src/IconsOrders/CreateNewOrder.png'
 
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';

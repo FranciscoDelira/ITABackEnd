@@ -70,14 +70,7 @@ const theme = {
     }
 };
 
-const card = {
-    backgroundColor: "yellow"
-};
-
-function EditProfile() {
-
-
-    /*===============================================AXIOS======================================*/
+function EditUser() {
 
     const headers = {
         headers: {
@@ -94,12 +87,13 @@ function EditProfile() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [signature, setSignature] = useState('');
-    const [id, setID] = useState(0);
-    const { idParams } = useParams();
+    const [ID, setID] = useState(0);
+
+    const { id } = useParams();
 
 
     const getData = async () => {
-        const response = await axios.get(`http://localhost/ITABackEnd/public/api/user_show/${idParams}`,
+        const response = await axios.get(`http://localhost/ITABackEnd/public/api/user_show/${id}`,
             {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -116,7 +110,7 @@ function EditProfile() {
                 }
             })
         console.log(response, response2)
-        setID(response2.data.id)
+        setID(response2.data.ID)
         setEmail(response.data.email)
         setPassword(response.data.password)
         setRole(response.data.role)
@@ -130,7 +124,6 @@ function EditProfile() {
 
     useEffect(() => {
         getData()
-        console.log('ID PARAMS QUE NO TOMA', id)
     }, [])
 
 
@@ -168,7 +161,7 @@ function EditProfile() {
                     buttons: false,
                     timer: 2000
                 }).then(() => {
-                    window.location.href = 'http://localhost/ITABackEnd/public/profile';
+                    window.location.href = 'http://localhost/ITABackEnd/public/users';
                 });
             })
             .catch((error) => {
@@ -181,10 +174,6 @@ function EditProfile() {
                 })
             });
     }
-
-    //FIN AXIOS----------------------
-
-    /*==============================================FORMULARIO===================================================*/
 
     return (
         <>
@@ -260,12 +249,12 @@ function EditProfile() {
                         {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} className="col-md-6 mx-auto" />*/}
                         <Row>
                             <Col sm>
-                                <Button as={Link} to='http://localhost/ITABackEnd/public/profile' className="btn btn-danger btn-lg mt-2 mb-2 text-white">
+                                <Button as={Link} to='http://localhost/ITABackEnd/public/users' style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}>
                                     Cancelar
                                 </Button>
                             </Col>
                             <Col sm>
-                                <Button type="submit" className="btn btn-success btn-lg mt-2 mb-2 text-white">
+                                <Button type="submit" style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', height: 40, width: 100 }}>
                                     Aceptar
                                 </Button>
                             </Col>
@@ -280,4 +269,4 @@ function EditProfile() {
     );
 }
 
-export default EditProfile;
+export default EditUser;

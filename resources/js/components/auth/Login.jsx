@@ -51,10 +51,6 @@ const theme = {
   }
 };
 
-const card = {
-  backgroundColor: "yellow"
-};
-
 function Login() {
 
   const [formValue, setformValue] = useState({

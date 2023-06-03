@@ -11,32 +11,39 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import { Button } from 'react-bootstrap';
-import { Link } from "react-router-dom";
-import { setWith } from 'lodash';
+
+const theme = {
+    ThStyle: {
+        fontFamily: 'Montserrat'
+    },
+    TdStyle: {
+        fontFamily: 'Montserrat'
+    }
+}
 
 const Release = () => {
 
     const [releases, setReleases] = useState([]);
-    
-    const setSearchTermse =(data)=>{
+
+    const setSearchTermse = (data) => {
         let serviceType = ''
-        let show  = document.getElementsByClassName('release')
+        let show = document.getElementsByClassName('release')
         for (let index = 0; index < show.length; index++) {
 
             maintenanceType = show[index].children[1].textContent.toLowerCase();
-            if(maintenanceType.includes(data.toLowerCase())){
+            if (maintenanceType.includes(data.toLowerCase())) {
                 show[index].removeAttribute('hidden')
-            }else{
+            } else {
                 show[index].setAttribute('hidden', 'True')
             }
 
             serviceType = show[index].children[2].textContent.toLowerCase();
-            if(serviceType.includes(data.toLowerCase())){
+            if (serviceType.includes(data.toLowerCase())) {
                 show[index].removeAttribute('hidden')
-            }else{
+            } else {
                 show[index].setAttribute('hidden', 'True')
             }
-            
+
         }
     }
 
@@ -58,43 +65,29 @@ const Release = () => {
     }
 
     const deleteRelease = async (id) => {
-        await axios.post(`${ruta}/workorder_destroy/${id}`, {});
+        await axios.delete(`http://localhost/ITABackEnd/public/api/workorder_destroy/${id}`,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
+            });
         getAllReleases();
     }
-    /*
-    useEffect(() => {
-        fetchWorkOrders();
-    }, []);
 
-    const fetchWorkOrders = async () => {
-        try {
-            const response = await axios.get('/api/workorders');
-            setWorkOrders(response.data);
-        } catch (error) {
-            console.error('Error fetching work orders:', error);
+    const handleClick = (id) => {
+        const confirmar = window.confirm(`¿Deseas aprobar la orden de solicitud con el ID: ${id}?`);
+        if (confirmar) {
+            window.location.href = `http://localhost/ITABackEnd/public/approveOrder/${id}`;
         }
     };
-
-    const handleApproval = async (id) => {
-        try {
-            const response = await axios.patch(`/api/workorders/${id}`, { approved: 1 });
-            setWorkOrders(prevWorkOrders =>
-                prevWorkOrders.map(order =>
-                    order.id === workOrderId ? { ...order, approved: response.data.approved } : order
-                )
-            );
-        } catch (error) {
-            console.error('Error updating work order:', error);
-        }
-    };
-*/
 
     const filteredActives = releases.filter((release) => {
-       
-            return release;
-    
-    });
 
+        return release;
+
+    });
 
     return (
         <>
@@ -135,41 +128,34 @@ const Release = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Tipo de mantenimiento</th>
-                        <th>Tipo de servicio</th>
-                        <th>Nombre del empleado</th>
-                        <th>Fecha de mantenimiento</th>
-                        <th>Descripción del trabajo</th>
-                        <th>Evidencia 1</th>
-                        <th>Evidencia 2</th>
-                        <th>Evidencia 3</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
+                        <th style={theme.ThStyle}>ID</th>
+                        <th style={theme.ThStyle}>Tipo de mantenimiento</th>
+                        <th style={theme.ThStyle}>Tipo de servicio</th>
+                        <th style={theme.ThStyle}>Nombre del empleado</th>
+                        <th style={theme.ThStyle}>Fecha de mantenimiento</th>
+                        <th style={theme.ThStyle}>Descripción del trabajo</th>
+                        <th style={theme.ThStyle}>Evidencia 1</th>
+                        <th style={theme.ThStyle}>Evidencia 2</th>
+                        <th style={theme.ThStyle}>Evidencia 3</th>
+                        <th style={theme.ThStyle}>Estado</th>
+                        <th style={theme.ThStyle}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredActives.map((release) => (
-                        <tr key={release.id} className='release'>
-                            <td> {release.id} </td>
-                            <td> {release.maintenanceType} </td>
-                            <td> {release.serviceType} </td>
-                            <td> {release.name} </td>
-                            <td> {release.maintenanceDate} </td>
-                            <td> {release.jobDescription} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence1}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence2}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence3}`} alt="signature" width={100} height={100} /> </td>
-                            <td> {release.status} </td>
+                        <tr key={release.id}>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.id} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.maintenanceType} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.serviceType} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.name} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.maintenanceDate} </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.jobDescription} </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence1}`} onClick={() => handleClick(release.id)} alt="evidence1" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence2}`} onClick={() => handleClick(release.id)} alt="evidence2" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${release.evidence3}`} onClick={() => handleClick(release.id)} alt="evidence3" width={100} height={100} /> </td>
+                            <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.status} </td>
                             <td>
-                                <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/approveOrder/${release.id}`} >
-                                    Aprobar
-                                </Button>
-                            </td>
-                            <td>
-                                <Button
-                                    onClick={() => deleteRelease(release.id)}
-                                    className="btn btn-danger"
+                                <Button onClick={() => deleteRelease(release.id)} style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat' }}
                                 >
                                     Eliminar
                                 </Button>

@@ -27,20 +27,6 @@ import EditUser from "./user/EditUser";
 import { useLocalStorage } from "react-use";
 import PrivateRoute from "./PrivateRoute";
 
-//import NotFound from './NotFound';
-
-/*
-
-<Routes>
-            <Route path="/laravel/topicos/public/" element={<Menu /> } >
-                <Route path="login" element={<Login /> } />
-                <Route path="register" element={<Register /> } />
-                <Route path="*" element={<Navigate replace to="/"/> } />
-            </Route>
-        </Routes>
-
-*/
-
 function Main() {
     const [user, setUser] = useLocalStorage('user-info');
     return (

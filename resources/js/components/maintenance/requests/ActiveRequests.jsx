@@ -9,14 +9,27 @@ import Nav from 'react-bootstrap/Nav';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
-import { Link } from "react-router-dom";
-import { Button } from 'react-bootstrap';
-import ReactDOM from 'react-dom';
+
+const theme={
+    ThStyle:{
+        fontFamily:'Montserrat'
+    },
+    TdStyle:{
+        fontFamily:'Montserrat'
+    }
+}
 
 const ActiveRequests = () => {
-    function testClickEvent(param) {
-        alert('Row Click Event');
-    }
+
+    const handleDelete = (id) => {
+
+        if (window.confirm('¿Estás seguro de que deseas eliminar este elemento?')) {
+
+            deleteActiveRequest(id);
+
+        }
+
+    };
 
     const ruta = "http://localhost/ITABackEnd/public/api";
     const [actives, setActives] = useState([]);
@@ -60,6 +73,14 @@ const ActiveRequests = () => {
         });
     }
 
+    //const for the table
+    const handleClick = (id) => {
+        const confirmar = window.confirm(`¿Deseas crear una orden de solicitud con el ID: ${id}?`);
+    if (confirmar) {
+        window.location.href = `http://localhost/ITABackEnd/public/newOrder/${id}`;
+    }
+      };
+
     return (
         <>
 
@@ -93,44 +114,31 @@ const ActiveRequests = () => {
             <Table responsive>
                 <thead>
                     <tr>
-                        <th>ID</th>
-                        <th>Fecha de solicitud</th>
-                        <th>Solicitante</th>
-                        <th>Departamento</th>
-                        <th>Descripción</th>
-                        <th>Evidencia 1</th>
-                        <th>Evidencia 2</th>
-                        <th>Evidencia 3</th>
-                        <th>Firma del solicitante</th>
-                        <th>Estatus</th>
-                        <th>Acciones</th>
+                        <th style={theme.ThStyle}>ID</th>
+                        <th style={theme.ThStyle}>Fecha de solicitud</th>
+                        <th style={theme.ThStyle}>Solicitante</th>
+                        <th style={theme.ThStyle}>Departamento</th>
+                        <th style={theme.ThStyle}>Descripción</th>
+                        <th style={theme.ThStyle}>Evidencia 1</th>
+                        <th style={theme.ThStyle}>Evidencia 2</th>
+                        <th style={theme.ThStyle}>Evidencia 3</th>
+                        <th style={theme.ThStyle}>Firma del solicitante</th>
+                        <th style={theme.ThStyle}>Estatus</th>
                     </tr>
                 </thead>
                 <tbody>
                     {filteredActives.map((active) => (
-                        <tr key={active.id}>
-                            <td> {active.id} </td>
-                            <td> {active.requestDate} </td>
-                            <td> {active.name} </td>
-                            <td> {active.department} </td>
-                            <td> {active.requestDescription} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence1}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence2}`} alt="signature" width={100} height={100} /> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence3}`} alt="signature" width={100} height={100} /> </td>
+                        <tr key={active.id} onClick={() => handleClick(active.id)}>
+                            <td style={theme.TdStyle}> {active.id} </td>
+                            <td style={theme.TdStyle}> {active.requestDate} </td>
+                            <td style={theme.TdStyle}> {active.name} </td>
+                            <td style={theme.TdStyle}> {active.department} </td>
+                            <td style={theme.TdStyle}> {active.requestDescription} </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence1}`} alt="evidence1" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence2}`} alt="evidence2" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${active.evidence3}`} alt="evidence3" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/public/${active.signature}`} alt="signature" width={100} height={100} /> </td>
-                            <td> {active.status} </td>
-                            <td>
-                                <Stack direction='horizontal'>
-                                    <Button style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat', margin: '10%', height: 40, width: 100 }} as={Link} to={`http://localhost/ITABackEnd/public/newOrder/${active.id}`} >
-                                        Orden
-                                    </Button>
-                                    <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat', height: 40, width: 90 }}
-                                        onClick={() => deleteRelease(release.id)}
-                                    >
-                                        Eliminar
-                                    </Button>
-                                </Stack>
-                            </td>
+                            <td style={theme.TdStyle}> {active.status} </td>
                         </tr>
                     ))}
                 </tbody>

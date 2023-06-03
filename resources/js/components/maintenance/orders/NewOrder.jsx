@@ -1,4 +1,3 @@
-import { Nav } from 'react-bootstrap';
 import React, { useState } from 'react';
 import Container from 'react-bootstrap/Container';
 import Stack from 'react-bootstrap/Stack';
@@ -8,10 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Button from 'react-bootstrap/Button';
 import { auto, left } from '@popperjs/core';
-import Modal from 'react-bootstrap/Modal';
 import { useEffect } from 'react';
-import InputGroup from 'react-bootstrap/InputGroup';
-import Badge from 'react-bootstrap/Badge';
 import { useParams } from 'react-router-dom';
 import { Link } from "react-router-dom";
 import swal from "sweetalert";
@@ -95,10 +91,6 @@ const theme = {
   }
 };
 
-const card = {
-  backgroundColor: "yellow"
-};
-
 function NewOrder() {
 
 
@@ -175,8 +167,6 @@ function NewOrder() {
     setRole(response3.data.role)// Rol - solicitante
 
     setMaintenancePersons(response4.data) //Nombre - info personal
-
-
 
   }
 
@@ -259,7 +249,7 @@ function NewOrder() {
                 <option>Seleccione empleado</option>
                 {maintenancePersons.map(maintenancePerson => (
                   <option key={maintenancePerson.id} value={maintenancePerson.id}>{maintenancePerson.name}</option>
-                
+
                 ))}
               </Form.Select>
 
@@ -377,10 +367,12 @@ function NewOrder() {
 
             <Form.Group className="row">
               <Col>
-                <Link className="btn btn-danger" to={'http://localhost/ITABackEnd/public/activeRequest'}>Regresar</Link>
+                <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/activeRequest`} >
+                  Regresar
+                </Button>
               </Col>
               <Col>
-                <Button type="submit" className="btn btn-submit">Aceptar</Button>
+                <Button type="submit" style={{ backgroundColor: '#1B396A', color: 'white', fontFamily: 'Montserrat' }}>Aceptar</Button>
               </Col>
             </Form.Group>
 
