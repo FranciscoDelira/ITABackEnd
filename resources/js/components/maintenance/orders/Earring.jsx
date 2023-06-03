@@ -43,7 +43,14 @@ const Earring = () => {
     }
 
     const deleteEarring = async (id) => {
-        await axios.delete(`${ruta}/workorder_destroy/${id}`);
+        await axios.delete(`http://localhost/ITABackEnd/public/api/workorder_destroy/${id}`,
+        {
+            headers: {
+                'Content-Type': 'multipart/form-data',
+                'Accept': 'application/json',
+                'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+            }
+        });
         getAllEarrings();
     }
 
