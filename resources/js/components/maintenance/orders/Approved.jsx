@@ -100,7 +100,6 @@ const Approved = () => {
                         <th style={theme.ThStyle}>Fecha solicitud</th>
                         <th style={theme.ThStyle}>Área del solicitante</th>
                         <th style={theme.ThStyle}>Nombre del solicitante</th>
-                        <th style={theme.ThStyle}>Descripción</th>
                         <th style={theme.ThStyle}>Aprobó</th>
                         <th style={theme.ThStyle}>Evidencia 1</th>
                         <th style={theme.ThStyle}>Evidencia 2</th>
@@ -116,7 +115,6 @@ const Approved = () => {
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.requestDate} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.area} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.name} </td>
-                            <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.requestDescription} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.approversName} </td>
                             <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>

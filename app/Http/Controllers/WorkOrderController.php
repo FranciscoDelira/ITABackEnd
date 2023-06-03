@@ -328,6 +328,7 @@ class WorkOrderController extends Controller
         $workorder = WorkOrder::
         join('maintenancerequests', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
         ->join('personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id')
+        ->where('maintenancerequests.status', 'Pendiente')
         ->where('workorders.released', '0')
         ->where('workorders.approved', '0')
         ->get([

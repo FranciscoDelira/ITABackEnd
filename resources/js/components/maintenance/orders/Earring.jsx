@@ -1,7 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import axios from "axios";
-
 import IconEarringsUser from '/src/IconsOrders/IconEarringsUser.png';
 import IconReleasedUser from '/src/IconsOrders/IconReleasedUser.png';
 import IconApprovedUser from '/src/IconsOrders/IconApprovedUser.png';
@@ -117,7 +116,6 @@ const Earring = () => {
                         <th style={theme.ThStyle}>Evidencia 2</th>
                         <th style={theme.ThStyle}>Evidencia 3</th>
                         <th style={theme.ThStyle}>Estado</th>
-                        <th style={theme.ThStyle}>Acciones</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -133,12 +131,12 @@ const Earring = () => {
                             <td> <img src={`/ITABackEnd/storage/app/${earring.evidence3}`} alt="evidence3" width={100} height={100} /> </td>
                             <td  style={theme.TdStyle}> {earring.status} </td>
                             <td>
-                                <button
+                                {/*<button
                                     onClick={() => deleteEarring(earring.id)}
                                     className="btn btn-danger"
                                 >
                                     Eliminar
-                                </button>
+                                </button>*/}
                             </td>
                         </tr>
                     ))}

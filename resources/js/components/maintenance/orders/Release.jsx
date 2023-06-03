@@ -26,18 +26,11 @@ const Release = () => {
     const [releases, setReleases] = useState([]);
 
     const setSearchTermse = (data) => {
-        let serviceType = ''
+        let serviceType = '';
         let show = document.getElementsByClassName('release')
         for (let index = 0; index < show.length; index++) {
 
-            maintenanceType = show[index].children[1].textContent.toLowerCase();
-            if (maintenanceType.includes(data.toLowerCase())) {
-                show[index].removeAttribute('hidden')
-            } else {
-                show[index].setAttribute('hidden', 'True')
-            }
-
-            serviceType = show[index].children[2].textContent.toLowerCase();
+            serviceType = show[index].children[3].textContent.toLowerCase();
             if (serviceType.includes(data.toLowerCase())) {
                 show[index].removeAttribute('hidden')
             } else {

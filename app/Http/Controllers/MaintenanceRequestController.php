@@ -265,7 +265,6 @@ class MaintenanceRequestController extends Controller
             'personaldatas', 'personaldatas.id', '=', 'maintenancerequests.personaldata_id'
             )
         ->where('maintenancerequests.status', 'Pendiente')
-        ->where('maintenancerequests.id', '<>', 'workorders.maintenancerequest_id')
         ->get([
             'maintenancerequests.id', 
             'maintenancerequests.requestDate', 

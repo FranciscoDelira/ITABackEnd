@@ -140,7 +140,10 @@ function EditProfile() {
 
 
     //hacer update de tabla user
-    axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, formData,
+    axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, {
+      name: name, lastname: lastname, area: area, signature: signature, plantel: plantel, email: email, password: password,
+      role: role
+    },
       {
         headers: {
           'Content-Type': 'multipart/form-data',
