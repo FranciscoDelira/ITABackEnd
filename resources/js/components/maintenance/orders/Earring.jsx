@@ -10,12 +10,12 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 
-const theme={
-    ThStyle:{
-        fontFamily:'Montserrat'
+const theme = {
+    ThStyle: {
+        fontFamily: 'Montserrat'
     },
-    TdStyle:{
-        fontFamily:'Montserrat'
+    TdStyle: {
+        fontFamily: 'Montserrat'
     }
 }
 
@@ -26,31 +26,31 @@ const Earring = () => {
     const ruta = "http://localhost/ITABackEnd/public/api";
     useEffect(() => {
         getAllEarrings();
-        console.log('TODOS LOS DATOS',earrings);
+        console.log('TODOS LOS DATOS', earrings);
     }, [])
 
     const getAllEarrings = async () => {
         const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showEarring',
-        {
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Accept': 'application/json',
-              'Authorization':`Bearer ${localStorage.getItem('user-info')}`
-            }
-          });
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
+            });
         setEarrings(response.data);
         console.log(response.data);
     }
 
     const deleteEarring = async (id) => {
         await axios.delete(`http://localhost/ITABackEnd/public/api/workorder_destroy/${id}`,
-        {
-            headers: {
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('user-info')}`
-            }
-        });
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
+            });
         getAllEarrings();
     }
 
@@ -128,15 +128,15 @@ const Earring = () => {
                 <tbody>
                     {filteredActives.map((earring) => (
                         <tr key={earring.id} onClick={() => handleClick(earring.id)}>
-                            <td  style={theme.TdStyle}> {earring.id} </td>
-                            <td  style={theme.TdStyle}> {earring.requestDate} </td>
-                            <td  style={theme.TdStyle}> {earring.area} </td>
-                            <td  style={theme.TdStyle}> {earring.name} </td>
-                            <td  style={theme.TdStyle}> {earring.requestDescription} </td>
+                            <td style={theme.TdStyle}> {earring.id} </td>
+                            <td style={theme.TdStyle}> {earring.requestDate} </td>
+                            <td style={theme.TdStyle}> {earring.area} </td>
+                            <td style={theme.TdStyle}> {earring.name} </td>
+                            <td style={theme.TdStyle}> {earring.requestDescription} </td>
                             <td> <img src={`/ITABackEnd/storage/app/${earring.evidence1}`} alt="evidence1" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${earring.evidence2}`} alt="evidence2" width={100} height={100} /> </td>
                             <td> <img src={`/ITABackEnd/storage/app/${earring.evidence3}`} alt="evidence3" width={100} height={100} /> </td>
-                            <td  style={theme.TdStyle}> {earring.status} </td>
+                            <td style={theme.TdStyle}> {earring.status} </td>
                             <td>
                                 {/*<button
                                     onClick={() => deleteEarring(earring.id)}

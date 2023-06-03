@@ -13,12 +13,12 @@ import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 
 import axios from "axios";
-const theme={
-    ThStyle:{
-        fontFamily:'Montserrat'
+const theme = {
+    ThStyle: {
+        fontFamily: 'Montserrat'
     },
-    TdStyle:{
-        fontFamily:'Montserrat'
+    TdStyle: {
+        fontFamily: 'Montserrat'
     }
 }
 
@@ -33,19 +33,26 @@ const Approved = () => {
 
     const getAllApproveds = async () => {
         const response = await axios.get('http://localhost/ITABackEnd/public/api/workorder_showApproved',
-        { 
-            headers: {
-              'Content-Type': 'multipart/form-data',
-              'Accept': 'application/json',
-              'Authorization':`Bearer ${localStorage.getItem('user-info')}`
-            }
-          });
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
+            });
         setApproveds(response.data);
         console.log(response.data);
     };
 
     const deleteApproveds = async (id) => {
-        await axios.delete(`${ruta}/workorder_destroy/${id}`, {});
+        await axios.delete(`http://localhost/ITABackEnd/public/api/workorder_destroy/${id}`,
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
+            });
         getAllApproveds();
     };
 
@@ -116,9 +123,9 @@ const Approved = () => {
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.area} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.name} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.approversName} </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
-                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100}/> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence1}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence2}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100} /> </td>
+                            <td> <img src={`/ITABackEnd/storage/app/${approved.evidence3}`} onClick={() => handleClick(approved.id)} alt="signature" width={100} height={100} /> </td>
                             <td style={theme.TdStyle}> Aprobado </td>
                             <td>
                                 <Stack direction='horizontal'>
