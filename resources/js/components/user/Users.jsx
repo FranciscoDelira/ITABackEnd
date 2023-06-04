@@ -63,6 +63,22 @@ const Approved = () => {
         window.location.href = `http://localhost/ITABackEnd/public/editUser/${id}`;
     };
 
+    const filteredUsers = users.filter((user) => {
+        if (searchTerm === "") {
+            return user;
+        } else if (
+            user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.lastname.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.plantel.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.role.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+            return user;
+        }
+    });
+
+
     return (
         <>
             <Nav>
@@ -104,7 +120,7 @@ const Approved = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {users.map((user) => (
+                    {filteredUsers.map((user) => (
                         <tr key={user.id}>
                             <td style={theme.ThStyle} onClick={() => handleClick(user.id)}> {user.id} </td>
                             <td style={theme.ThStyle} onClick={() => handleClick(user.id)}> {user.name} </td>
