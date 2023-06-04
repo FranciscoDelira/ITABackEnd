@@ -24,14 +24,15 @@ const theme = {
 const Release = () => {
 
     const [releases, setReleases] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
 
     const setSearchTermse = (data) => {
-        let serviceType = '';
+        let status = '';
         let show = document.getElementsByClassName('release')
         for (let index = 0; index < show.length; index++) {
 
-            serviceType = show[index].children[3].textContent.toLowerCase();
-            if (serviceType.includes(data.toLowerCase())) {
+            status = show[index].children[9].textContent.toLowerCase();
+            if (status.includes(data.toLowerCase())) {
                 show[index].removeAttribute('hidden')
             } else {
                 show[index].setAttribute('hidden', 'True')
@@ -76,9 +77,18 @@ const Release = () => {
         }
     };
 
-    const filteredActives = releases.filter((release) => {
+    const filteredReleases = releases.filter((release) => {
 
-        return release;
+        if (searchTerm === "") {
+            return release;
+        } else if (
+            release.maintenanceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.serviceType.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            release.jobDescription.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+            return release;
+        }
 
     });
 
@@ -114,7 +124,7 @@ const Release = () => {
                 type="text"
                 placeholder="Buscar..."
                 onChange={(event) => {
-                    setSearchTermse(event.target.value);
+                    setSearchTerm(event.target.value);
                 }}
             />
 
@@ -135,8 +145,8 @@ const Release = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredActives.map((release) => (
-                        <tr key={release.id}>
+                    {filteredReleases.map((release) => (
+                        <tr key={release.id} className='release'>
                             <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.id} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.maintenanceType} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(release.id)}> {release.serviceType} </td>

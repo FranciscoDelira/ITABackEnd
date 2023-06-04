@@ -44,6 +44,20 @@ const Approved = () => {
         console.log(response.data);
     };
 
+    const filteredApproveds = approveds.filter((approved) => {
+
+        if (searchTerm === "") {
+            return approved;
+        } else if (
+            approved.area.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            approved.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            approved.approversName.toLowerCase().includes(searchTerm.toLowerCase())
+        ) {
+            return approved;
+        }
+
+    });
+
     const deleteApproveds = async (id) => {
         await axios.delete(`http://localhost/ITABackEnd/public/api/workorder_destroy/${id}`,
             {
@@ -116,7 +130,7 @@ const Approved = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {approveds.map((approved) => (
+                    {filteredApproveds.map((approved) => (
                         <tr key={approved.id}>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.id} </td>
                             <td style={theme.TdStyle} onClick={() => handleClick(approved.id)}> {approved.requestDate} </td>

@@ -135,18 +135,16 @@ function EditProfile() {
     formData.append('signature', signature)
     formData.append('plantel', plantel)
     formData.append('email', email)
-    formData.append('password', password)
+    formData.append('password', '123456')
+
     console.log(role)
 
 
     //hacer update de tabla user
-    axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, {
-      name: name, lastname: lastname, area: area, signature: signature, plantel: plantel, email: email, password: password,
-      role: role
-    },
+    axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, formData,
       {
         headers: {
-          'Content-Type': 'multipart/form-data',
+         
           'Accept': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('user-info')}`
         }
@@ -160,7 +158,7 @@ function EditProfile() {
           buttons: false,
           timer: 2000
         }).then(() => {
-          window.location.href = 'http://localhost/ITABackEnd/public/profile';
+          {/*window.location.href = 'http://localhost/ITABackEnd/public/profile';*/}
         });
       })
       .catch((error) => {

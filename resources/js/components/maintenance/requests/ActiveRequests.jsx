@@ -13,12 +13,12 @@ import { Link } from "react-router-dom";
 import { Button } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 
-const theme={
-    ThStyle:{
-        fontFamily:'Montserrat'
+const theme = {
+    ThStyle: {
+        fontFamily: 'Montserrat'
     },
-    TdStyle:{
-        fontFamily:'Montserrat'
+    TdStyle: {
+        fontFamily: 'Montserrat'
     }
 }
 
@@ -33,6 +33,21 @@ const ActiveRequests = () => {
         }
 
     };
+
+    const setSearchTermse = (data) => {
+        let name = '';
+        let show = document.getElementsByClassName('active')
+        for (let index = 0; index < show.length; index++) {
+
+            name = show[index].children[2].textContent.toLowerCase();
+            if (name.includes(data.toLowerCase())) {
+                show[index].removeAttribute('hidden')
+            } else {
+                show[index].setAttribute('hidden', 'True')
+            }
+
+        }
+    }
 
     const ruta = "http://localhost/ITABackEnd/public/api";
     const [actives, setActives] = useState([]);
@@ -70,13 +85,13 @@ const ActiveRequests = () => {
 
     const deleteActiveRequest = async (id) => {
         await axios.delete(`${ruta}/maintenance_destroy/${id}`,
-        {
-            headers:{
-                'Content-Type': 'multipart/form-data',
-                'Accept': 'application/json',
-                'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+            {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                    'Accept': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('user-info')}`
+                }
             }
-        }
         ).then(response => {
             console.log(`Eliminacion exitosa`);
         }).catch(error => {
@@ -87,10 +102,10 @@ const ActiveRequests = () => {
     //const for the table
     const handleClick = (id) => {
         const confirmar = window.confirm(`¿Deseas crear una orden de solicitud con el ID: ${id}?`);
-    if (confirmar) {
-        window.location.href = `http://localhost/ITABackEnd/public/newOrder/${id}`;
-    }
-      };
+        if (confirmar) {
+            window.location.href = `http://localhost/ITABackEnd/public/newOrder/${id}`;
+        }
+    };
 
     return (
         <>
@@ -122,7 +137,7 @@ const ActiveRequests = () => {
                 }}
             />
 
-<Table responsive>
+            <Table responsive>
                 <thead>
                     <tr>
                         <th style={theme.ThStyle}>ID</th>
@@ -139,7 +154,7 @@ const ActiveRequests = () => {
                 </thead>
                 <tbody>
                     {filteredActives.map((active) => (
-                        <tr key={active.id} onClick={() => handleClick(active.id)}>
+                        <tr key={active.id} onClick={() => handleClick(active.id)} className='active'>
                             <td style={theme.TdStyle}> {active.id} </td>
                             <td style={theme.TdStyle}> {active.requestDate} </td>
                             <td style={theme.TdStyle}> {active.name} </td>

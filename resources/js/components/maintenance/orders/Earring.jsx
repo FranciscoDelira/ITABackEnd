@@ -127,7 +127,7 @@ const Earring = () => {
                 </thead>
                 <tbody>
                     {filteredActives.map((earring) => (
-                        <tr key={earring.id} onClick={() => handleClick(earring.id)}>
+                        <tr key={earring.id} onClick={() => handleClick(earring.id)} className='earring'>
                             <td style={theme.TdStyle}> {earring.id} </td>
                             <td style={theme.TdStyle}> {earring.requestDate} </td>
                             <td style={theme.TdStyle}> {earring.area} </td>

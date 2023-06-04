@@ -268,7 +268,6 @@ class PersonalDataController extends Controller
             'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
     
-            'role' => 'required|in:Jefe Departamento,Mantenimiento',
         ];
 
         //Define custom error messages for each validation rule
