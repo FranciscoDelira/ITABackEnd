@@ -139,9 +139,19 @@ function EditProfile() {
 
     console.log(role)
 
+    const axiosInstance = axios.create();
+
+    const data = {
+      name: name,
+      lastname: lastname,
+      area: area,
+      plantel: plantel,
+      password: password
+    };
+
 
     //hacer update de tabla user
-    axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, formData,
+    axiosInstance.put(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, data,
       {
         headers: {
          
@@ -219,11 +229,11 @@ function EditProfile() {
             <Form.Group className="row mb-3">
               <Form.Label className='col-2'>Correo</Form.Label>
               <Col sm>
-                <Form.Control type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo' />
+                <Form.Control type='email' value={email} placeholder='Correo' disabled />
               </Col>
               <Form.Label className='col-2'>Contraseña</Form.Label>
               <Col sm>
-                <Form.Control type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
+                <Form.Control type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' required />
               </Col>
             </Form.Group>
 
@@ -234,14 +244,14 @@ function EditProfile() {
               </Col>
             </Form.Group>
 
-            <Form.Group className="row mb-3">
+            {/*<Form.Group className="row mb-3">
               <Form.Label className='col-2'>Firma</Form.Label>
               <Col sm>
                 <Stack direction="horizontal" gap={2} >
                   <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
                 </Stack>
               </Col>
-            </Form.Group>
+            </Form.Group>*/}
             <Row>
               <Col sm>
                 <Button style={{ backgroundColor: 'white', color: '#1B396A', fontFamily: 'Montserrat' }} as={Link} to={`http://localhost/ITABackEnd/public/profile`} >

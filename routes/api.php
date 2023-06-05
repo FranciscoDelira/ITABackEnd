@@ -61,7 +61,7 @@ Route::post('/personalData_store',[PersonalDataController::class, 'store']);
 Route::post('/personalData_update/{id}',[PersonalDataController::class,'update']);
 Route::delete('/personalData_destroy/{id}',[PersonalDataController::class, 'destroy']);
 Route::get('/personalData_index',[PersonalDataController::class, 'index']);
-Route::post('/personalData_updateProfile/{id}',[PersonalDataController::class,'updateProfile']);
+Route::put('/personalData_updateProfile/{id}',[PersonalDataController::class,'updateProfile']);
 Route::get('/personalData_showMaintenancePerson',[PersonalDataController::class, 'showMaintenancePerson']);
 Route::get('/user_showUsers',[PersonalDataController::class, 'showUsers']);
 
