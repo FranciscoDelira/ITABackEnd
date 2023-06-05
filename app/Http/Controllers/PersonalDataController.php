@@ -307,7 +307,7 @@ class PersonalDataController extends Controller
         
         $dataU =User::findOrFail($id);
         //$dataU->email=$request->email;
-        $dataU->password=$request->password;
+        $dataU->password=bcrypt($request->password);
         $dataU->save();
 
 
