@@ -383,4 +383,21 @@ class WorkOrderController extends Controller
 
     }
 
+    public function showWorkOrderPending($personalData)
+    {
+        $workorderpending= \DB::table('workorders')
+        ->join('maintenancerequests', 'workorders.maintenancerequest_id', '=', 'maintenancerequests.id')
+        ->select(
+        'workorders.id',
+        'workorders.maintenanceType',
+        'workorders.serviceType',
+        'workorders.personaldata_id',
+        'workorders.jobDescription',
+        'maintenancerequests.department',
+        'maintenancerequests.requestDate')
+        ->where([['workorders.personaldata_id', $personalData],['released','0'],['approved','0']])
+        ->get();
+        return $workorderpending;
+    }
+
 }
