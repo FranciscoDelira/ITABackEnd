@@ -114,9 +114,26 @@ function Register() {
           'Accept': 'application/json',
           'Authorization': `Bearer ${localStorage.getItem('user-info')}`
         }
+      }).then((response) => {
+        console.log(response);
+        swal({
+          title: "Registro",
+          text: "Usuario registrado correctamente",
+          icon: "success",
+          buttons: false,
+          timer: 2000
+        }).then(() => {
+          {window.location.href = 'http://localhost/ITABackEnd/public/home';}
+        });
       })
       .catch((error) => {
         console.log(error);
+        swal({
+          titlle: "Error",
+          text: "Error al registrar el usuario",
+          icon: "error",
+          buttons: "Aceptar"
+        })
       });
   }
 

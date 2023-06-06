@@ -168,7 +168,7 @@ function EditProfile() {
           buttons: false,
           timer: 2000
         }).then(() => {
-          {/*window.location.href = 'http://localhost/ITABackEnd/public/profile';*/}
+          {window.location.href = 'http://localhost/ITABackEnd/public/profile';}
         });
       })
       .catch((error) => {
