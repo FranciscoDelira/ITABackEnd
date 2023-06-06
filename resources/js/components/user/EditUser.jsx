@@ -142,12 +142,21 @@ function EditUser() {
         formData.append('password', password)
         console.log(role)
 
+        const axiosInstance = axios.create();
+
+        const data = {
+            name: name,
+            lastname: lastname,
+            area: area,
+            plantel: plantel,
+            password: password
+        }
+
 
         //hacer update de tabla user
-        axios.post(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, formData,
+        axiosInstance.put(`http://localhost/ITABackEnd/public/api/personalData_updateProfile/${id}`, data,
             {
                 headers: {
-                    'Content-Type': 'multipart/form-data',
                     'Accept': 'application/json',
                     'Authorization': `Bearer ${localStorage.getItem('user-info')}`
                 }
@@ -161,7 +170,7 @@ function EditUser() {
                     buttons: false,
                     timer: 2000
                 }).then(() => {
-                    window.location.href = 'http://localhost/ITABackEnd/public/users';
+                window.location.href = 'http://localhost/ITABackEnd/public/users';
                 });
             })
             .catch((error) => {
@@ -183,7 +192,7 @@ function EditUser() {
                 <Container>
                     <Stack>
 
-                        <Stack align="center">
+                        <Stack align="center" gap={3}>
                             <div><img className='mb-3' src={IconUser} style={theme.optionIcons} width={300} height={100} /></div>
                         </Stack>
                     </Stack>
@@ -222,11 +231,11 @@ function EditUser() {
                         <Form.Group className="row mb-3">
                             <Form.Label className='col-2'>Correo</Form.Label>
                             <Col sm>
-                                <Form.Control type='email' value={email} onChange={(e) => setEmail(e.target.value)} placeholder='Correo' />
+                                <Form.Control type='email' value={email}  placeholder='Correo' disabled />
                             </Col>
                             <Form.Label className='col-2'>Contraseña</Form.Label>
                             <Col sm>
-                                <Form.Control type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' />
+                                <Form.Control type='password' value={password} onChange={(e) => setPassword(e.target.value)} placeholder='Contraseña' required/>
                             </Col>
                         </Form.Group>
 
@@ -237,14 +246,14 @@ function EditUser() {
                             </Col>
                         </Form.Group>
 
-                        <Form.Group className="row mb-3">
+                        {/*<Form.Group className="row mb-3">
                             <Form.Label className='col-2'>Firma</Form.Label>
                             <Col sm>
                                 <Stack direction="horizontal" gap={2} >
                                     <input id='fileUpload' type='file' style={theme.input} multiple accept='image/png' onChange={(e) => setSignature(e.target.files[0])} />
                                 </Stack>
                             </Col>
-                        </Form.Group>
+                        </Form.Group>*/}
 
                         {/*<Form.Control id='fileUpload' type='file' multiple accept='image/png' onChange={(e) => setSignature(e.target.value)} className="col-md-6 mx-auto" />*/}
                         <Row>

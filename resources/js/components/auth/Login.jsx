@@ -114,12 +114,12 @@ function Login() {
 
           <Form.Group className="mb-3" controlId="formBasicEmail" >
             <Form.Control type="email" placeholder="Correo institucional" name="email"
-              value={formValue.email} onChange={onChange} style={theme.fControl} />
+              value={formValue.email} onChange={onChange} style={theme.fControl} required/>
           </Form.Group>
 
           <Form.Group className="mb-3" controlId="formBasicPassword">
             <Form.Control type="password" placeholder="Contraseña" name="password"
-              value={formValue.password} onChange={onChange} style={theme.fControl} />
+              value={formValue.password} onChange={onChange} style={theme.fControl} required/>
           </Form.Group>
 
           <Button variant="primary" type="submit" style={theme.button}>

@@ -263,9 +263,9 @@ class PersonalDataController extends Controller
             'name' => 'required|string|min:3|max:40',
             'lastname' => 'required|string|min:3|max:40',
             'area' => 'required|string|min:3|max:255',
-            'signature' => 'required',
+            //'signature' => 'required',
             'plantel' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email',
+            //'email' => 'required|email|unique:users,email',
             'password' => 'required|min:6',
     
         ];
@@ -282,7 +282,7 @@ class PersonalDataController extends Controller
             'area.required' => 'El área es OBLIGATORIO',
             'area.min' => 'El área debe tener al menos 3 caracteres',
             'area.max' => 'El área no debe ser mayor a 255 caracteres',
-            'signature.required' => 'El campo firma es OBLIGATORIO',
+            //'signature.required' => 'El campo firma es OBLIGATORIO',
             'plantel.required' => 'El campo plantel es OBLIGATORIO',
             'plantel.min' => 'El plantel debe tener al menos 3 caracteres',
             'plantel.max' => 'El plantel no debe ser mayor a 255 caracteres',
@@ -306,8 +306,8 @@ class PersonalDataController extends Controller
 
         
         $dataU =User::findOrFail($id);
-        $dataU->email=$request->email;
-        $dataU->password=$request->password;
+        //$dataU->email=$request->email;
+        $dataU->password=bcrypt($request->password);
         $dataU->save();
 
 
@@ -317,13 +317,13 @@ class PersonalDataController extends Controller
         $data->name=$request->name;
         $data->lastname=$request->lastname;
         $data->area=$request->area;
-        if($request->hasFile('signature')){
+        /*if($request->hasFile('signature')){
             $file = $request->file('signature');
             $destination = 'signatures/';
             $fileName = date('YmHis').'-'. $file->getClientOriginalName();
             $upload = $request->file('signature')->move($destination, $fileName);
             $data->signature = $destination.$fileName;
-            }
+            }*/
        
 
         $data->plantel=$request->plantel;
