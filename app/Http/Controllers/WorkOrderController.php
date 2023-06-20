@@ -394,10 +394,78 @@ class WorkOrderController extends Controller
         'workorders.personaldata_id',
         'workorders.jobDescription',
         'maintenancerequests.department',
-        'maintenancerequests.requestDate')
-        ->where([['workorders.personaldata_id', $personalData],['released','0'],['approved','0']])
+        'maintenancerequests.requestDate',
+        'maintenancerequests.status',
+        'maintenancerequests.id AS MRid'
+        )
+        ->where([['workorders.personaldata_id', $personalData],['released','0'],['approved','0'],['maintenancerequests.status','Pendiente']])
+        ->orWhere([['workorders.personaldata_id', $personalData],['released','0'],['approved','0'],['maintenancerequests.status','Por Liberar']])
         ->get();
         return $workorderpending;
+    }
+
+    public function showWorkOrderApproved($personalData)
+    {
+        $workorderapproved= \DB::table('workorders')
+        ->join('maintenancerequests', 'workorders.maintenancerequest_id', '=', 'maintenancerequests.id')
+        ->select(
+        'workorders.id',
+        'workorders.maintenanceType',
+        'workorders.serviceType',
+        'workorders.personaldata_id',
+        'workorders.jobDescription',
+        'maintenancerequests.department',
+        'maintenancerequests.requestDate',
+        'maintenancerequests.status',
+        'maintenancerequests.id AS MRid'
+        )
+        ->where([['workorders.personaldata_id', $personalData],['released','1'],['approved','0'],['maintenancerequests.status','Liberada']])
+        ->get();
+        return $workorderapproved;
+    }
+
+    public function showWorkOrderReleased($personalData)
+    {
+        $workorderreleased= \DB::table('workorders')
+        ->join('maintenancerequests', 'workorders.maintenancerequest_id', '=', 'maintenancerequests.id')
+        ->select(
+        'workorders.id',
+        'workorders.maintenanceType',
+        'workorders.serviceType',
+        'workorders.personaldata_id',
+        'workorders.jobDescription',
+        'maintenancerequests.department',
+        'maintenancerequests.requestDate',
+        'maintenancerequests.status',
+        'maintenancerequests.id AS MRid'
+        )
+        ->where([['workorders.personaldata_id', $personalData],['released','1'],['approved','1'],['maintenancerequests.status','Liberada']])
+        ->get();
+        return $workorderreleased;
+    }
+
+    public function showWOPending($id)
+    {
+
+        $workorder = WorkOrder::join(
+            'maintenancerequests', 'workorders.maintenancerequest_id', '=', 'maintenancerequests.id'
+            )->join('personaldatas','personaldatas.id','=','maintenancerequests.personaldata_id')
+            ->where([['workorders.id',$id]])
+        ->get([
+            'workorders.id AS WorkOrder_id',
+            'workorders.maintenanceType',
+            'workorders.serviceType',
+            'personaldatas.name',
+            'personaldatas.lastname',
+            'personaldatas.area',
+            'maintenancerequests.requestDate', 
+            'maintenancerequests.department',  
+            'maintenancerequests.requestDescription', 
+            'maintenancerequests.evidence1 AS Evidence1MR', 
+            'maintenancerequests.evidence2 AS Evidence2MR', 
+            'maintenancerequests.evidence3 AS Evidence3MR', 
+            ]);
+        return response()->json($workorder);
     }
 
 }

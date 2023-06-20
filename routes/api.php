@@ -39,7 +39,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 //RUTAS NO PROTEGIDAS POR TOKEN
-Route::get('/showToken',[PersonalDataController::class,'showToken']);
+
 Route::post('/login', [UserController::class, 'login']);
 Route::post('/personalData_registerPersonalUser',[PersonalDataController::class, 'registerPersonalUser']);
 Route::post('/user_register',[UserController::class, 'register']);
@@ -48,9 +48,16 @@ Route::get('/maintenance_active/{id}',[MaintenanceRequestController::class, 'sho
 Route::get('/maintenance_released/{id}',[MaintenanceRequestController::class, 'showMaintenanceRequestReleased']);
 Route::get('/showCombinedData/{id}',[MaintenanceRequestController::class, 'showCombinedData']);
 Route::get('/maintenance_show/{id}',[MaintenanceRequestController::class, 'show']);
+
+Route::get('/maintenance_WorkOrder/{id}',[WorkOrderController::class, 'showWOPending']);
+
 Route::get('/personalData_show/{id}',[PersonalDataController::class, 'show']);
 Route::get('/user_show/{id}',[UserController::class, 'show']);
 Route::get('/workorder_pending/{id}',[WorkOrderController::class, 'showWorkOrderPending']);
+Route::get('/workorder_approved/{id}',[WorkOrderController::class, 'showWorkOrderApproved']);
+Route::get('/workorder_released/{id}',[WorkOrderController::class, 'showWorkOrderReleased']);
+Route::get('/showToken',[PersonalDataController::class,'showToken']);
+
 Route::post('/workorder_store',[WorkOrderController::class, 'store']);
 
 
