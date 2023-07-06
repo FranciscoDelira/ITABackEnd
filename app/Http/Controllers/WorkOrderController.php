@@ -446,7 +446,6 @@ class WorkOrderController extends Controller
 
     public function showWOPending($id)
     {
-
         $workorder = WorkOrder::join(
             'maintenancerequests', 'workorders.maintenancerequest_id', '=', 'maintenancerequests.id'
             )->join('personaldatas','personaldatas.id','=','maintenancerequests.personaldata_id')
@@ -455,6 +454,11 @@ class WorkOrderController extends Controller
             'workorders.id AS WorkOrder_id',
             'workorders.maintenanceType',
             'workorders.serviceType',
+            'workorders.maintenanceDate',
+            'workorders.jobDescription',
+            'workorders.evidence1 AS Evidence1WO', 
+            'workorders.evidence2 AS Evidence2WO', 
+            'workorders.evidence3 AS Evidence3WO', 
             'personaldatas.name',
             'personaldatas.lastname',
             'personaldatas.area',
@@ -463,9 +467,9 @@ class WorkOrderController extends Controller
             'maintenancerequests.requestDescription', 
             'maintenancerequests.evidence1 AS Evidence1MR', 
             'maintenancerequests.evidence2 AS Evidence2MR', 
-            'maintenancerequests.evidence3 AS Evidence3MR', 
+            'maintenancerequests.evidence3 AS Evidence3MR' 
             ]);
-        return response()->json($workorder);
+        return $workorder;
     }
 
 }
