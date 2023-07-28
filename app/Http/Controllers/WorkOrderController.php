@@ -429,7 +429,7 @@ class WorkOrderController extends Controller
         $workorderreleased= \DB::table('workorders')
         ->join('maintenancerequests', 'workorders.maintenancerequest_id', '=', 'maintenancerequests.id')
         ->select(
-        'workorders.id',
+        'workorders.id AS WOid',
         'workorders.maintenanceType',
         'workorders.serviceType',
         'workorders.personaldata_id',
