@@ -77,18 +77,13 @@ class UserController extends Controller
     {
 
         $rules = [
-            'email' => 'required|email|unique:users,email,' . $id,
-            'password' => 'required|min:6',
-            'personaldata_id' => 'required|exists:personaldatas,id',
-            'role' => 'required|in:Jefe Departamento,Mantenimiento',
+            
+            'password' => 'required|min:6'
         ];
 
         $messages = [
             'required' => 'El :attribute es OBLIGATORIO',
-            'unique' => 'El :attribute ya esta siendo usado por otro Usuario',
-            'min' => 'El :attribute no debe tener menos de :min caracteres',
-            'exists' => 'El :attribute no existe en la base de datos',
-            'in' => 'El :attribute no entra en las categorias permitidas',
+            'min' => 'El :attribute no debe tener menos de :min caracteres'
         ];
 
 
@@ -100,10 +95,9 @@ class UserController extends Controller
 
         $user=User::findOrFail($id);
         
-        $user->email=$request->email;
+        
         $user->password=bcrypt($request->password);
-        $user->personaldata_id=$request->personaldata_id;
-        $user->role=$request->role;
+        
        
         $user->save(); 
 

@@ -50,6 +50,7 @@ Route::get('/showCombinedData/{id}',[MaintenanceRequestController::class, 'showC
 Route::get('/maintenance_show/{id}',[MaintenanceRequestController::class, 'show']);
 
 Route::get('/maintenance_WorkOrder/{id}',[WorkOrderController::class, 'showWOPending']);
+Route::post('/user_update/{id}',[UserController::class,'update']);
 
 Route::get('/personalData_show/{id}',[PersonalDataController::class, 'show']);
 Route::get('/user_show/{id}',[UserController::class, 'show']);
@@ -74,7 +75,7 @@ Route::get('/user_showUsers',[PersonalDataController::class, 'showUsers']);
 
 
 //User
-Route::post('/user_update/{id}',[UserController::class,'update']);
+
 Route::delete('/user_destroy/{id}',[UserController::class, 'destroy']);
 Route::get('/user_index',[UserController::class, 'index']);
 Route::get('/user_authProfile',[UserController::class, 'authProfile']);
