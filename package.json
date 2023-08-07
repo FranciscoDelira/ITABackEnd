@@ -18,6 +18,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@react-pdf/renderer": "^3.1.12",
         "cdbreact": "^1.5.14",
         "mdb-react-ui-kit": "^6.0.0",
         "mdb-ui-kit": "^6.2.0",

@@ -303,8 +303,15 @@ function SummaryOrder() {
                                     </Row>
                                 </Col>
                             </Row>
+                            
 
                         </Form.Group>
+                        <Container style={{textAlign:'right'}} >
+                        <Button as={Link} to={`http://localhost/ITABackEnd/public/viewPDF/${IDMaintenance}`}  >Generar PDF</Button>
+                        </Container>
+                        <br />
+                        
+                        
 
 
 
@@ -444,6 +451,10 @@ function SummaryOrder() {
                             </Row>
 
                         </Form.Group>
+                        <Container style={{textAlign:'right'}}>
+                        <Button as={Link} to={`http://localhost/ITABackEnd/public/viewOrderPDF/${IDOrder}`} >Generar PDF</Button>
+                        </Container>
+                        <br />
 
                         <Form.Group className="row">
                             <Col>

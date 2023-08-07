@@ -24,6 +24,9 @@ import Register from "./user/Register";
 import Users from "./user/Users";
 import EditUser from "./user/EditUser";
 
+import GeneratePDF from "./maintenance/orders/PDF";
+import GenerateOrderPDF from "./maintenance/orders/WorkOrderPDF";
+
 import { useLocalStorage } from "react-use";
 import PrivateRoute from "./PrivateRoute";
 
@@ -45,6 +48,7 @@ function Main() {
                     <Route path="activeRequest" element={<ActiveRequests />} />
                     <Route path="requestHistory" element={<RequestHistory />} />
 
+                    
                     <Route path="earring" element={<Earring />} />
                     <Route path="release" element={<Release />} />
                     <Route path="approved" element={<Approved />} />
@@ -57,6 +61,9 @@ function Main() {
                     <Route path="register" element={<Register />} />
                     <Route path="users" element={<Users />} />
                     <Route path="editUser/:id" element={<EditUser />} />
+
+                    <Route path="viewPDF/:id" element={<GeneratePDF />} />
+                    <Route path="viewOrderPDF/:id" element={<GenerateOrderPDF />} />
 
                     <Route path="*" element={<Navigate replace to="/" />} />
                 </Route>
