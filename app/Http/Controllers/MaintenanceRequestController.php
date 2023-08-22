@@ -154,6 +154,15 @@ class MaintenanceRequestController extends Controller
         //
     }
 
+    public function AllActive(){
+        $MActive = Maintenancerequest::where('status', 'Pendiente')->get();
+        return $MActive;
+    }
+    public function AllFree(){
+        $MFree = Maintenancerequest::where('status', 'Liberada')->get();
+        return $MFree;
+    }
+
     /**
      * Update the specified resource in storage.
      *

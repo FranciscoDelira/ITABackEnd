@@ -32,6 +32,19 @@ class WorkOrderController extends Controller
         //
     }
 
+    public function WorkApproved(){
+        $approved = WorkOrder::where('released', 1)->where('approved', 1) ->get();
+        return $approved;
+    }
+    public function WorkFree(){
+        $free = WorkOrder::where('released', 1)->where('approved', 0) ->get();
+        return $free;
+    }
+    public function WorkPending(){
+        $pending = WorkOrder::where('released', 0)->where('approved', 0) ->get();
+        return $pending;
+    }
+
     /**
      * Store a newly created resource in storage.
      *

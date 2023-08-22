@@ -27,6 +27,8 @@ import EditUser from "./user/EditUser";
 import GeneratePDF from "./maintenance/orders/PDF";
 import GenerateOrderPDF from "./maintenance/orders/WorkOrderPDF";
 
+import Stadistic from "./maintenance/Stadistic";
+
 import { useLocalStorage } from "react-use";
 import PrivateRoute from "./PrivateRoute";
 
@@ -64,6 +66,8 @@ function Main() {
 
                     <Route path="viewPDF/:id" element={<GeneratePDF />} />
                     <Route path="viewOrderPDF/:id" element={<GenerateOrderPDF />} />
+
+                    <Route path="stadistic" element={<Stadistic />} />
 
                     <Route path="*" element={<Navigate replace to="/" />} />
                 </Route>

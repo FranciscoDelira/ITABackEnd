@@ -40,6 +40,7 @@ function Menu() {
                 </NavDropdown>
               </Nav>
               <Nav>
+                <Nav.Link href="stadistic">Estadísticas</Nav.Link>
                 <Nav.Link href="profile">Perfil</Nav.Link>
                 <Nav.Link eventKey={2} onClick={handleLogout}>Cerrar sesión</Nav.Link>
               </Nav>

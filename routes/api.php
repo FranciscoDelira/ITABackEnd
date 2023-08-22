@@ -62,6 +62,8 @@ Route::get('/showToken',[PersonalDataController::class,'showToken']);
 Route::post('/workorder_store',[WorkOrderController::class, 'store']);
 
 
+
+
 Route::middleware('auth:api') ->group(function(){
 
 //PERSONAL DATA
@@ -88,8 +90,8 @@ Route::delete('/maintenance_destroy/{id}',[MaintenanceRequestController::class, 
 Route::get('/maintenance_showEarring',[MaintenanceRequestController::class, 'showEarring']);
 Route::get('/maintenance_showRelease',[MaintenanceRequestController::class, 'showRelease']);
 Route::get('/maintenance_showActiveRequest',[MaintenanceRequestController::class, 'showActiveRequest']);
-
-
+Route::get('/AllActive', [MaintenanceRequestController::class, 'AllActive']);
+Route::get('/AllFree', [MaintenanceRequestController::class, 'AllFree']);
 
 //Work Order
 Route::get('/workorder_index',[WorkOrderController::class, 'index']);
@@ -103,4 +105,7 @@ Route::post('/workorder_newOrder',[WorkOrderController::class, 'newOrder']);
 Route::post('/workorder_approvedOrder/{id}',[WorkOrderController::class, 'approvedOrder']);
 Route::get('/workorder_showEarring',[WorkOrderController::class, 'showEarring']);
 Route::get('/showWorkOrder/{id}',[MaintenanceRequestController::class, 'showWorkOrder']);
+Route::get('/WorkApproved',[WorkOrderController::class, 'WorkApproved']);
+Route::get('/WorkFree',[WorkOrderController::class, 'WorkFree']);
+Route::get('/WorkPending',[WorkOrderController::class, 'WorkPending']);
 });
