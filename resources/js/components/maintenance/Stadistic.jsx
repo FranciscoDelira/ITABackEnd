@@ -81,13 +81,14 @@ function Stadistic() {
     const data2 =[
         { Estado: 'Pendientes', Cantidad:WorkPending},
         { Estado: 'Liberadas', Cantidad: workFree},
-        { Estado:'Aprovadas', Cantidad: workApproved}
+        { Estado:'Aprobadas', Cantidad: workApproved}
     ]
     return (
     
             <Container style={{marginTop:'20px'}}>
                 <h1 style={{textAlign:'center'}}>Solicitudes de Mantenimiento</h1>
-                <ResponsiveContainer width='100%' aspect={2}>
+                <br/>
+                <ResponsiveContainer width='50%' aspect={1}>
                     <BarChart data={data} width={500} height={300}
                         margin={{
                             top: 5,
@@ -105,8 +106,9 @@ function Stadistic() {
                        
                     </BarChart>
                 </ResponsiveContainer>
-                <h1 style={{textAlign:'center', marginTop:'20px'}}>Ordenes de Mantenimiento</h1>
-                <ResponsiveContainer width='100%' aspect={2}>
+                <h1 style={{textAlign:'center', marginTop:'20px'}}>Órdenes de Mantenimiento</h1>
+                <br/>
+                <ResponsiveContainer width='50%' aspect={1}>
                     <BarChart data={data2} width={500} height={300}
                         margin={{
                             top: 5,

@@ -128,21 +128,21 @@ const GeneratePDF = () => {
                        <Text style={{ fontSize: '12px'}}>
                            Nombre y Firma del Solicitante: {name}
                        </Text>
-                       <Image src={`/ITABackEnd/storage/app/${signature}`} style={{ width: '40%', marginTop: '10px' }}></Image>
+                       <Image src={`/ITABackEnd/storage/app/${signature}`} style={{ width: '15%', marginTop: '10px' }}></Image>
                    </View>
 
                    <Text style={{  fontSize: '12px',width: 'auto', borderStyle: 'solid', borderWidth: 1, borderColor: '#000', marginLeft: '10px', padding: '10px', marginRight: '10px' }}>
                        Fecha de Elaboración: {dateApproved}
                    </Text>
 
-                   <View style={{ width: 'auto', padding: '10px', borderStyle: 'solid', borderWidth: 1, borderColor: '#000', margin: '10px' }}>
+                   <View style={{ width: 'auto', padding: '3px', borderStyle: 'solid', borderWidth: 1, borderColor: '#000', margin: '10px' }}>
                        <Text style={{ fontSize: '12px'}}>
                            Descripción del servicio solicitado o falla a reparar: {description}
                        </Text>
                        <View style={{ width: '100%', border: '1px solid #000', flexDirection: 'row', marginTop: '10px' }}>
-                           <Image src={`/ITABackEnd/storage/app/${evidence1}`} ></Image>
-                           <Image src={`/ITABackEnd/storage/app/${evidence2}`} ></Image>
-                           <Image src={`/ITABackEnd/storage/app/${evidence3}`} ></Image>
+                           <Image style={{padding:'1px'}} src={`/ITABackEnd/storage/app/${evidence1}`} ></Image>
+                           <Image style={{padding:'1px'}} src={`/ITABackEnd/storage/app/${evidence2}`} ></Image>
+                           <Image style={{padding:'1px'}} src={`/ITABackEnd/storage/app/${evidence3}`} ></Image>
                        </View>
 
                    </View>

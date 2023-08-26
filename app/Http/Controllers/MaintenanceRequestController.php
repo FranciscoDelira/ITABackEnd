@@ -26,10 +26,7 @@ class MaintenanceRequestController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
-    {
-        //
-    }
+    
 
     public function showCombinedData($id)
     {
@@ -41,6 +38,7 @@ class MaintenanceRequestController extends Controller
     function getCombinedData($id) {
         $data = DB::table('maintenancerequests')
         ->join('workorders', 'maintenancerequests.id', '=', 'workorders.maintenancerequest_id')
+        ->join('personaldatas', 'workorders.personaldata_id', '=', 'personaldatas.id')
         ->select(
             'maintenancerequests.id',
             'maintenancerequests.department',
@@ -52,7 +50,8 @@ class MaintenanceRequestController extends Controller
             'maintenancerequests.evidence3 AS MR_Evidence3',
             'workorders.maintenanceType',
             'workorders.serviceType',
-            'workorders.personaldata_id',
+            'personaldatas.name',
+            'personaldatas.lastname',
             'workorders.maintenanceDate',
             'workorders.jobDescription',
             'workorders.evidence1 AS WO_Evidence1',
@@ -69,6 +68,38 @@ class MaintenanceRequestController extends Controller
 
     return $data;
     }
+
+
+    public function updateStatus(Request $request, $id){
+        $maintenance = MaintenanceRequest::findOrFail($id);
+
+        $rules = [
+            'status' => 'required|in:Pendiente,Por liberar,Liberada',
+        ];
+
+        $messages = [
+            'required' => 'El :attribute es OBLIGATORIO',
+            'in' => 'El :attribute no pertenece a los estados permitidos',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $validator->errors()
+            ], 400);
+        }
+
+        $maintenance->status = $request->status;
+        $maintenance->save();
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Estado de la solicitud actualizado correctamente.',
+        ]);
+    }
+
 
     /**
      * Store a newly created resource in storage.
@@ -289,4 +320,6 @@ class MaintenanceRequestController extends Controller
         return $maintenance;
 
     }
+
+    
 }

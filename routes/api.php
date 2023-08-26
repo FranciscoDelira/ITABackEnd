@@ -60,7 +60,7 @@ Route::get('/workorder_released/{id}',[WorkOrderController::class, 'showWorkOrde
 Route::get('/showToken',[PersonalDataController::class,'showToken']);
 
 Route::post('/workorder_store',[WorkOrderController::class, 'store']);
-
+Route::post('/maintenance-request/update-status/{id}', [MaintenanceRequestController::class, 'updateStatus']);
 
 
 
