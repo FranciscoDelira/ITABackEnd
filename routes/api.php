@@ -61,7 +61,7 @@ Route::get('/showToken',[PersonalDataController::class,'showToken']);
 
 Route::post('/workorder_store',[WorkOrderController::class, 'store']);
 Route::post('/maintenance-request/update-status/{id}', [MaintenanceRequestController::class, 'updateStatus']);
-
+Route::post('/updateEvidenceDesc/{id}', [WorkOrderController::class, 'updateEvidenceAndDescription']);
 
 
 Route::middleware('auth:api') ->group(function(){

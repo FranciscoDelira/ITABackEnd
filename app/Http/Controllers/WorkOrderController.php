@@ -485,4 +485,56 @@ class WorkOrderController extends Controller
         return $workorder;
     }
 
+    public function updateEvidenceAndDescription(Request $request, $id)
+    {
+        $rules = [
+            'evidence1' => 'nullable|file|mimes:jpeg,png',
+            'evidence2' => 'nullable|file|mimes:jpeg,png',
+            'evidence3' => 'nullable|file|mimes:jpeg,png',
+            'jobDescription' => 'nullable|string|min:3|max:255',
+            'status' => 'required|in:POR LIBERAR',
+        ];
+
+        $messages = [
+            'file' => 'La :attribute debe ser una imagen.',
+            'mimes' => 'El :attribute debe ser de tipo jpeg, png.',
+            'string' => 'El :attribute debe ser una cadena de caracteres.',
+            'min' => 'El :attribute debe tener más de :min caracteres',
+            'max' => 'El archivo :attribute no debe exceder los :max caracteres',
+        ];
+
+        $validator = Validator::make($request->all(), $rules, $messages);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
+
+        $workorder = WorkOrder::findOrFail($id);
+
+        if (!empty($request->evidence1)) {
+            $workorder->evidence1 = $request->evidence1->store('WorkEvidence');
+        }
+
+        if (!empty($request->evidence2)) {
+            $workorder->evidence2 = $request->evidence2->store('WorkEvidence');
+        }
+
+        if (!empty($request->evidence3)) {
+            $workorder->evidence3 = $request->evidence3->store('WorkEvidence');
+        }
+
+        $workorder->jobDescription = $request->jobDescription;
+        $workorder->released = $request->released;
+        $workorder->releasedDate = $request->releasedDate;
+
+        if (!empty($request->status)){
+            $workorder->maintenancerequest->update(['status' => $request->status]);
+        }
+
+        $workorder->save();
+
+        return response()->json(['message' => 'WorkOrder actualizada exitosamente']
+        );
+    }
+
 }

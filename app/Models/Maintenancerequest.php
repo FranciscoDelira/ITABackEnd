@@ -8,6 +8,9 @@ use Illuminate\Database\Eloquent\Model;
 class Maintenancerequest extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'status',
+    ];
 
     public function personalData(){
         return $this->belongsTo(Personaldata::class);
